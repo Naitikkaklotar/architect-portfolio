@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "architect-portfolio",
+  "compatibility_date": "2026-10-21",
+  // Static Next.js export — serve the out/ folder (not OpenNext / .next)
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}

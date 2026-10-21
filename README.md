@@ -76,14 +76,25 @@ npm run build
 
 Confirm the `out/` folder contains HTML for home, projects, each slug, about, contact, admin, sitemap, and robots.
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare
+
+This is a **static** Next.js export (`output: "export"` → `out/`). Do **not** use OpenNext.
+
+### Workers (current dashboard flow)
+
+`wrangler.jsonc` already points assets at `./out`. Cloudflare should:
+
+- **Build command:** `npm run build`
+- **Deploy command:** `npx wrangler deploy` (uses `wrangler.jsonc`)
+
+### Classic Pages
 
 1. Push this repository to GitHub.
-2. In Cloudflare Pages: **Create project** → connect the repo.
+2. **Workers & Pages** → **Create** → **Pages** → connect the repo.
 3. Build settings:
    - **Build command:** `npm run build`
    - **Build output directory:** `out`
-   - **Node version:** set env var `NODE_VERSION` to `22` (or `20`) if the build fails on an older default.
+   - **Node version:** env var `NODE_VERSION` = `22` if needed.
 4. Deploy. The site is fully static.
 
 ### /admin on the live site (GitHub OAuth)
