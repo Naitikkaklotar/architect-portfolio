@@ -1,0 +1,143 @@
+backend:
+  name: github
+  repo: Naitikkaklotar/architect-portfolio
+  branch: main
+
+# Local testing with `npx decap-server`. Keep for local; live site uses GitHub login.
+local_backend: true
+
+site_url: http://localhost:3000
+display_url: http://localhost:3000
+logo_url: /uploads/hero.jpg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    description: >
+      Add a new project in a few steps: (1) name & details,
+      (2) cover + gallery photos, (3) optional YouTube link,
+      (4) write a short description, then click Publish / Save.
+      Photos go into public/uploads. Tip: turn Featured ON to show it on the homepage.
+    folder: content/projects
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{category}} · {{year}}"
+    sortable_fields: ["title", "year", "category", "location"]
+    view_groups:
+      - label: By category
+        field: category
+    preview_path: "projects/{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - label: "1. Project name"
+        name: title
+        widget: string
+        hint: "The name visitors will see (example: Villa Sunrise)."
+
+      - label: "Short card description"
+        name: excerpt
+        widget: text
+        required: false
+        hint: "1–2 lines under the project image on listing cards. Leave blank to use the start of the full description."
+
+      - label: "2. Category"
+        name: category
+        widget: select
+        options:
+          - { label: "Residential — homes & villas", value: Residential }
+          - { label: "Commercial — offices & shops", value: Commercial }
+          - { label: "Interior — interiors only", value: Interior }
+          - { label: "Other", value: Other }
+        default: Residential
+        hint: "Used for the filter buttons on the Projects page."
+
+      - label: "3. Location"
+        name: location
+        widget: string
+        hint: "City or area (example: Ahmedabad)."
+
+      - label: "4. Year"
+        name: year
+        widget: number
+        value_type: int
+        default: 2025
+        min: 1990
+        max: 2100
+        hint: "Completion year (numbers only)."
+
+      - label: "5. Area"
+        name: area
+        widget: string
+        required: false
+        hint: "Built-up size, e.g. 3500 sq ft. Leave blank if you are not sure."
+
+      - label: "6. Your role"
+        name: role
+        widget: string
+        required: false
+        hint: "Example: Lead Architect, Interior Architect, Design Architect."
+
+      - label: "7. Status"
+        name: status
+        widget: select
+        required: false
+        options: [Completed, Under construction, Concept, On hold]
+        default: Completed
+        hint: "Shown on the project detail info bar."
+
+      - label: "8. Show on homepage?"
+        name: featured
+        widget: boolean
+        default: false
+        hint: "**ON** = appears in Featured on the home page. **OFF** = only on the Projects list."
+
+      - label: "9. Cover photo"
+        name: cover
+        widget: image
+        choose_url: true
+        hint: "Main image for cards and the project hero. Click Choose image to upload, or paste an image URL."
+
+      - label: "10. Gallery photos"
+        name: images
+        widget: list
+        required: false
+        summary: "{{caption}} — {{image}}"
+        allow_add: true
+        hint: "Add room photos (Kitchen, Bedroom, Living…). Click **+** for each photo and add a short caption."
+        fields:
+          - label: Photo
+            name: image
+            widget: image
+            choose_url: true
+          - label: Room / caption
+            name: caption
+            widget: string
+            hint: "Example: Kitchen, Bedroom, Living room, Courtyard"
+          - label: Description under image
+            name: description
+            widget: text
+            required: false
+            hint: "1–2 short lines shown below the photo on the project page."
+
+      - label: "11. YouTube video"
+        name: video
+        widget: string
+        required: false
+        hint: "Paste any YouTube link — `youtu.be/...` or `youtube.com/watch?v=...`. Leave empty if there is no video."
+        pattern:
+          - '^$|^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+'
+          - "Please paste a valid YouTube link, or leave this field empty."
+
+      - label: "12. Project description"
+        name: body
+        widget: markdown
+        hint: "Write 1–3 short paragraphs about the project. You can use **bold**, lists, and links."
