@@ -11,7 +11,7 @@ cover: /uploads/atrium-cover.jpg
 images:
   - image: /uploads/atrium-living.jpg
     caption: Living room
-    description: Living rooms open to the atrium — sand and charcoal palette keeps attention on proportion and light. Tap the markers on the sofa and chairs for piece details.
+    description: Living rooms open to the atrium — sand and charcoal palette keeps attention on proportion and light. Tap markers for selected pieces.
     hotspots:
       - label: Lounge chair
         x: 18
@@ -27,16 +27,68 @@ images:
         href: /products/leather-armchair
   - image: /uploads/atrium-kitchen.jpg
     caption: Kitchen
-    description: Kitchen as a working gallery — clear counters, soft storage, and views toward the void.
+    description: Kitchen as a working gallery — clear counters, soft storage, and views toward the void. Tap markers for selected pieces.
+    hotspots:
+      - label: Lounge chair
+        x: 22
+        y: 52
+        href: /products/lounge-chair
+      - label: Living sofa
+        x: 50
+        y: 58
+        href: /products/living-sofa
+      - label: Leather armchair
+        x: 74
+        y: 54
+        href: /products/leather-armchair
   - image: /uploads/atrium-bedroom.jpg
     caption: Bedroom
-    description: Quiet bedroom with linen screens and built-in furniture to free the floor.
+    description: Quiet bedroom with linen screens and built-in furniture to free the floor. Tap markers for selected pieces.
+    hotspots:
+      - label: Lounge chair
+        x: 20
+        y: 55
+        href: /products/lounge-chair
+      - label: Living sofa
+        x: 48
+        y: 60
+        href: /products/living-sofa
+      - label: Leather armchair
+        x: 76
+        y: 56
+        href: /products/leather-armchair
   - image: /uploads/atrium-stair.jpg
     caption: Atrium stair
-    description: Stair as a shared promenade — the family’s daily path through light.
+    description: Stair as a shared promenade — the family’s daily path through light. Tap markers for selected pieces.
+    hotspots:
+      - label: Lounge chair
+        x: 24
+        y: 50
+        href: /products/lounge-chair
+      - label: Living sofa
+        x: 52
+        y: 58
+        href: /products/living-sofa
+      - label: Leather armchair
+        x: 72
+        y: 52
+        href: /products/leather-armchair
   - image: /uploads/atrium-bathroom.jpg
     caption: Bathroom
-    description: Compact bath with calm surfaces and soft daylight from the atrium side.
+    description: Compact bath with calm surfaces and soft daylight from the atrium side. Tap markers for selected pieces.
+    hotspots:
+      - label: Lounge chair
+        x: 28
+        y: 48
+        href: /products/lounge-chair
+      - label: Living sofa
+        x: 55
+        y: 56
+        href: /products/living-sofa
+      - label: Leather armchair
+        x: 70
+        y: 50
+        href: /products/leather-armchair
 video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ---
 
