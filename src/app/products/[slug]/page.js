@@ -4,7 +4,7 @@ import ProjectImage from "@/components/ProjectImage";
 import Reveal from "@/components/Reveal";
 import RevealText from "@/components/RevealText";
 import { getProductBySlug, getProductSlugs } from "@/lib/products";
-import { site } from "@/lib/site";
+import { productWhatsappUrl, site } from "@/lib/site";
 
 export async function generateStaticParams() {
   return getProductSlugs().map((slug) => ({ slug }));
@@ -25,12 +25,14 @@ export default async function ProductPage({ params }) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const inquireHref = productWhatsappUrl(product);
+
   return (
     <article className="site-container site-section scroll-mt-24">
       <Reveal>
         <p className="text-xs uppercase tracking-[0.16em] text-[#6b6b6b]">
-          <Link href="/projects" className="[@media(hover:hover)]:hover:text-black">
-            Projects
+          <Link href="/products" className="[@media(hover:hover)]:hover:text-black">
+            Products
           </Link>
           {" · "}Selected piece
         </p>
@@ -75,13 +77,23 @@ export default async function ProductPage({ params }) {
           </Reveal>
           <Reveal delay={80}>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Link href="/contact" className="btn-primary">
-                Ask about this piece
-              </Link>
-              <Link href="/projects" className="btn-ghost">
-                Back to projects
+              <a
+                href={inquireHref}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-whatsapp"
+              >
+                Inquire about this product
+              </a>
+              <Link href="/products" className="btn-ghost">
+                All products
               </Link>
             </div>
+            <p className="mt-3 max-w-prose text-xs leading-relaxed text-[#6b6b6b]">
+              Opens WhatsApp with the product name, a short note, and links to
+              the photo and this page (WhatsApp cannot auto-attach images from a
+              website link).
+            </p>
           </Reveal>
         </div>
       </div>

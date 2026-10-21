@@ -88,3 +88,26 @@ export const site = {
 export function whatsappUrl(message = "Hello, I would like to discuss a project with KK Architect.") {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * WhatsApp inquire link for a product.
+ * WhatsApp cannot auto-attach images via URL — we include the photo link
+ * and product page so you can open them from the chat.
+ */
+export function productWhatsappUrl(product) {
+  const pageUrl = `${site.url}/products/${product.slug}`;
+  const imageUrl = product.cover
+    ? product.cover.startsWith("http")
+      ? product.cover
+      : `${site.url}${product.cover.startsWith("/") ? "" : "/"}${product.cover}`
+    : "";
+
+  const lines = [
+    `Hello, I would like to inquire about: ${product.title}`,
+    product.summary ? `Note: ${product.summary}` : null,
+    `Product page: ${pageUrl}`,
+    imageUrl ? `Photo: ${imageUrl}` : null,
+  ].filter(Boolean);
+
+  return whatsappUrl(lines.join("\n"));
+}

@@ -18,6 +18,7 @@ export default function sitemap() {
   return [
     { url: site.url, lastModified: new Date() },
     { url: `${site.url}/projects`, lastModified: new Date() },
+    { url: `${site.url}/products`, lastModified: new Date() },
     { url: `${site.url}/gallery`, lastModified: new Date() },
     { url: `${site.url}/services`, lastModified: new Date() },
     { url: `${site.url}/about`, lastModified: new Date() },
