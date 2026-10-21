@@ -1,12 +1,10 @@
 ---
 title: Living sofa
-brand: Selected for Atrium House
-category: Seating
+brand: Selected for Villa Sunrise
+category: Sofas
 price: On request
-cover: /uploads/atrium-living.jpg
+cover: /uploads/villa-living.jpg
 summary: Low grey sofa with generous seat depth — the social centre of the living room.
 ---
 
-A low, deep sofa that anchors the living room without competing with the architecture. Soft fabric, quiet stitching, and a height that keeps window light and views clear.
-
-Available finishes and fabrics can be coordinated with the project palette during the interiors phase.
+A low, deep sofa that anchors the living room without competing with the architecture. Soft fabric and a height that keeps window light and views clear.
