@@ -6,7 +6,7 @@ location: Surat
 year: 1990
 role: Lead Architec
 status: Completed
-featured: false
+featured: true
 cover: /uploads/architect.jpg
 images:
   - image: /uploads/atrium-bathroom.jpg
