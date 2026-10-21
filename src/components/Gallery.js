@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import ImageHotspots from "./ImageHotspots";
 import Lightbox from "./Lightbox";
 import RevealImage from "./RevealImage";
 
@@ -44,40 +45,47 @@ function getMeta(img, fallbackIndex) {
       src: img,
       caption: `Photo ${fallbackIndex + 1}`,
       description: "",
+      hotspots: [],
     };
   }
   return {
     src: img.src,
     caption: img.caption || `Photo ${fallbackIndex + 1}`,
     description: img.description || "",
+    hotspots: img.hotspots || [],
   };
 }
 
 function GalleryFigure({ meta, index, title, layout, onOpen, priority }) {
   const isFull = layout === "full";
+  const hasHotspots = meta.hotspots?.length > 0;
 
   return (
     <figure className="flex min-w-0 flex-col gap-4 md:gap-5">
-      <button
-        type="button"
-        className="block w-full min-w-0 overflow-hidden border-0 bg-transparent p-0 text-left"
-        onClick={() => onOpen(index)}
-        aria-label={`Open ${meta.caption}`}
-      >
-        <RevealImage
-          src={meta.src}
-          alt={`${title} — ${meta.caption}`}
-          aspect={isFull ? "16/10" : "4/3"}
-          priority={priority}
-          sizes={isFull ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
-        />
-      </button>
+      <div className="relative w-full min-w-0">
+        <button
+          type="button"
+          className="block w-full min-w-0 overflow-hidden border-0 bg-transparent p-0 text-left"
+          onClick={() => onOpen(index)}
+          aria-label={`Open ${meta.caption}`}
+        >
+          <RevealImage
+            src={meta.src}
+            alt={`${title} — ${meta.caption}`}
+            aspect={isFull ? "16/10" : "4/3"}
+            priority={priority}
+            sizes={isFull ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+          />
+        </button>
+        {hasHotspots ? <ImageHotspots hotspots={meta.hotspots} /> : null}
+      </div>
 
       <figcaption
         className={`space-y-2 px-0.5 ${isFull ? "md:max-w-2xl" : ""}`}
       >
         <p className="text-xs uppercase tracking-[0.14em] text-[#6b6b6b]">
           {String(index + 1).padStart(2, "0")} · {meta.caption}
+          {hasHotspots ? " · Tap markers for pieces" : ""}
         </p>
         {meta.description ? (
           <p className="max-w-prose text-sm leading-relaxed break-words text-[#3f3f3f] md:text-[15px]">

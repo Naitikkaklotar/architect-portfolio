@@ -13,8 +13,26 @@ function ensureProjectsDir() {
   return fs.readdirSync(projectsDirectory).filter((file) => file.endsWith(".md"));
 }
 
+function normalizeHotspots(hotspots) {
+  if (!Array.isArray(hotspots)) return [];
+  return hotspots
+    .map((spot) => {
+      if (!spot) return null;
+      const label = spot.label || spot.title || "";
+      const href = spot.href || spot.link || spot.url || "";
+      if (!label || !href) return null;
+      return {
+        label: String(label),
+        href: String(href),
+        x: Number(spot.x) || 0,
+        y: Number(spot.y) || 0,
+      };
+    })
+    .filter(Boolean);
+}
+
 /**
- * Normalize gallery items to { src, caption }.
+ * Normalize gallery items to { src, caption, description, hotspots }.
  * Supports plain URL strings or { image/src, caption/label } objects.
  */
 function normalizeImages(images) {
@@ -24,7 +42,12 @@ function normalizeImages(images) {
     .map((item) => {
       if (!item) return null;
       if (typeof item === "string") {
-        return { src: item, caption: captionFromPath(item), description: "" };
+        return {
+          src: item,
+          caption: captionFromPath(item),
+          description: "",
+          hotspots: [],
+        };
       }
       const src = item.image || item.src || "";
       if (!src) return null;
@@ -32,6 +55,7 @@ function normalizeImages(images) {
         src,
         caption: item.caption || item.label || captionFromPath(src),
         description: item.description || item.desc || "",
+        hotspots: normalizeHotspots(item.hotspots),
       };
     })
     .filter(Boolean);

@@ -1,3 +1,4 @@
+import { getAllProducts } from "@/lib/products";
 import { getAllProjects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
@@ -9,6 +10,11 @@ export default function sitemap() {
     lastModified: new Date(),
   }));
 
+  const products = getAllProducts().map((product) => ({
+    url: `${site.url}/products/${product.slug}`,
+    lastModified: new Date(),
+  }));
+
   return [
     { url: site.url, lastModified: new Date() },
     { url: `${site.url}/projects`, lastModified: new Date() },
@@ -16,7 +22,7 @@ export default function sitemap() {
     { url: `${site.url}/services`, lastModified: new Date() },
     { url: `${site.url}/about`, lastModified: new Date() },
     { url: `${site.url}/contact`, lastModified: new Date() },
-
     ...projects,
+    ...products,
   ];
 }

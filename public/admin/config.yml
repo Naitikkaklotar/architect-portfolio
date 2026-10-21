@@ -131,6 +131,17 @@ collections:
             widget: text
             required: false
             hint: "1–2 short lines shown below the photo on the project page."
+          - label: Clickable pieces on photo (hotspots)
+            name: hotspots
+            widget: list
+            required: false
+            summary: "{{label}} → {{href}}"
+            hint: "Optional. Place markers on the photo (X/Y = % from left/top). Link to a product page like /products/living-sofa or any URL."
+            fields:
+              - { label: Piece name, name: label, widget: string, hint: "Example: Sofa, Lounge chair" }
+              - { label: X position % (0–100 from left), name: x, widget: number, value_type: float, min: 0, max: 100, default: 50 }
+              - { label: Y position % (0–100 from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
+              - { label: Link to product / page, name: href, widget: string, hint: "/products/living-sofa or https://…" }
 
       - label: "11. YouTube video"
         name: video
@@ -145,3 +156,27 @@ collections:
         name: body
         widget: markdown
         hint: "Write 1–3 short paragraphs about the project. You can use **bold**, lists, and links."
+
+  - name: products
+    label: Products / pieces
+    label_singular: Product
+    description: >
+      Furniture or finish pieces linked from photo hotspots.
+      Create a product here, then on a project gallery image add a hotspot
+      with link /products/your-slug.
+    folder: content/products
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{category}}"
+    fields:
+      - { label: Name, name: title, widget: string }
+      - { label: Brand / note, name: brand, widget: string, required: false }
+      - { label: Category, name: category, widget: string, required: false, hint: "Seating, Lighting, Table…" }
+      - { label: Price note, name: price, widget: string, required: false, hint: "On request, or a price" }
+      - { label: Cover image, name: cover, widget: image, required: false }
+      - { label: Short summary, name: summary, widget: text, required: false }
+      - { label: Full description, name: body, widget: markdown }
