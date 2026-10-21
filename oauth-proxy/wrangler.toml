@@ -1,0 +1,11 @@
+name = "architect-decap-oauth"
+main = "src/index.js"
+compatibility_date = "2026-10-21"
+
+# Public workers.dev URL:
+# https://architect-decap-oauth.<your-account-subdomain>.workers.dev
+
+[vars]
+# Repo Naitikkaklotar/architect-portfolio is public → "0"
+# Set to "1" if you make the repo private later
+GITHUB_REPO_PRIVATE = "0"

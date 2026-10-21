@@ -1,0 +1,12 @@
+{
+  "name": "architect-decap-oauth",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "secret:id": "wrangler secret put GITHUB_OAUTH_ID",
+    "secret:secret": "wrangler secret put GITHUB_OAUTH_SECRET"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.3"
+  }
+}

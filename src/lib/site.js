@@ -18,7 +18,7 @@ export const site = {
     instagram: "https://instagram.com",
     linkedin: "https://linkedin.com",
   },
-  url: "https://architect-portfolio.pages.dev",
+  url: "https://architect-portfolio.naitikkaklotar7.workers.dev",
   services: [
     {
       title: "Residential",

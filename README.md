@@ -99,13 +99,9 @@ This is a **static** Next.js export (`output: "export"` → `out/`). Do **not** 
 
 ### /admin on the live site (GitHub OAuth)
 
-Local CMS uses `local_backend`. On Cloudflare, Decap needs GitHub login:
+See **[docs/ADMIN_LOGIN.md](docs/ADMIN_LOGIN.md)** for the full checklist.
 
-1. Create a GitHub OAuth App (Settings → Developer settings → OAuth Apps).
-2. Set the callback URL to your Decap OAuth proxy (see [current Decap docs](https://decapcms.org/docs/github-backend/)).
-3. Point `public/admin/config.yml` at that proxy (`base_url` / `auth_endpoint` as documented).
-4. Set `branch` to the branch Decap should commit to (often `main`).
-5. Add the architect’s GitHub account as a **collaborator** on the repo so they can publish.
+Short version: create a GitHub OAuth App → deploy `oauth-proxy/` Worker with secrets → rebuild the site → open `/admin/` → Login with GitHub.
 
 Until OAuth is configured, use local Decap (`npx decap-server`) to manage content, then commit and push.
 
