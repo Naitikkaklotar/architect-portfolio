@@ -3,15 +3,15 @@ backend:
   repo: Naitikkaklotar/architect-portfolio
   branch: main
   # Live GitHub login via Cloudflare OAuth proxy Worker
-  base_url: https://architect-decap-oauth.naitikkaklotar7.workers.dev
+  base_url: https://architect-decap-oauth.kkarchitect.workers.dev
   auth_endpoint: /auth
 
 # Local only: when running `npx decap-server` on localhost.
 # Ignored on the live site (non-localhost).
 local_backend: true
 
-site_url: https://architect-portfolio.naitikkaklotar7.workers.dev
-display_url: https://architect-portfolio.naitikkaklotar7.workers.dev
+site_url: https://architect-portfolio.kkarchitect.workers.dev
+display_url: https://architect-portfolio.kkarchitect.workers.dev
 logo_url: /uploads/hero.jpg
 
 media_folder: public/uploads

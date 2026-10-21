@@ -2,7 +2,7 @@
 
 After this setup, open:
 
-**https://architect-portfolio.naitikkaklotar7.workers.dev/admin/**
+**https://architect-portfolio.kkarchitect.workers.dev/admin/**
 
 → **Login with GitHub** → publish a project → Cloudflare rebuilds the site automatically.
 
@@ -16,14 +16,14 @@ After this setup, open:
 | Field | Value |
 |--------|--------|
 | Application name | `KK Architect Decap` |
-| Homepage URL | `https://architect-portfolio.naitikkaklotar7.workers.dev` |
-| Authorization callback URL | `https://architect-decap-oauth.naitikkaklotar7.workers.dev/callback` |
+| Homepage URL | `https://architect-portfolio.kkarchitect.workers.dev` |
+| Authorization callback URL | `https://architect-decap-oauth.kkarchitect.workers.dev/callback` |
 
 3. Click **Register application**
 4. Copy **Client ID**
 5. Click **Generate a new client secret** → copy **Client Secret** (save it; shown once)
 
-If you changed your Cloudflare `workers.dev` account subdomain, use that new subdomain in both URLs instead of `naitikkaklotar7`.
+If you changed your Cloudflare `workers.dev` account subdomain, use that new subdomain in both URLs instead of `kkarchitect`.
 
 ---
 
@@ -51,7 +51,7 @@ npx wrangler deploy
 ```
 
 You should get:  
-`https://architect-decap-oauth.naitikkaklotar7.workers.dev`
+`https://architect-decap-oauth.kkarchitect.workers.dev`
 
 Visit that URL — it should say the proxy is OK.
 
