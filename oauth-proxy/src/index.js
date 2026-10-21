@@ -44,24 +44,53 @@ async function exchangeCode({ clientId, clientSecret, code, redirectUri }) {
   return json.access_token;
 }
 
-function callbackHtml(status, token) {
-  const payload = JSON.stringify({ token });
+function callbackHtml(status, content) {
+  // Embed as a JS string literal: authorization:github:success:{...}
+  const authMessage = JSON.stringify(
+    `authorization:github:${status}:${JSON.stringify(content)}`
+  );
   return `<!doctype html>
 <html>
-  <head><title>Authorizing Decap…</title></head>
+  <head><meta charset="utf-8" /><title>Authorizing Decap…</title></head>
   <body>
-    <p>Authorizing Decap…</p>
+    <p>Authorizing Decap… you can close this window if it stays open.</p>
     <script>
       (function () {
-        function receiveMessage(message) {
-          window.opener.postMessage(
-            "authorization:github:${status}:${payload}",
-            "*"
-          );
-          window.removeEventListener("message", receiveMessage, false);
+        var msg = ${authMessage};
+        var siteOrigins = [
+          "https://architect-portfolio.kkarchitect.workers.dev",
+          "http://localhost:3000"
+        ];
+
+        function send(target) {
+          if (!window.opener) return;
+          try {
+            window.opener.postMessage(msg, target || "*");
+          } catch (e) {}
         }
+
+        function receiveMessage(event) {
+          // Reply to the opener's handshake with the exact origin Decap expects
+          send(event.origin || "*");
+          window.removeEventListener("message", receiveMessage, false);
+          try { window.close(); } catch (e) {}
+        }
+
         window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:github", "*");
+
+        // Start Decap handshake
+        if (window.opener) {
+          window.opener.postMessage("authorizing:github", "*");
+        }
+
+        // Fallback: some Decap builds never complete the handshake across workers.dev
+        siteOrigins.forEach(function (origin) { send(origin); });
+        send("*");
+        setTimeout(function () {
+          siteOrigins.forEach(function (origin) { send(origin); });
+          send("*");
+          try { window.close(); } catch (e) {}
+        }, 300);
       })();
     </script>
   </body>
@@ -113,14 +142,21 @@ export default {
           code,
           redirectUri,
         });
-        return new Response(callbackHtml("success", accessToken), {
-          headers: { "Content-Type": "text/html;charset=UTF-8" },
-        });
+        return new Response(
+          callbackHtml("success", { token: accessToken, provider: "github" }),
+          { headers: { "Content-Type": "text/html;charset=UTF-8" } }
+        );
       } catch (err) {
-        return new Response(callbackHtml("error", String(err.message || err)), {
-          status: 400,
-          headers: { "Content-Type": "text/html;charset=UTF-8" },
-        });
+        return new Response(
+          callbackHtml("error", {
+            error: String(err.message || err),
+            provider: "github",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "text/html;charset=UTF-8" },
+          }
+        );
       }
     }
 
