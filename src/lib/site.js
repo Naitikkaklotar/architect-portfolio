@@ -7,9 +7,9 @@ export const site = {
   intro:
     "KK Architect, led by Keyur Kaklotar, designs calm, climate-aware spaces for living and work — with careful light, honest materials, and rooms that age well.",
   email: "hello@kkarchitect.in",
-  phone: "+91 98765 43210",
-  phoneTel: "+919876543210",
-  whatsapp: "919876543210",
+  phone: "+91 87996 79326",
+  phoneTel: "+918799679326",
+  whatsapp: "918799679326",
   location: "Ahmedabad, India",
   address: "Near CG Road, Ahmedabad, Gujarat 380009",
   mapsUrl: "https://maps.google.com/?q=Ahmedabad+Gujarat",
