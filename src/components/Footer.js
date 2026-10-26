@@ -51,26 +51,30 @@ export default function Footer() {
                 {site.phone}
               </a>
             </li>
-            <li>
-              <a
-                href={site.social.instagram}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:text-black"
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a
-                href={site.social.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:text-black"
-              >
-                LinkedIn
-              </a>
-            </li>
+            {site.social.instagram ? (
+              <li>
+                <a
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:text-black"
+                >
+                  Instagram{site.social.instagramLabel ? ` · ${site.social.instagramLabel}` : ""}
+                </a>
+              </li>
+            ) : null}
+            {site.social.linkedin ? (
+              <li>
+                <a
+                  href={site.social.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:text-black"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            ) : null}
             <li>
               <a
                 href={whatsappUrl()}

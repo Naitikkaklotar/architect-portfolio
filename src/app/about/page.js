@@ -38,7 +38,12 @@ export default function AboutPage() {
             <p className="mt-4 font-display text-2xl break-words text-black md:text-3xl">
               {site.architect}
             </p>
-            <p className="mt-1 text-sm tracking-[0.08em] text-[#6b6b6b]">{site.name}</p>
+            <p className="mt-1 text-sm tracking-[0.08em] text-[#6b6b6b]">
+              {site.name} · COA {site.coa}
+            </p>
+            <p className="mt-2 text-sm text-[#6b6b6b]">
+              {site.languages.join(" · ")} · {site.location}
+            </p>
             <div className="mt-8 space-y-5 text-base leading-relaxed break-words text-[#3f3f3f] md:text-lg">
               {about.bio.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)} className="max-w-prose">
@@ -60,34 +65,41 @@ export default function AboutPage() {
             </p>
           </Reveal>
 
+          <dl className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+            {site.stats.map((stat) => (
+              <div key={stat.label} className="border-t border-black/10 pt-3">
+                <dt className="font-display text-3xl text-black md:text-4xl">{stat.value}</dt>
+                <dd className="mt-1 text-xs uppercase tracking-[0.12em] text-[#6b6b6b]">
+                  {stat.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
           <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2">
             <Reveal delay={40}>
               <SectionList title="Experience" items={about.experience} />
             </Reveal>
             <Reveal delay={80}>
-              <SectionList title="Education" items={about.education} />
+              <SectionList title="Expertise" items={about.expertise} />
             </Reveal>
             <Reveal delay={120}>
-              <SectionList title="Awards" items={about.awards} />
+              <SectionList title="Earlier project work" items={about.earlierProjects} />
             </Reveal>
             <Reveal delay={160}>
-              <SectionList title="Certifications" items={about.certifications} />
+              <SectionList title="Software" items={about.software} />
             </Reveal>
           </div>
 
           <Reveal delay={100}>
             <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a href={site.cvUrl} className="btn-ghost" download>
-                Download CV / profile
+                Download CV
               </a>
               <Link href="/contact" className="btn-primary">
                 Get in touch
               </Link>
             </div>
-            <p className="mt-3 text-xs break-words text-[#6b6b6b]">
-              Place your PDF at <code className="text-[11px]">public/cv.pdf</code> to enable the
-              download.
-            </p>
           </Reveal>
         </div>
       </div>

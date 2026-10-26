@@ -16,7 +16,7 @@ export default function ServicesPage() {
             Services
           </h1>
           <p className="mt-4 max-w-prose text-base text-[#6b6b6b] md:text-lg">
-            Clear scope. Thoughtful process. Spaces that feel inevitable once finished.
+            Architecture, interiors, and turnkey delivery — design through handover, across Surat, Ahmedabad, and Mumbai.
           </p>
         </header>
       </Reveal>
@@ -41,7 +41,7 @@ export default function ServicesPage() {
         <Reveal>
           <h2 className="font-display text-3xl text-black md:text-4xl xl:text-5xl">Process</h2>
           <p className="mt-3 max-w-prose text-[#6b6b6b]">
-            Consultation → Concept → Design → Execution
+            Brief → Design → Approvals → Execution
           </p>
         </Reveal>
 

@@ -16,8 +16,7 @@ export default function ContactPage() {
               Contact
             </h1>
             <p className="mt-4 max-w-prose text-base text-[#6b6b6b] md:text-lg">
-              Reach Keyur Kaklotar at KK Architect for commissions, collaborations, or a quick
-              site discussion.
+              Reach Keyur Kaklotar, founder of KK Architect, for villas, interiors, and turnkey work across Surat, Ahmedabad, and Mumbai.
             </p>
           </Reveal>
 
@@ -76,24 +75,33 @@ export default function ContactPage() {
               </ContactRow>
             </Reveal>
             <Reveal delay={140}>
+              <ContactRow label="Registration">
+                <p>Council of Architecture · {site.coa}</p>
+              </ContactRow>
+            </Reveal>
+            <Reveal delay={160}>
               <ContactRow label="Social">
                 <div className="flex flex-col">
-                  <a
-                    href={site.social.instagram}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline"
-                  >
-                    Instagram
-                  </a>
-                  <a
-                    href={site.social.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline"
-                  >
-                    LinkedIn
-                  </a>
+                  {site.social.instagram ? (
+                    <a
+                      href={site.social.instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline"
+                    >
+                      Instagram · {site.social.instagramLabel || "KK Architect"}
+                    </a>
+                  ) : null}
+                  {site.social.linkedin ? (
+                    <a
+                      href={site.social.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline"
+                    >
+                      LinkedIn
+                    </a>
+                  ) : null}
                 </div>
               </ContactRow>
             </Reveal>
