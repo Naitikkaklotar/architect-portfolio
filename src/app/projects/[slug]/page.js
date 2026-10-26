@@ -64,6 +64,13 @@ export default async function ProjectPage({ params }) {
     { label: "Status", value: project.status },
   ].filter((item) => item.value);
 
+  const sections = [
+    { href: "#gallery", label: "Gallery", show: project.images.length > 0 },
+    { href: "#floor-plans", label: "Floor plans", show: project.plans.length > 0 },
+    { href: "#design", label: "The design", show: true },
+    { href: "#climate", label: "Climate report", show: Boolean(project.climate) },
+  ].filter((item) => item.show);
+
   return (
     <article className="min-w-0">
       <ProjectHero project={project} />
@@ -89,9 +96,28 @@ export default async function ProjectPage({ params }) {
             ))}
           </dl>
         </div>
+        {sections.length > 1 ? (
+          <nav
+            aria-label="On this page"
+            className="border-t border-black/10"
+          >
+            <ul className="site-container flex flex-wrap gap-x-6 gap-y-2 py-4 text-xs uppercase tracking-[0.14em]">
+              {sections.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className="text-[#3f3f3f] underline-offset-4 transition [@media(hover:hover)]:hover:text-black [@media(hover:hover)]:hover:underline"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
       </Reveal>
 
-      <div className="site-container space-y-8 py-14 md:space-y-10 md:py-20 scroll-mt-24">
+      <div id="gallery" className="site-container space-y-8 py-14 md:space-y-10 md:py-20 scroll-mt-24">
         <div className="max-w-2xl space-y-3">
           <RevealText
             as="h2"
@@ -112,7 +138,11 @@ export default async function ProjectPage({ params }) {
         />
       </div>
 
-      <div className="site-container py-12 md:py-16 lg:py-20 scroll-mt-24">
+      {project.plans.length > 0 ? (
+        <FloorPlans plans={project.plans} title={project.title} />
+      ) : null}
+
+      <div id="design" className="site-container py-12 md:py-16 lg:py-20 scroll-mt-24">
         <div className="mx-auto max-w-prose">
           <RevealText
             as="h2"
@@ -128,10 +158,6 @@ export default async function ProjectPage({ params }) {
           </Reveal>
         </div>
       </div>
-
-      {project.plans.length > 0 ? (
-        <FloorPlans plans={project.plans} title={project.title} />
-      ) : null}
 
       {project.climate ? <ClimateReport climate={project.climate} /> : null}
 

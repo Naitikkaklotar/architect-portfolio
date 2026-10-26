@@ -21,7 +21,7 @@ export default function FloorPlans({ plans = [], title = "Project" }) {
   const captions = plans.map((p) => p.title);
 
   return (
-    <section className="border-y border-black/10 bg-[#f0eee9]">
+    <section id="floor-plans" className="scroll-mt-20 border-y border-black/10 bg-[#f0eee9]">
       <div className="site-container py-14 md:py-20">
         <div className="max-w-2xl space-y-3">
           <RevealText

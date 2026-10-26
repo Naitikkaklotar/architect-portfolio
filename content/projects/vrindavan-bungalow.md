@@ -45,9 +45,6 @@ images:
   - image: /uploads/vrindavan-corner-open.jpg
     caption: Corner view, before the screens
     description: The same view without the fabricated screens — you can see how much the curved screens add in shade, privacy and character.
-  - image: /uploads/vrindavan-option1-green.jpg
-    caption: Option 1, green jaali facade
-    description: Option 1 — a hexagonal jaali wrapped in creepers, a green thermal buffer on the west face.
   - image: /uploads/vrindavan-screen-detail.jpg
     caption: Wave screens
     description: Flowing fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows across the facade.
@@ -57,6 +54,15 @@ images:
   - image: /uploads/vrindavan-side.jpg
     caption: Side elevation
     description: The jaali and creeper band, the extended roof slab over the glazed skylight, and the arched entrance with a timber-slat gate.
+  - image: /uploads/vrindavan-option1-green.jpg
+    caption: Option 1, green jaali facade
+    description: Option 1 — a hexagonal jaali wrapped in creepers, a green thermal buffer on the west face.
+  - image: /uploads/vrindavan-option1-warm.jpg
+    caption: Option 1, warm colour scheme
+    description: The same Option 1 design in a warm earthy finish, with the green jaali and wave screens against the podium wall.
+  - image: /uploads/vrindavan-option1-front.jpg
+    caption: Option 1, front elevation
+    description: Option 1 from the front — a hexagonal jaali with creepers on the west side and curved balconies with planters on the right.
 plans:
   - image: /uploads/vrindavan-plan-first.jpg
     title: First floor — living, dining and kitchen

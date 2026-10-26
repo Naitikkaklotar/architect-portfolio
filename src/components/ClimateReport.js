@@ -54,7 +54,7 @@ export default function ClimateReport({ climate }) {
   const rayOpacity = hour <= 6.2 || hour >= 17.8 ? 0.15 : 0.55;
 
   return (
-    <section className="border-y border-black/10 bg-[#f0eee9]" aria-labelledby={`${uid}-title`}>
+    <section id="climate" className="scroll-mt-20 border-y border-black/10 bg-[#f0eee9]" aria-labelledby={`${uid}-title`}>
       <div className="site-container py-14 md:py-20">
         <p className="text-xs uppercase tracking-[0.18em] text-[#6b6b6b]">Climate report</p>
         <h2
