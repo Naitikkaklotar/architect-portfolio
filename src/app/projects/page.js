@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CategoryFilter from "@/components/CategoryFilter";
 import Reveal from "@/components/Reveal";
 import RevealText from "@/components/RevealText";
@@ -23,7 +24,10 @@ export default function ProjectsPage() {
         </RevealText>
         <Reveal>
           <p className="mt-5 max-w-prose text-base leading-relaxed text-[#6b6b6b] md:mt-6 md:text-lg">
-            Filter by category. Tap a card to open the full project gallery.
+            Filter by category. Tap a card to open the full project gallery.{" "}
+            <Link href="/map" className="text-black underline underline-offset-4">
+              View on map
+            </Link>
           </p>
         </Reveal>
       </header>

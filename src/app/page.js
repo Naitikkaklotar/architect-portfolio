@@ -129,6 +129,61 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-t border-black/10 bg-[#f0eee9]">
+        <div className="site-container py-14 md:py-20">
+          <RevealText
+            as="h2"
+            className="font-display text-3xl break-words text-black md:text-4xl xl:text-5xl"
+          >
+            Plan before you call
+          </RevealText>
+          <Reveal>
+            <p className="mt-3 max-w-prose text-base text-[#6b6b6b] md:text-lg">
+              Three quick tools to help you shape your idea.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-1 gap-px bg-black/10 md:grid-cols-3">
+            {[
+              {
+                href: "/quiz",
+                label: "1-minute quiz",
+                title: "Which home suits you?",
+                text: "Five questions to find your style, with a matching project.",
+              },
+              {
+                href: "/estimate",
+                label: "Budget",
+                title: "Estimate your project",
+                text: "An indicative range for a villa, interior or turnkey build.",
+              },
+              {
+                href: "/map",
+                label: "Where we build",
+                title: "See projects on the map",
+                text: "Surat, Ahmedabad, Vadodara, Rajkot and more.",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group flex min-w-0 flex-col justify-between bg-[#f0eee9] p-6 transition md:p-8 [@media(hover:hover)]:hover:bg-[#e8e6e1]"
+              >
+                <span className="text-xs uppercase tracking-[0.16em] text-[#6b6b6b]">
+                  {tool.label}
+                </span>
+                <span className="mt-6 block font-display text-2xl break-words text-black md:text-3xl">
+                  {tool.title}
+                </span>
+                <span className="mt-2 block text-sm leading-relaxed text-[#5c5c5c]">
+                  {tool.text}
+                </span>
+                <span className="mt-6 text-sm text-black underline underline-offset-4">Open</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-black text-white">
         <div className="site-container flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between md:py-20 lg:py-28">
           <div className="min-w-0">

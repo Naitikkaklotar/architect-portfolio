@@ -22,6 +22,8 @@ export default function sitemap() {
     { url: `${site.url}/gallery`, lastModified: new Date() },
     { url: `${site.url}/services`, lastModified: new Date() },
     { url: `${site.url}/estimate`, lastModified: new Date() },
+    { url: `${site.url}/quiz`, lastModified: new Date() },
+    { url: `${site.url}/map`, lastModified: new Date() },
     { url: `${site.url}/about`, lastModified: new Date() },
     { url: `${site.url}/contact`, lastModified: new Date() },
     ...projects,
