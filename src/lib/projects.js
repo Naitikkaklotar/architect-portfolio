@@ -61,6 +61,26 @@ function normalizeImages(images) {
     .filter(Boolean);
 }
 
+/** Optional climate report block (benefits, sustainable features, screen details). */
+function normalizeClimate(climate) {
+  if (!climate || typeof climate !== "object") return null;
+  const benefits = (Array.isArray(climate.benefits) ? climate.benefits : [])
+    .filter((b) => b && b.value && b.label)
+    .map((b) => ({ value: String(b.value), label: String(b.label) }));
+  const features = (Array.isArray(climate.features) ? climate.features : [])
+    .filter((f) => f && f.title)
+    .map((f) => ({ title: String(f.title), text: f.text ? String(f.text) : "" }));
+  if (!benefits.length && !features.length) return null;
+  const cut = Number(climate.screen_cut);
+  return {
+    intro: climate.intro ? String(climate.intro) : "",
+    benefits,
+    features,
+    screenName: climate.screen_name ? String(climate.screen_name) : "Jaali screen",
+    screenCut: Number.isFinite(cut) && cut > 0 && cut < 100 ? cut : 78,
+  };
+}
+
 function captionFromPath(src) {
   const file = String(src).split("/").pop() || "";
   const base = file.replace(/\.[^.]+$/, "");
@@ -104,6 +124,7 @@ function mapProject(data, slug, content = "") {
     cover: data.cover ?? "",
     images: normalizeImages(data.images),
     video: data.video ?? null,
+    climate: normalizeClimate(data.climate),
     excerpt: makeExcerpt(data, content),
     number: null,
   };

@@ -21,6 +21,7 @@ export default function sitemap() {
     { url: `${site.url}/products`, lastModified: new Date() },
     { url: `${site.url}/gallery`, lastModified: new Date() },
     { url: `${site.url}/services`, lastModified: new Date() },
+    { url: `${site.url}/estimate`, lastModified: new Date() },
     { url: `${site.url}/about`, lastModified: new Date() },
     { url: `${site.url}/contact`, lastModified: new Date() },
     ...projects,

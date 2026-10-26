@@ -9,6 +9,32 @@ role: Architecture | Interior
 status: Ongoing
 featured: true
 cover: /uploads/vrindavan-exterior.jpg
+climate:
+  intro: Vrindavan is planned around Surat's heat and glare. Every shading, planting and energy decision below is part of the design from day one.
+  screen_name: Jaali screen
+  screen_cut: 78
+  benefits:
+    - { value: "2–3°C", label: "Cooler indoors" }
+    - { value: "40–50%", label: "Less lighting energy" }
+    - { value: "60–70%", label: "Energy from solar" }
+    - { value: "40–50k", label: "Litres of rainwater a year" }
+  features:
+    - title: Jaali screen as solar shield
+      text: Perforated jaali blocks direct west sun, allowing diffused daylight and cutting 75–80% of glare and heat.
+    - title: Curved balconies and overhangs
+      text: Deep overhangs shade the glass from high-angle summer sun while still letting winter sun in.
+    - title: Light-coloured façade
+      text: White and light-grey surfaces reflect heat, lowering wall surface temperature by 8–10°C.
+    - title: Green buffering
+      text: Vertical planters and creepers form a living screen that insulates and cools the interior by 2–3°C.
+    - title: Landscape cooling
+      text: Champa and palm trees give shade and airflow; dense planting cools the surroundings.
+    - title: Daylight efficiency
+      text: Large glazed openings and shaded west openings give 6–7 hours of usable daylight without glare, cutting lighting use by 40–50%.
+    - title: Solar integration
+      text: The terrace slab is sized for rooftop solar, capable of meeting 60–70% of household energy needs.
+    - title: Rainwater harvesting and recharge
+      text: A sloped landscape directs rainwater to recharge pits — potential to collect 40,000–50,000 litres a year.
 images:
   - image: /uploads/vrindavan-exterior.jpg
     caption: Street view

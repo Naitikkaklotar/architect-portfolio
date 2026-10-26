@@ -152,6 +152,33 @@ collections:
           - '^$|^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+'
           - "Please paste a valid YouTube link, or leave this field empty."
 
+      - label: "Climate report (optional)"
+        name: climate
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Adds the 'Climate report' section with the sun-path slider. Leave empty to hide it."
+        fields:
+          - { label: Intro line, name: intro, widget: text, required: false }
+          - { label: Screen name, name: screen_name, widget: string, required: false, default: "Jaali screen", hint: "Shown on the sun diagram, e.g. Jaali screen, Louvres." }
+          - { label: "West sun cut by shading (%)", name: screen_cut, widget: number, value_type: int, min: 1, max: 99, default: 78, required: false, hint: "Design target, used by the sun slider (e.g. 75–80 → 78)." }
+          - label: Key benefits (3–4 big numbers)
+            name: benefits
+            widget: list
+            required: false
+            summary: "{{value}} — {{label}}"
+            fields:
+              - { label: Number, name: value, widget: string, hint: "e.g. 2–3°C" }
+              - { label: Label, name: label, widget: string, hint: "e.g. Cooler indoors" }
+          - label: Sustainable features
+            name: features
+            widget: list
+            required: false
+            summary: "{{title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Explanation, name: text, widget: text, required: false }
+
       - label: "12. Project description"
         name: body
         widget: markdown
@@ -180,3 +207,40 @@ collections:
       - { label: Cover image, name: cover, widget: image, required: false }
       - { label: Short summary, name: summary, widget: text, required: false }
       - { label: Full description, name: body, widget: markdown }
+
+  - name: settings
+    label: Site settings
+    description: "Numbers and text used by site tools."
+    files:
+      - name: estimator
+        label: Budget estimator rates
+        file: content/settings/estimator.json
+        format: json
+        description: >
+          Rates are in rupees per square foot (low and high), per project type and finish.
+          Check these before promoting the estimator — they decide the budget range visitors see.
+        fields:
+          - { label: Intro text, name: intro, widget: text, required: false }
+          - { label: "Design fee — low (% of build cost)", name: design_fee_low, widget: number, value_type: float, min: 0, max: 30 }
+          - { label: "Design fee — high (% of build cost)", name: design_fee_high, widget: number, value_type: float, min: 0, max: 30 }
+          - label: City price factor
+            name: city_factors
+            widget: list
+            summary: "{{city}} × {{factor}}"
+            hint: "1 = base price. Mumbai 1.35 means 35% higher than the base."
+            fields:
+              - { label: City, name: city, widget: string }
+              - { label: Factor, name: factor, widget: number, value_type: float, min: 0.5, max: 3 }
+          - label: Project types and rates (₹ per sq ft)
+            name: types
+            widget: list
+            summary: "{{label}}"
+            fields:
+              - { label: ID (short, no spaces), name: id, widget: string }
+              - { label: Name shown to visitors, name: label, widget: string }
+              - { label: Standard — low, name: standard_low, widget: number, value_type: int, min: 0 }
+              - { label: Standard — high, name: standard_high, widget: number, value_type: int, min: 0 }
+              - { label: Premium — low, name: premium_low, widget: number, value_type: int, min: 0 }
+              - { label: Premium — high, name: premium_high, widget: number, value_type: int, min: 0 }
+              - { label: Luxury — low, name: luxury_low, widget: number, value_type: int, min: 0 }
+              - { label: Luxury — high, name: luxury_high, widget: number, value_type: int, min: 0 }

@@ -60,14 +60,14 @@ export default function Navbar() {
             </span>
           </button>
 
-          <ul className="hidden items-center gap-7 lg:gap-10 xl:gap-12 md:flex">
+          <ul className="hidden items-center gap-4 md:flex lg:gap-8 xl:gap-11">
             {navLinks.map((link) => {
               const active = pathname.startsWith(link.href);
               return (
                 <li key={link.href} className="min-w-0">
                   <Link
                     href={link.href}
-                    className={`inline-flex min-h-11 items-center text-sm tracking-[0.08em] transition opacity-75 hover:opacity-100 ${
+                    className={`inline-flex min-h-11 items-center text-sm tracking-[0.04em] transition lg:tracking-[0.08em] opacity-75 hover:opacity-100 ${
                       active ? "opacity-100" : ""
                     }`}
                   >

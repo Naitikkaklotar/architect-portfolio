@@ -1,0 +1,63 @@
+{
+  "intro": "Get a quick, indicative budget range for your project. Final numbers depend on site, design and material choices — we confirm them after a short discussion.",
+  "city_factors": [
+    { "city": "Surat", "factor": 1 },
+    { "city": "Ahmedabad", "factor": 1.05 },
+    { "city": "Mumbai", "factor": 1.35 },
+    { "city": "Other Gujarat", "factor": 1 }
+  ],
+  "design_fee_low": 4,
+  "design_fee_high": 7,
+  "types": [
+    {
+      "id": "villa",
+      "label": "Villa / bungalow (new build)",
+      "standard_low": 1800,
+      "standard_high": 2300,
+      "premium_low": 2400,
+      "premium_high": 3200,
+      "luxury_low": 3400,
+      "luxury_high": 5000
+    },
+    {
+      "id": "farmhouse",
+      "label": "Weekend home / farmhouse",
+      "standard_low": 1700,
+      "standard_high": 2300,
+      "premium_low": 2400,
+      "premium_high": 3300,
+      "luxury_low": 3500,
+      "luxury_high": 5200
+    },
+    {
+      "id": "interior",
+      "label": "Residential interior",
+      "standard_low": 1500,
+      "standard_high": 2500,
+      "premium_low": 2600,
+      "premium_high": 4000,
+      "luxury_low": 4200,
+      "luxury_high": 7000
+    },
+    {
+      "id": "commercial",
+      "label": "Commercial / hospital",
+      "standard_low": 2000,
+      "standard_high": 2800,
+      "premium_low": 2900,
+      "premium_high": 4000,
+      "luxury_low": 4200,
+      "luxury_high": 6000
+    },
+    {
+      "id": "renovation",
+      "label": "Renovation / remodel",
+      "standard_low": 1000,
+      "standard_high": 1600,
+      "premium_low": 1700,
+      "premium_high": 2600,
+      "luxury_low": 2800,
+      "luxury_high": 4200
+    }
+  ]
+}

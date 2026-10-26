@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ClimateReport from "@/components/ClimateReport";
 import Gallery from "@/components/Gallery";
 import ProjectHero from "@/components/ProjectHero";
 import ProjectNumber from "@/components/ProjectNumber";
@@ -122,6 +123,8 @@ export default async function ProjectPage({ params }) {
           </Reveal>
         </div>
       </div>
+
+      {project.climate ? <ClimateReport climate={project.climate} /> : null}
 
       {project.video ? (
         <div className="site-container space-y-6 pb-12 md:pb-16">
