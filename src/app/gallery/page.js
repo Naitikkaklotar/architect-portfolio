@@ -13,7 +13,9 @@ export default function GalleryPage() {
   const projects = getAllProjects();
   const shots = projects.flatMap((project) => {
     const items = [];
-    if (project.cover) {
+    // The cover is often also the first gallery photo — show each photo once.
+    const inGallery = project.images.some((img) => img.src === project.cover);
+    if (project.cover && !inGallery) {
       items.push({
         src: project.cover,
         caption: "Cover",

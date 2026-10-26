@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { responsiveSrcSet } from "@/lib/responsiveImage";
 import "leaflet/dist/leaflet.css";
 
 const GOLD = "#b08a4a";
@@ -127,6 +128,8 @@ export default function ProjectMap({ cities }) {
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={p.cover}
+                        srcSet={responsiveSrcSet(p.cover)}
+                        sizes="96px"
                         alt=""
                         width={96}
                         height={72}

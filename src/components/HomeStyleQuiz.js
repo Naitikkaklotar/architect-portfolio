@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { QUESTIONS, scoreQuiz } from "@/lib/quiz";
+import { responsiveSrcSet } from "@/lib/responsiveImage";
 import { whatsappUrl } from "@/lib/site";
 
 /**
@@ -71,6 +72,8 @@ export default function HomeStyleQuiz({ projects }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={project.cover}
+                srcSet={responsiveSrcSet(project.cover)}
+                sizes="(max-width: 640px) 100vw, 256px"
                 alt=""
                 loading="lazy"
                 className="aspect-[4/3] h-full w-full object-cover"

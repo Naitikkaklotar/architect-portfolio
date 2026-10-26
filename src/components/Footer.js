@@ -89,7 +89,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="site-container flex flex-col gap-2 border-t border-black/10 py-5 text-xs text-[#6b6b6b] md:flex-row md:items-center md:justify-between">
+      <div className="site-container flex flex-col gap-2 border-t border-black/10 pt-5 pb-28 text-xs text-[#6b6b6b] md:flex-row md:items-center md:justify-between">
         <span>
           © {new Date().getFullYear()} {site.name}
         </span>

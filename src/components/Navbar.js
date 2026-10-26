@@ -9,11 +9,13 @@ import { navLinks } from "./navLinks";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  // The menu is open only for the page it was opened on, so navigating closes it.
+  const [openPath, setOpenPath] = useState(null);
+  const open = openPath === pathname;
   const [scrolled, setScrolled] = useState(false);
   const isHome = pathname === "/";
 
-  const closeMenu = useCallback(() => setOpen(false), []);
+  const closeMenu = useCallback(() => setOpenPath(null), []);
 
   useEffect(() => {
     function onScroll() {
@@ -23,10 +25,6 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   const overHero = isHome && !scrolled && !open;
   const barClass = overHero
@@ -51,7 +49,7 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="site-mobile-menu"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpenPath(open ? null : pathname)}
           >
             <span className="sr-only">Menu</span>
             <span className="flex w-5 flex-col gap-1.5" aria-hidden="true">

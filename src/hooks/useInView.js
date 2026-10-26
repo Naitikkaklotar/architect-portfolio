@@ -14,11 +14,6 @@ export default function useInView({
     const node = ref.current;
     if (!node) return undefined;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return undefined;
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

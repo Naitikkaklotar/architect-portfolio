@@ -1,3 +1,4 @@
+import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import { site, whatsappUrl } from "@/lib/site";
 
@@ -109,23 +110,7 @@ export default function ContactPage() {
         </div>
 
         <Reveal delay={100}>
-          <div className="border border-black/10 bg-[#f0eee9] p-6 sm:p-8 md:p-10">
-            <h2 className="font-display text-2xl break-words text-black md:text-3xl">
-              Prefer a form?
-            </h2>
-            <p className="mt-4 max-w-prose text-sm leading-relaxed break-words text-[#5c5c5c] md:text-base">
-              This site stays fully static — no backend form. Use WhatsApp or email for the
-              fastest reply. If you later want a form, connect a free service like Formspree.
-            </p>
-            <a
-              href={whatsappUrl("Hello, I would like to start a project discussion.")}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-whatsapp mt-8"
-            >
-              Message on WhatsApp
-            </a>
-          </div>
+          <ContactForm />
         </Reveal>
       </div>
     </div>

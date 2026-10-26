@@ -45,3 +45,7 @@ oauth-proxy/node_modules/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated responsive images
+/public/uploads/_opt/
+/src/lib/image-manifest.json

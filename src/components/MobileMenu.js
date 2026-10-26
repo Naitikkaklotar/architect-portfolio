@@ -1,20 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { site } from "@/lib/site";
 import { navLinks } from "./navLinks";
 
+function subscribeNoop() {
+  return () => {};
+}
+
 export default function MobileMenu({ open, onClose, pathname }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
   const closeRef = useRef(null);
   const titleId = useId();
   const panelId = "site-mobile-menu";
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!open) return undefined;

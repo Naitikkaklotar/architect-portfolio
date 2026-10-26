@@ -14,15 +14,10 @@ export default function ProjectHero({ project }) {
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setReady(true);
-      return undefined;
-    }
-
     const timer = window.setTimeout(() => setReady(true), 40);
 
     function onScroll() {
-      setOffset(Math.min(window.scrollY * 0.18, 80));
+      setOffset(reduce ? 0 : Math.min(window.scrollY * 0.18, 80));
     }
 
     onScroll();

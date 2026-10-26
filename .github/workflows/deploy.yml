@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run optimize:images && npm run lint
+
       - name: Build static site
         run: npm run build
 

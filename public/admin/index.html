@@ -37,7 +37,7 @@
 
       /* Soft banner above collections when CSS hooks exist */
       body::before {
-        content: "Tip: Click + Project → fill steps 1–10 → Publish. Use the right-side preview to check how it looks.";
+        content: "Tip: choose Projects, Products or Site settings on the left → fill the form → Publish. The live site updates in about 2 minutes.";
         display: block;
         background: #1c1917;
         color: #f5f5f4;
@@ -49,7 +49,12 @@
     </style>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Pinned version + integrity hash: a new Decap release cannot silently change or break the admin. -->
+    <script
+      src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
+      integrity="sha384-RWRzuHfiZSWCt3nEvG7B0v3cMgM1C2UuJmgBSL92GQh4uXmNSkbcthql/mNBqvjr"
+      crossorigin="anonymous"
+    ></script>
     <script>
       CMS.registerPreviewStyle("/admin/preview.css");
 
@@ -122,7 +127,35 @@
         },
       });
 
+      var ProductPreview = createClass({
+        render: function () {
+          var entry = this.props.entry;
+          var getAsset = this.props.getAsset;
+          var title = entry.getIn(["data", "title"]) || "Untitled product";
+          var category = entry.getIn(["data", "category"]) || "";
+          var price = entry.getIn(["data", "price"]) || "";
+          var summary = entry.getIn(["data", "summary"]) || "";
+          var cover = entry.getIn(["data", "cover"]);
+
+          return h("div", { className: "preview" }, [
+            cover
+              ? h("img", {
+                  key: "cover",
+                  className: "preview-cover",
+                  src: getAsset(cover).toString(),
+                  alt: title,
+                })
+              : h("div", { key: "empty", className: "preview-cover-empty" }, "Add a cover image to see it here"),
+            h("h1", { className: "preview-title", key: "title" }, title),
+            h("p", { className: "preview-meta", key: "meta" }, [category, price].filter(Boolean).join(" · ") || "Add category and price note"),
+            summary ? h("p", { key: "summary" }, summary) : null,
+            h("div", { className: "preview-body", key: "body" }, this.props.widgetFor("body")),
+          ]);
+        },
+      });
+
       CMS.registerPreviewTemplate("projects", ProjectPreview);
+      CMS.registerPreviewTemplate("products", ProductPreview);
     </script>
   </body>
 </html>

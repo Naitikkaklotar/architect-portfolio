@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "predev": "npm run optimize:images",
     "dev": "next dev",
+    "prebuild": "npm run optimize:images",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint src scripts"
   },
   "dependencies": {
     "framer-motion": "^14.4.0",
@@ -22,6 +25,7 @@
     "@tailwindcss/turbopack": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4"
   }
 }

@@ -2,6 +2,7 @@
 
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import { responsiveSrcSet } from "@/lib/responsiveImage";
 
 const EASE = [0.22, 1, 0.36, 1];
 const DURATION = 0.9;
@@ -50,6 +51,7 @@ export default function RevealImage({
 
   if (!src) return null;
 
+  const srcSet = responsiveSrcSet(src);
   const fillParent = aspect === "auto";
   const play = priority || inView;
 
@@ -75,6 +77,7 @@ export default function RevealImage({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
+          srcSet={srcSet}
           alt={alt || ""}
           className={imgClassName}
           loading={priority ? "eager" : "lazy"}
@@ -103,6 +106,7 @@ export default function RevealImage({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
+          srcSet={srcSet}
           alt={alt || ""}
           className={imgClassName}
           loading={priority ? "eager" : "lazy"}

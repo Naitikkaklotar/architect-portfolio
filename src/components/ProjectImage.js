@@ -1,3 +1,5 @@
+import { responsiveSrcSet } from "@/lib/responsiveImage";
+
 /**
  * Reliable image for static export — uses native img (no next/image fill quirks).
  */
@@ -14,6 +16,7 @@ export default function ProjectImage({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
+      srcSet={responsiveSrcSet(src)}
       alt={alt || ""}
       className={className}
       loading={priority ? "eager" : "lazy"}
