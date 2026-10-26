@@ -141,7 +141,8 @@ collections:
               - { label: Piece name, name: label, widget: string, hint: "Example: Sofa, Lounge chair" }
               - { label: X position % (0–100 from left), name: x, widget: number, value_type: float, min: 0, max: 100, default: 50 }
               - { label: Y position % (0–100 from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
-              - { label: Link to product / page, name: href, widget: string, hint: "/products/living-sofa or https://…" }
+              - { label: Note shown when tapped, name: note, widget: text, required: false, hint: "Optional. A short explanation that opens in a small card when the marker is tapped." }
+              - { label: Link to product / page, name: href, widget: string, required: false, hint: "Optional. /products/living-sofa, #climate, or https://…" }
 
       - label: "Gallery shape (optional)"
         name: gallery_aspect
@@ -163,6 +164,63 @@ collections:
           - { label: Plan image, name: image, widget: image, choose_url: true }
           - { label: Title, name: title, widget: string, hint: "Example: First floor — living, dining & kitchen. The text before the dash is the tab name." }
           - { label: Note, name: description, widget: text, required: false }
+          - label: Rooms and sizes
+            name: rooms
+            widget: list
+            required: false
+            summary: "{{name}} — {{size}}"
+            hint: "Optional. Shown as a list next to the plan."
+            fields:
+              - { label: Room, name: name, widget: string }
+              - { label: Size, name: size, widget: string, required: false, hint: "Example: 22'-9\" × 20'-0\"" }
+
+      - label: "Key numbers strip (optional)"
+        name: highlights
+        widget: list
+        required: false
+        summary: "{{value}} — {{label}}"
+        hint: "3–5 big numbers shown under the banner, e.g. 230 Vaar / Built area."
+        fields:
+          - { label: Number, name: value, widget: string }
+          - { label: Label, name: label, widget: string }
+
+      - label: "Before / after slider (optional)"
+        name: compare
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Two images with the same framing. Visitors drag a handle to compare."
+        fields:
+          - { label: Heading, name: title, widget: string, required: false, default: "See the difference" }
+          - { label: Short caption, name: caption, widget: text, required: false }
+          - { label: Before image, name: before, widget: image, choose_url: true }
+          - { label: After image, name: after, widget: image, choose_url: true }
+          - { label: Before label, name: before_label, widget: string, required: false, default: "Before" }
+          - { label: After label, name: after_label, widget: string, required: false, default: "After" }
+
+      - label: "Design story steps (optional)"
+        name: story
+        widget: list
+        required: false
+        summary: "{{title}}"
+        hint: "How the design evolved, step by step. Image is optional."
+        fields:
+          - { label: Step title, name: title, widget: string }
+          - { label: Date, name: date, widget: string, required: false, hint: "Example: September 2025" }
+          - { label: Text, name: text, widget: text, required: false }
+          - { label: Image, name: image, widget: image, required: false, choose_url: true }
+
+      - label: "Project progress updates (optional)"
+        name: progress
+        widget: list
+        required: false
+        summary: "{{date}} — {{title}}"
+        hint: "Dated updates for an ongoing project. Add a new entry each time something happens. Site photos are optional."
+        fields:
+          - { label: Date, name: date, widget: string, required: false, hint: "Example: 12 Nov 2025" }
+          - { label: Update title, name: title, widget: string }
+          - { label: Text, name: text, widget: text, required: false }
+          - { label: Site photo, name: image, widget: image, required: false, choose_url: true }
 
       - label: "11. YouTube video"
         name: video

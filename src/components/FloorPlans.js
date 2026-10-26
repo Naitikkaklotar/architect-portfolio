@@ -1,13 +1,130 @@
 "use client";
 
-import { useState } from "react";
-import Lightbox from "./Lightbox";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import RevealText from "./RevealText";
 import { responsiveSrcSet } from "@/lib/responsiveImage";
 
+const ZOOM_STEPS = [1, 1.6, 2.4, 3.4];
+
+/** Full-screen plan viewer: zoom buttons + native scroll/drag to pan. */
+function PlanViewer({ plans, index, onClose, onChange, title }) {
+  const [zoomIndex, setZoomIndex] = useState(0);
+  const closeRef = useRef(null);
+  const scrollRef = useRef(null);
+  const plan = plans[index];
+  const zoom = ZOOM_STEPS[zoomIndex];
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    function onKey(e) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") onChange((index - 1 + plans.length) % plans.length);
+      if (e.key === "ArrowRight") onChange((index + 1) % plans.length);
+      if (e.key === "+" || e.key === "=") setZoomIndex((z) => Math.min(z + 1, ZOOM_STEPS.length - 1));
+      if (e.key === "-") setZoomIndex((z) => Math.max(z - 1, 0));
+    }
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [index, plans.length, onClose, onChange]);
+
+  // Click-and-drag to pan when zoomed (mouse). Touch uses native scrolling.
+  const drag = useRef(null);
+  function onPointerDown(e) {
+    if (e.pointerType !== "mouse" || zoom === 1) return;
+    const el = scrollRef.current;
+    drag.current = { x: e.clientX, y: e.clientY, left: el.scrollLeft, top: el.scrollTop };
+    el.setPointerCapture(e.pointerId);
+  }
+  function onPointerMove(e) {
+    if (!drag.current) return;
+    const el = scrollRef.current;
+    el.scrollLeft = drag.current.left - (e.clientX - drag.current.x);
+    el.scrollTop = drag.current.top - (e.clientY - drag.current.y);
+  }
+  function onPointerUp() {
+    drag.current = null;
+  }
+
+  function go(next) {
+    setZoomIndex(0);
+    onChange(next);
+  }
+
+  const btn =
+    "flex h-10 min-w-10 items-center justify-center border border-white/30 px-3 text-sm text-white transition disabled:opacity-30 [@media(hover:hover)]:hover:bg-white/10";
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex flex-col bg-black/95"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${title} — ${plan.title}`}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-white">
+        <p className="min-w-0 flex-1 truncate text-xs uppercase tracking-[0.14em]">{plan.title}</p>
+        <div className="flex items-center gap-2">
+          <button type="button" className={btn} onClick={() => go((index - 1 + plans.length) % plans.length)} aria-label="Previous floor">
+            ‹
+          </button>
+          <button type="button" className={btn} onClick={() => go((index + 1) % plans.length)} aria-label="Next floor">
+            ›
+          </button>
+          <button
+            type="button"
+            className={btn}
+            onClick={() => setZoomIndex((z) => Math.max(z - 1, 0))}
+            disabled={zoomIndex === 0}
+            aria-label="Zoom out"
+          >
+            −
+          </button>
+          <button
+            type="button"
+            className={btn}
+            onClick={() => setZoomIndex((z) => Math.min(z + 1, ZOOM_STEPS.length - 1))}
+            disabled={zoomIndex === ZOOM_STEPS.length - 1}
+            aria-label="Zoom in"
+          >
+            +
+          </button>
+          <button ref={closeRef} type="button" className={btn} onClick={onClose} aria-label="Close">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={scrollRef}
+        className={`min-h-0 flex-1 overflow-auto bg-white ${zoom > 1 ? "cursor-grab active:cursor-grabbing" : ""}`}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={plan.src}
+          alt={`${title} — ${plan.title}`}
+          className="mx-auto block h-auto max-w-none select-none"
+          style={{ width: `${zoom * 100}%` }}
+          draggable={false}
+        />
+      </div>
+      <p className="px-4 py-2 text-center text-[11px] tracking-[0.08em] text-white/60">
+        Use + and − to zoom, then drag or scroll to move around.
+      </p>
+    </div>
+  );
+}
+
 /**
- * Floor-plan viewer: one tab per floor, tap the drawing to enlarge.
+ * Floor-plan viewer: one tab per floor, a room list with sizes, and a zoomable full-screen view.
  * Plans are shown whole (never cropped) on a white sheet.
  */
 export default function FloorPlans({ plans = [], title = "Project" }) {
@@ -17,8 +134,7 @@ export default function FloorPlans({ plans = [], title = "Project" }) {
   if (!plans.length) return null;
 
   const plan = plans[current] ?? plans[0];
-  const srcs = plans.map((p) => p.src);
-  const captions = plans.map((p) => p.title);
+  const hasRooms = plan.rooms?.length > 0;
 
   return (
     <section id="floor-plans" className="scroll-mt-20 border-y border-black/10 bg-[#f0eee9]">
@@ -32,7 +148,7 @@ export default function FloorPlans({ plans = [], title = "Project" }) {
           </RevealText>
           <Reveal>
             <p className="text-sm leading-relaxed text-[#6b6b6b] md:text-base">
-              Choose a floor, then tap the drawing to enlarge it.
+              Choose a floor, then tap the drawing to zoom in.
             </p>
           </Reveal>
         </div>
@@ -63,48 +179,70 @@ export default function FloorPlans({ plans = [], title = "Project" }) {
           })}
         </div>
 
-        <figure className="mt-6 min-w-0">
-          <button
-            type="button"
-            className="block w-full cursor-zoom-in border border-black/10 bg-white p-0 text-left"
-            onClick={() => setOpen(current)}
-            aria-label={`Enlarge ${plan.title}`}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={plan.src}
-              src={plan.src}
-              srcSet={responsiveSrcSet(plan.src)}
-              sizes="(max-width: 1280px) 100vw, 1200px"
-              alt={`${title} — ${plan.title}`}
-              className="h-auto w-full select-none"
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-            />
-          </button>
-          <figcaption className="mt-4 space-y-1">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#6b6b6b]">
-              {plan.title}
-            </p>
+        <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-12 lg:gap-8">
+          <figure className={`min-w-0 ${hasRooms ? "lg:col-span-8" : "lg:col-span-12"}`}>
+            <button
+              type="button"
+              className="relative block w-full cursor-zoom-in border border-black/10 bg-white p-0 text-left"
+              onClick={() => setOpen(current)}
+              aria-label={`Zoom ${plan.title}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                key={plan.src}
+                src={plan.src}
+                srcSet={responsiveSrcSet(plan.src)}
+                sizes="(max-width: 1024px) 100vw, 800px"
+                alt={`${title} — ${plan.title}`}
+                className="h-auto w-full select-none"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+              />
+              <span className="pointer-events-none absolute bottom-3 right-3 bg-black/75 px-3 py-1.5 text-[11px] uppercase tracking-[0.14em] text-white">
+                Tap to zoom
+              </span>
+            </button>
+          </figure>
+
+          <div className={`min-w-0 ${hasRooms ? "lg:col-span-4" : "lg:col-span-12"}`}>
+            <p className="text-xs uppercase tracking-[0.14em] text-[#6b6b6b]">{plan.title}</p>
             {plan.description ? (
-              <p className="max-w-prose text-sm leading-relaxed text-[#3f3f3f] md:text-[15px]">
+              <p className="mt-2 max-w-prose text-sm leading-relaxed text-[#3f3f3f] md:text-[15px]">
                 {plan.description}
               </p>
             ) : null}
-          </figcaption>
-        </figure>
+            {hasRooms ? (
+              <dl className="mt-5 divide-y divide-black/10 border-y border-black/10">
+                {plan.rooms.map((room) => (
+                  <div key={room.name} className="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt className="min-w-0 text-sm text-black">{room.name}</dt>
+                    {room.size ? (
+                      <dd className="shrink-0 text-sm tabular-nums text-[#5c5c5c]">{room.size}</dd>
+                    ) : null}
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+            {hasRooms ? (
+              <p className="mt-3 text-xs text-[#6b6b6b]">Sizes are in feet and inches, as drawn.</p>
+            ) : null}
+          </div>
+        </div>
       </div>
 
-      <Lightbox
-        images={srcs}
-        captions={captions}
-        index={open}
-        onClose={() => setOpen(null)}
-        onPrev={() => setOpen((i) => (i === null ? null : (i - 1 + plans.length) % plans.length))}
-        onNext={() => setOpen((i) => (i === null ? null : (i + 1) % plans.length))}
-        altPrefix={title}
-      />
+      {open !== null ? (
+        <PlanViewer
+          plans={plans}
+          index={open}
+          title={title}
+          onClose={() => setOpen(null)}
+          onChange={(i) => {
+            setOpen(i);
+            setCurrent(i);
+          }}
+        />
+      ) : null}
     </section>
   );
 }

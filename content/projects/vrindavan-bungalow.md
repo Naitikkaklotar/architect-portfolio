@@ -10,6 +10,38 @@ status: Ongoing
 featured: true
 cover: /uploads/vrindavan-cover.jpg
 gallery_aspect: "1/1"
+highlights:
+  - { value: "230 Vaar", label: "Built area" }
+  - { value: "4 floors", label: "Plus a planted terrace" }
+  - { value: "7", label: "Bedrooms" }
+  - { value: "75–80%", label: "Less west glare" }
+  - { value: "60–70%", label: "Energy from rooftop solar" }
+compare:
+  title: What the screens do
+  caption: Drag the handle. The left side is the facade without the fabricated screens, the right side is the final design with the curved screens and creepers.
+  before: /uploads/vrindavan-corner-open.jpg
+  after: /uploads/vrindavan-corner.jpg
+  before_label: Without screens
+  after_label: With screens
+story:
+  - title: Planning the floors
+    date: September 2025
+    text: Living, dining and kitchen sit on the first floor, opening to the garden. Bedrooms with their own toilets and balconies stack above, with a double-height garden on the third floor to bring light and green into the middle of the house.
+  - title: Option 1, the green jaali
+    text: A hexagonal jaali wrapped in creepers shades the west face. We tested it in a grey scheme and a warm earthy scheme.
+    image: /uploads/vrindavan-option1-green.jpg
+  - title: Option 2, curved screens
+    text: The flat jaali gave way to flowing balcony edges and fabricated screens that follow them, with a sculpted podium wall and entrance arch below.
+    image: /uploads/vrindavan-front.jpg
+  - title: Final design with screens
+    text: The revised design keeps the perforated jaali and creepers, adds the curved screens and a glazed skylight, and is now being detailed for fabrication.
+    image: /uploads/vrindavan-corner.jpg
+progress:
+  - date: 04 Sep 2025
+    title: Floor plans issued
+    text: Furniture layouts for the first to fourth floors were issued to the client.
+  - title: Design options presented
+    text: Option 1 and Option 2 renders prepared, then the revised design with fabricated screens.
 climate:
   intro: Vrindavan is modern in style and rooted in sustainability and natural harmony. Every shading, planting and energy decision below is part of the design from day one.
   screen_name: Jaali screen
@@ -42,6 +74,14 @@ images:
   - image: /uploads/vrindavan-corner.jpg
     caption: Corner view
     description: The final design from the street corner — layered curved balconies, a perforated jaali, living creepers and a sculpted podium wall with the entrance arch.
+    hotspots:
+      - { label: Rooftop solar, x: 66, y: 10, note: "The roof slab is sized for solar panels that can meet 60–70% of the household energy needs." }
+      - { label: Perforated jaali, x: 29, y: 38, note: "Blocks direct west sun and lets soft, diffused light in, cutting 75–80% of glare.", href: "#climate" }
+      - { label: Creepers and planters, x: 20, y: 45, note: "A living green layer that cools the rooms behind it by 2–3°C and improves the air." }
+      - { label: Wave screens, x: 46, y: 55, note: "Fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows." }
+      - { label: Curved balconies, x: 80, y: 30, note: "Deep overhangs shade the glass from high summer sun and cut facade heat gain by about 30%." }
+      - { label: Entrance arch, x: 41, y: 79, note: "A sculpted podium wall with an arched entrance and timber-slat gate." }
+      - { label: Landscape cooling, x: 62, y: 84, note: "Champa and palm planting shade the lower levels and cool the air around the house." }
   - image: /uploads/vrindavan-front.jpg
     caption: Front elevation
     description: Stacked curved balconies and deep overhangs shade the glass, with planting at every level and a sculpted podium below.
@@ -61,15 +101,50 @@ plans:
   - image: /uploads/vrindavan-plan-first.jpg
     title: First floor — living, dining and kitchen
     description: Formal and informal living, dining, an open kitchen with island, store room, toilet and lift, all opening to the garden.
+    rooms:
+      - { name: "Formal living", size: "22'-9\" × 20'-0\"" }
+      - { name: "Informal living", size: "16'-0\" × 13'-0\"" }
+      - { name: "Informal living 2", size: "19'-0\" × 14'-0\"" }
+      - { name: "Dining", size: "13'-0\" × 11'-6\"" }
+      - { name: "Kitchen", size: "20'-0\" × 12'-0\"" }
+      - { name: "Store room", size: "7'-0\" × 5'-3\"" }
+      - { name: "Toilet", size: "7'-0\" × 5'-5\"" }
+      - { name: "Lift", size: "4'-0\" × 4'-0\"" }
   - image: /uploads/vrindavan-plan-second.jpg
     title: Second floor — bedrooms
     description: Three bedrooms with attached toilets and wardrobes, a window seat, a family sitting corner, and balconies with planters.
+    rooms:
+      - { name: "Bedroom 1", size: "18'-7\" × 16'-0\"" }
+      - { name: "Bedroom 2", size: "16'-2\" × 11'-9\"" }
+      - { name: "Children's bedroom", size: "27'-0\" × 11'-9\"" }
+      - { name: "Toilet", size: "7'-0\" × 11'-2\"" }
+      - { name: "Toilet", size: "8'-6\" × 10'-4\"" }
+      - { name: "Toilet", size: "8'-6\" × 4'-4\"" }
+      - { name: "Balcony", size: "20'-0\" × 6'-9\"" }
+      - { name: "Small balcony", size: "5'-6\" × 11'-0\"" }
+      - { name: "Passage", size: "4'-5\" wide" }
   - image: /uploads/vrindavan-plan-third.jpg
     title: Third floor — bedrooms and double-height garden
     description: Two bedrooms with sitting areas and a double-height garden that brings light and green into the middle of the house.
+    rooms:
+      - { name: "Bedroom 1", size: "22'-10\" × 16'-0\"" }
+      - { name: "Bedroom 2", size: "21'-1\" × 12'-0\"" }
+      - { name: "Double-height garden", size: "11'-6\" × 27'-0\"" }
+      - { name: "Toilet", size: "7'-0\" × 11'-0\"" }
+      - { name: "Toilet", size: "7'-7\" × 11'-5\"" }
+      - { name: "Balcony", size: "20'-0\" × 7'-0\"" }
+      - { name: "Passage", size: "4'-5\" wide" }
   - image: /uploads/vrindavan-plan-fourth.jpg
     title: Fourth floor — bedrooms and terrace
     description: Two bedrooms, a long planted balcony and the lower terrace; the roof above is planned for solar panels.
+    rooms:
+      - { name: "Bedroom 1", size: "22'-10\" × 16'-0\"" }
+      - { name: "Bedroom 2", size: "21'-1\" × 12'-0\"" }
+      - { name: "Toilet", size: "7'-0\" × 11'-0\"" }
+      - { name: "Toilet", size: "7'-7\" × 11'-5\"" }
+      - { name: "Balcony", size: "20'-0\" × 7'-0\"" }
+      - { name: "Narrow balcony", size: "3'-0\" wide" }
+      - { name: "Passage", size: "4'-5\" wide" }
 ---
 
 This bungalow is not just modern in style but rooted in sustainability and natural harmony. The white and light façade with perforated jaali screens lets soft daylight filter deep into the spaces while cutting harsh glare, which reduces the need for artificial light by day and keeps the interiors naturally cool.

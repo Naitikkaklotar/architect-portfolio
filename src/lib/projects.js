@@ -20,10 +20,12 @@ function normalizeHotspots(hotspots) {
       if (!spot) return null;
       const label = spot.label || spot.title || "";
       const href = spot.href || spot.link || spot.url || "";
-      if (!label || !href) return null;
+      const note = spot.note || spot.text || "";
+      if (!label || (!href && !note)) return null;
       return {
         label: String(label),
-        href: String(href),
+        href: href ? String(href) : "",
+        note: note ? String(note) : "",
         x: Number(spot.x) || 0,
         y: Number(spot.y) || 0,
       };
@@ -69,13 +71,50 @@ function normalizePlans(plans) {
       if (!item) return null;
       const src = item.image || item.src || "";
       if (!src) return null;
+      const rooms = (Array.isArray(item.rooms) ? item.rooms : [])
+        .filter((r) => r && r.name)
+        .map((r) => ({ name: String(r.name), size: r.size ? String(r.size) : "" }));
       return {
         src,
         title: item.title || item.caption || "Floor plan",
         description: item.description || "",
+        rooms,
       };
     })
     .filter(Boolean);
+}
+
+/** Optional before/after comparison: { before, after, caption, beforeLabel, afterLabel } */
+function normalizeCompare(compare) {
+  if (!compare || typeof compare !== "object") return null;
+  if (!compare.before || !compare.after) return null;
+  return {
+    before: String(compare.before),
+    after: String(compare.after),
+    title: compare.title ? String(compare.title) : "See the difference",
+    caption: compare.caption ? String(compare.caption) : "",
+    beforeLabel: compare.before_label ? String(compare.before_label) : "Before",
+    afterLabel: compare.after_label ? String(compare.after_label) : "After",
+  };
+}
+
+/** Simple list of { value, label } stats. */
+function normalizeHighlights(list) {
+  return (Array.isArray(list) ? list : [])
+    .filter((h) => h && h.value && h.label)
+    .map((h) => ({ value: String(h.value), label: String(h.label) }));
+}
+
+/** Design story / progress steps: { title, text, date, image }. */
+function normalizeSteps(list) {
+  return (Array.isArray(list) ? list : [])
+    .filter((x) => x && x.title)
+    .map((x) => ({
+      title: String(x.title),
+      text: x.text ? String(x.text) : "",
+      date: x.date ? String(x.date) : "",
+      image: x.image ? String(x.image) : "",
+    }));
 }
 
 /** Optional climate report block (benefits, sustainable features, screen details). */
@@ -142,6 +181,10 @@ function mapProject(data, slug, content = "") {
     images: normalizeImages(data.images),
     galleryAspect: data.gallery_aspect ? String(data.gallery_aspect) : "",
     plans: normalizePlans(data.plans),
+    compare: normalizeCompare(data.compare),
+    highlights: normalizeHighlights(data.highlights),
+    story: normalizeSteps(data.story),
+    progress: normalizeSteps(data.progress),
     video: data.video ?? null,
     climate: normalizeClimate(data.climate),
     excerpt: makeExcerpt(data, content),

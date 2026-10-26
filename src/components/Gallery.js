@@ -85,7 +85,7 @@ function GalleryFigure({ meta, index, title, layout, onOpen, priority, aspect })
       >
         <p className="text-xs uppercase tracking-[0.14em] text-[#6b6b6b]">
           {String(index + 1).padStart(2, "0")} · {meta.caption}
-          {hasHotspots ? " · Tap markers for pieces" : ""}
+          {hasHotspots ? " · Tap the markers" : ""}
         </p>
         {meta.description ? (
           <p className="max-w-prose text-sm leading-relaxed break-words text-[#3f3f3f] md:text-[15px]">
