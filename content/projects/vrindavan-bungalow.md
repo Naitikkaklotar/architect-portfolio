@@ -42,12 +42,6 @@ images:
   - image: /uploads/vrindavan-corner.jpg
     caption: Corner view
     description: The final design from the street corner — layered curved balconies, a perforated jaali, living creepers and a sculpted podium wall with the entrance arch.
-  - image: /uploads/vrindavan-corner-open.jpg
-    caption: Corner view, before the screens
-    description: The same view without the fabricated screens — you can see how much the curved screens add in shade, privacy and character.
-  - image: /uploads/vrindavan-screen-detail.jpg
-    caption: Wave screens
-    description: Flowing fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows across the facade.
   - image: /uploads/vrindavan-front.jpg
     caption: Front elevation
     description: Stacked curved balconies and deep overhangs shade the glass, with planting at every level and a sculpted podium below.
