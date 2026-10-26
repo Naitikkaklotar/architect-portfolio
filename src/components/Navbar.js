@@ -65,7 +65,7 @@ export default function Navbar() {
                 <li key={link.href} className="min-w-0">
                   <Link
                     href={link.href}
-                    className={`inline-flex min-h-11 items-center text-sm tracking-[0.04em] transition lg:tracking-[0.08em] opacity-75 hover:opacity-100 ${
+                    className={`font-nav inline-flex min-h-11 items-center text-sm font-medium tracking-[0.04em] transition lg:tracking-[0.08em] opacity-75 hover:opacity-100 ${
                       active ? "opacity-100" : ""
                     }`}
                   >

@@ -191,7 +191,7 @@ collections:
         widget: list
         required: false
         summary: "{{value}} — {{label}}"
-        hint: "3–5 big numbers shown under the banner, e.g. 230 Vaar / Built area."
+        hint: "3–5 big numbers shown under the banner, e.g. 10,350 sq ft / Built-up area."
         fields:
           - { label: Number, name: value, widget: string }
           - { label: Label, name: label, widget: string }

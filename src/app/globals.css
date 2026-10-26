@@ -16,6 +16,7 @@
   --color-accent: var(--accent);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
+  --font-nav: var(--font-nav);
 }
 
 html {
@@ -31,7 +32,11 @@ body {
 
 .font-display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
+  font-weight: 500;
+}
+
+.font-nav {
+  font-family: var(--font-nav), var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
 
 .site-container {

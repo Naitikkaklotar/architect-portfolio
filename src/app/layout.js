@@ -1,19 +1,26 @@
-import { Cormorant_Garamond, Poppins } from "next/font/google";
+import { EB_Garamond, Inter, Jost } from "next/font/google";
 import SiteShell from "@/components/SiteShell";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+// Headings: EB Garamond. Body: Inter. Menu links: Jost.
+const display = EB_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-display",
   display: "swap",
 });
 
-const body = Poppins({
+const body = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const nav = Jost({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-nav",
   display: "swap",
 });
 
@@ -64,7 +71,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${nav.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script
           type="application/ld+json"
