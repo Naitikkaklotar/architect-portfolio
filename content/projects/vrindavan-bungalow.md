@@ -8,11 +8,25 @@ area: 230 Vaar
 role: Architecture | Interior
 status: Ongoing
 featured: true
-cover: /uploads/vrindavan-cover.jpg
+cover: /uploads/vrindavan-exterior.jpg
 images:
-  - image: /uploads/vrindavan-cover.jpg
+  - image: /uploads/vrindavan-exterior.jpg
     caption: Street view
     description: White and light-grey facade with a perforated jaali, curved balconies, and a planted screen that shades the rooms.
+  - image: /uploads/vrindavan-jaali.jpg
+    caption: Jaali screen
+    description: The perforated jaali blocks direct west sun and throws soft patterned light, while creepers add a living layer of shade.
+  - image: /uploads/vrindavan-living.jpg
+    caption: Living room
+    description: A double-height living space with glass doors to the garden and diffused daylight — six to seven hours of usable natural light. Tap markers for selected pieces.
+    hotspots:
+      - label: Living sofa
+        x: 38
+        y: 62
+        href: /products/living-sofa
+  - image: /uploads/vrindavan-terrace.jpg
+    caption: Terrace
+    description: A planted terrace edge with a curved parapet and a slab sized for rooftop solar.
 ---
 
 This bungalow is planned for Surat’s climate, not only its look. A perforated jaali blocks direct west sun while letting diffused light through, cutting glare by about 75–80%. Curved balconies and deep overhangs shade the glass as the sun moves, and the light-coloured walls lower heat gain.
