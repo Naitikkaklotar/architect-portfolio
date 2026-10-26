@@ -1,9 +1,9 @@
 ---
 title: Stone basin
-brand: Selected for wet areas
+brand: Selected by KK Architect
 category: Bath
 price: On request
-cover: /uploads/villa-bathroom.jpg
+cover: /uploads/product-stone-basin.jpg
 summary: Carved stone basin with warm metal fittings — private baths and courtyardside rooms.
 ---
 

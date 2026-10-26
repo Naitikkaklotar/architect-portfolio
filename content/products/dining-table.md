@@ -1,9 +1,9 @@
 ---
 title: Dining table
-brand: Selected for Villa Sunrise
+brand: Selected by KK Architect
 category: Tables
 price: On request
-cover: /uploads/villa-dining.jpg
+cover: /uploads/product-dining-table.jpg
 summary: Solid timber dining table sized for everyday meals and quiet gatherings.
 ---
 

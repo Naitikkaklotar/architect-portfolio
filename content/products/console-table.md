@@ -1,9 +1,9 @@
 ---
 title: Console table
-brand: Selected for arrival
+brand: Selected by KK Architect
 category: Tables
 price: On request
-cover: /uploads/loft-reception.jpg
+cover: /uploads/product-console-table.jpg
 summary: Narrow console for entry and reception — calm first impression.
 ---
 

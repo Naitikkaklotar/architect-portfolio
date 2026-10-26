@@ -1,9 +1,9 @@
 ---
 title: Ceramic vase
-brand: Selected for interiors
+brand: Selected by KK Architect
 category: Vases
 price: On request
-cover: /uploads/villa-dining.jpg
+cover: /uploads/product-ceramic-vase.jpg
 summary: Hand-thrown ceramic vase with a quiet glaze — for shelves, dining tables, and atrium ledges.
 ---
 

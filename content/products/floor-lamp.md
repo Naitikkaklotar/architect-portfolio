@@ -1,9 +1,9 @@
 ---
 title: Floor lamp
-brand: Selected for living rooms
+brand: Selected by KK Architect
 category: Lighting
 price: On request
-cover: /uploads/atrium-living.jpg
+cover: /uploads/product-floor-lamp.jpg
 summary: Arched floor lamp with a warm metal finish — reading light without clutter.
 ---
 

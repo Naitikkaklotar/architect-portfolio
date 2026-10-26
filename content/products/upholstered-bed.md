@@ -1,9 +1,9 @@
 ---
 title: Upholstered bed
-brand: Selected for bedrooms
+brand: Selected by KK Architect
 category: Bedroom
 price: On request
-cover: /uploads/villa-bedroom.jpg
+cover: /uploads/product-upholstered-bed.jpg
 summary: Soft upholstered headboard and spare frame — quiet primary bedrooms.
 ---
 

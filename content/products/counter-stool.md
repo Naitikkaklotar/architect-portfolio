@@ -1,9 +1,9 @@
 ---
 title: Counter stool
-brand: Selected for kitchens
+brand: Selected by KK Architect
 category: Chairs
 price: On request
-cover: /uploads/villa-kitchen.jpg
+cover: /uploads/product-counter-stool.jpg
 summary: Compact stool for kitchen counters — timber seat, slim metal legs.
 ---
 

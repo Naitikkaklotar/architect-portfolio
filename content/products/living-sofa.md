@@ -1,9 +1,9 @@
 ---
 title: Living sofa
-brand: Selected for Villa Sunrise
+brand: Selected by KK Architect
 category: Sofas
 price: On request
-cover: /uploads/villa-living.jpg
+cover: /uploads/product-living-sofa.jpg
 summary: Low grey sofa with generous seat depth — the social centre of the living room.
 ---
 

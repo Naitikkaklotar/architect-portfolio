@@ -1,9 +1,9 @@
 ---
 title: Leather armchair
-brand: Selected for Urban Loft
+brand: Selected by KK Architect
 category: Chairs
 price: On request
-cover: /uploads/loft-lounge.jpg
+cover: /uploads/product-leather-armchair.jpg
 summary: Cognac leather armchair on a dark metal frame — a warmer counterpoint to plaster and timber.
 ---
 
