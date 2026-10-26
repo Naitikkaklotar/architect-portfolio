@@ -182,6 +182,7 @@ function mapProject(data, slug, content = "") {
     featured: Boolean(data.featured),
     cover: data.cover ?? "",
     coverMobile: data.cover_mobile ?? "",
+    coverZoom: data.cover_zoom === true,
     images: normalizeImages(data.images),
     galleryAspect: data.gallery_aspect ? String(data.gallery_aspect) : "",
     plans: normalizePlans(data.plans),

@@ -117,6 +117,13 @@ collections:
         choose_url: true
         hint: "A tall (3:4) crop of the cover shown on phones, so the whole building is visible. Leave empty to use the normal cover."
 
+      - label: "Cover zoom-out animation"
+        name: cover_zoom
+        widget: boolean
+        default: false
+        required: false
+        hint: "On: the cover zooms out from a close crop to the full picture when the page opens, then drifts slowly."
+
       - label: "10. Gallery photos"
         name: images
         widget: list

@@ -10,6 +10,7 @@ status: Under construction
 featured: true
 cover: /uploads/vrindavan-cover.jpg
 cover_mobile: /uploads/vrindavan-cover-mobile.jpg
+cover_zoom: true
 gallery_aspect: "1/1"
 highlights:
   - { value: "10,350 sq ft", label: "Built-up area" }

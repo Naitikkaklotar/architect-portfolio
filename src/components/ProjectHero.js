@@ -35,14 +35,16 @@ export default function ProjectHero({ project }) {
           className="absolute inset-[-6%] will-change-transform"
           style={{ transform: `translate3d(0, ${offset}px, 0)` }}
         >
-          <RevealImage
-            src={project.cover}
-            mobileSrc={project.coverMobile}
-            alt={`${project.title} cover`}
-            aspect="auto"
-            priority
-            sizes="100vw"
-          />
+          <div className={`absolute inset-0 ${project.coverZoom ? "hero-zoomout" : ""}`}>
+            <RevealImage
+              src={project.cover}
+              mobileSrc={project.coverMobile}
+              alt={`${project.title} cover`}
+              aspect="auto"
+              priority
+              sizes="100vw"
+            />
+          </div>
         </div>
       ) : null}
 
