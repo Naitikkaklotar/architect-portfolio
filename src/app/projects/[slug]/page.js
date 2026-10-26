@@ -36,6 +36,12 @@ export async function generateMetadata({ params }) {
       description,
       images: project.cover ? [{ url: project.cover }] : undefined,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description,
+      images: project.cover ? [project.cover] : undefined,
+    },
   };
 }
 
@@ -93,7 +99,7 @@ export default async function ProjectPage({ params }) {
           </RevealText>
           <Reveal>
             <p className="text-sm leading-relaxed text-[#6b6b6b] md:text-base">
-              Room photos with short notes below each image — tap a photo to enlarge.
+              Photos with a short note below each image — tap a photo to enlarge.
             </p>
           </Reveal>
         </div>

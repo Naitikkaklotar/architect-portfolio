@@ -26,7 +26,7 @@ export default function ImageHotspots({ hotspots = [] }) {
         const marker = (
           <>
             <span className="relative flex h-7 w-7 items-center justify-center">
-              <span className="absolute inset-0 animate-ping rounded-full bg-white/40" />
+              <span className="absolute inset-0 hotspot-ping rounded-full bg-white/40" />
               <span className="relative h-3.5 w-3.5 rounded-full border-2 border-white bg-black/70 shadow-sm transition group-hover:scale-110 group-hover:bg-black" />
             </span>
             <span className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 -translate-x-1/2 whitespace-nowrap bg-black/85 px-2.5 py-1 text-[11px] tracking-[0.08em] text-white opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">

@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import FloatingContact from "./FloatingContact";
 
 export default function SiteShell({ children }) {
   const pathname = usePathname();
@@ -17,6 +18,7 @@ export default function SiteShell({ children }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <FloatingContact />
     </>
   );
 }

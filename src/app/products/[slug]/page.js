@@ -14,9 +14,14 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return { title: "Product not found" };
+  const description =
+    product.summary || `${product.title} — selected piece for ${site.name}.`;
+  const images = product.cover ? [{ url: product.cover }] : undefined;
   return {
     title: product.title,
-    description: product.summary || `${product.title} — selected piece for ${site.name}.`,
+    description,
+    openGraph: { title: product.title, description, images },
+    twitter: { card: "summary_large_image", title: product.title, description, images: product.cover ? [product.cover] : undefined },
   };
 }
 
