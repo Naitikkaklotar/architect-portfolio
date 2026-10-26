@@ -4,7 +4,7 @@ excerpt: A modern, climate-responsive bungalow in Adajan, Surat — perforated j
 category: Residential
 location: Adajan, Surat
 year: 2026
-area: 230 Vaar plot
+area: 230 Vaar plot · 10,350 sq ft built-up
 role: Architecture | Interior
 status: Under construction
 featured: true
@@ -12,6 +12,7 @@ cover: /uploads/vrindavan-cover.jpg
 cover_mobile: /uploads/vrindavan-cover-mobile.jpg
 gallery_aspect: "1/1"
 highlights:
+  - { value: "10,350 sq ft", label: "Built-up area" }
   - { value: "230 Vaar", label: "Plot size" }
   - { value: "G + 4", label: "Floors, with a planted terrace" }
   - { value: "7", label: "Bedrooms" }

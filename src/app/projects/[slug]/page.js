@@ -127,14 +127,17 @@ export default async function ProjectPage({ params }) {
             aria-label="On this page"
             className="border-t border-black/10"
           >
-            <ul className="site-container flex flex-wrap gap-x-6 gap-y-2 py-4 text-xs uppercase tracking-[0.14em]">
+            <ul className="site-container flex flex-col divide-y divide-black/10 py-1 md:flex-row md:flex-wrap md:gap-x-6 md:gap-y-2 md:divide-y-0 md:py-4">
               {sections.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-[#3f3f3f] underline-offset-4 transition [@media(hover:hover)]:hover:text-black [@media(hover:hover)]:hover:underline"
+                    className="flex items-center justify-between py-3 text-xs uppercase tracking-[0.14em] text-[#3f3f3f] underline-offset-4 transition md:inline-flex md:py-0 [@media(hover:hover)]:hover:text-black [@media(hover:hover)]:hover:underline"
                   >
                     {item.label}
+                    <span aria-hidden="true" className="text-base text-[#9a9a9a] md:hidden">
+                      ↓
+                    </span>
                   </a>
                 </li>
               ))}
@@ -145,7 +148,11 @@ export default async function ProjectPage({ params }) {
 
       {project.highlights.length > 0 ? (
         <Reveal>
-          <ul className="site-container grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-3 lg:grid-cols-5 md:py-14">
+          <ul
+            className={`site-container grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-3 md:py-14 ${
+              project.highlights.length > 5 ? "lg:grid-cols-6" : "lg:grid-cols-5"
+            }`}
+          >
             {project.highlights.map((h) => (
               <li key={h.label} className="min-w-0">
                 <p className="font-display text-3xl leading-none text-black md:text-4xl">
