@@ -49,3 +49,7 @@ next-env.d.ts
 # generated responsive images
 /public/uploads/_opt/
 /src/lib/image-manifest.json
+
+# Original client files (large) - only the optimised copies in public/uploads are used
+/OPTION*.jpg
+/*LAYOUT*.pdf

@@ -56,7 +56,7 @@ function getMeta(img, fallbackIndex) {
   };
 }
 
-function GalleryFigure({ meta, index, title, layout, onOpen, priority }) {
+function GalleryFigure({ meta, index, title, layout, onOpen, priority, aspect }) {
   const isFull = layout === "full";
   const hasHotspots = meta.hotspots?.length > 0;
 
@@ -72,7 +72,7 @@ function GalleryFigure({ meta, index, title, layout, onOpen, priority }) {
           <RevealImage
             src={meta.src}
             alt={`${title} — ${meta.caption}`}
-            aspect={isFull ? "16/10" : "4/3"}
+            aspect={aspect || (isFull ? "16/10" : "4/3")}
             priority={priority}
             sizes={isFull ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
           />
@@ -101,9 +101,11 @@ function GalleryFigure({ meta, index, title, layout, onOpen, priority }) {
   );
 }
 
-export default function Gallery({ images = [], title = "Project" }) {
+export default function Gallery({ images = [], title = "Project", aspect = "" }) {
   const [active, setActive] = useState(null);
   const rows = useMemo(() => buildRows(images), [images]);
+  // Fixed-ratio mode (e.g. square renders): a simple two-column grid, no full-bleed rows.
+  const uniform = Boolean(aspect);
 
   if (!images.length) {
     return (
@@ -126,6 +128,22 @@ export default function Gallery({ images = [], title = "Project" }) {
 
   return (
     <>
+      {uniform ? (
+        <div className="grid min-w-0 grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 md:gap-y-16 lg:gap-x-12">
+          {images.map((image, index) => (
+            <GalleryFigure
+              key={`uniform-${index}`}
+              meta={getMeta(image, index)}
+              index={index}
+              title={title}
+              layout="pair"
+              aspect={aspect}
+              onOpen={setActive}
+              priority={index < 2}
+            />
+          ))}
+        </div>
+      ) : (
       <div className="flex min-w-0 flex-col gap-12 md:gap-16 lg:gap-20">
         {rows.map((row, rowIndex) => {
           if (row.type === "full") {
@@ -168,6 +186,7 @@ export default function Gallery({ images = [], title = "Project" }) {
           );
         })}
       </div>
+      )}
 
       <Lightbox
         images={srcs}

@@ -1,6 +1,6 @@
 ---
 title: Vrindavan Sustainable Bungalow
-excerpt: A climate-responsive bungalow in Adajan, Surat — perforated jaali, curved shading balconies, and a living green facade.
+excerpt: A modern, climate-responsive bungalow in Adajan, Surat — perforated jaali, curved shading balconies, living green screens and a solar-ready terrace.
 category: Residential
 location: Adajan, Surat
 year: 2026
@@ -8,9 +8,10 @@ area: 230 Vaar
 role: Architecture | Interior
 status: Ongoing
 featured: true
-cover: /uploads/vrindavan-exterior.jpg
+cover: /uploads/vrindavan-cover.jpg
+gallery_aspect: "1/1"
 climate:
-  intro: Vrindavan is planned around Surat's heat and glare. Every shading, planting and energy decision below is part of the design from day one.
+  intro: Vrindavan is modern in style and rooted in sustainability and natural harmony. Every shading, planting and energy decision below is part of the design from day one.
   screen_name: Jaali screen
   screen_cut: 78
   benefits:
@@ -20,43 +21,61 @@ climate:
     - { value: "40–50k", label: "Litres of rainwater a year" }
   features:
     - title: Jaali screen as solar shield
-      text: Perforated jaali blocks direct west sun, allowing diffused daylight and cutting 75–80% of glare and heat.
-    - title: Curved balconies and overhangs
-      text: Deep overhangs shade the glass from high-angle summer sun while still letting winter sun in.
+      text: The perforated jaali blocks direct west sun rays and lets in diffused daylight, cutting 75–80% of glare. Less need for blinds or curtains, and cooler interiors.
+    - title: Curved balconies and extended slab
+      text: Deep overhangs act as horizontal shading — in summer they block high, harsh rays; in winter they let softer, lower sun in. They cast shifting shadows across the façade and reduce façade heat gain by about 30%.
     - title: Light-coloured façade
-      text: White and light-grey surfaces reflect heat, lowering wall surface temperature by 8–10°C.
+      text: White and light-grey surfaces reflect heat (high albedo), keeping wall surfaces 8–10°C cooler than darker finishes.
     - title: Green buffering
-      text: Vertical planters and creepers form a living screen that insulates and cools the interior by 2–3°C.
+      text: Vertical planters and creepers on the jaali walls form a living green screen — an extra thermal layer that cools interiors by 2–3°C, improves air quality and supports pollinators with flowering plants.
     - title: Landscape cooling
-      text: Champa and palm trees give shade and airflow; dense planting cools the surroundings.
+      text: Champa and palm trees shade the lower levels and guide airflow. The dense, colourful garden cools the surrounding air through evapotranspiration.
     - title: Daylight efficiency
-      text: Large glazed openings and shaded west openings give 6–7 hours of usable daylight without glare, cutting lighting use by 40–50%.
+      text: Large glazing on the side elevations and shaded openings on the west give 6–7 hours of usable daylight without glare, cutting electricity used for lighting by 40–50%.
     - title: Solar integration
-      text: The terrace slab is sized for rooftop solar, capable of meeting 60–70% of household energy needs.
-    - title: Rainwater harvesting and recharge
-      text: A sloped landscape directs rainwater to recharge pits — potential to collect 40,000–50,000 litres a year.
+      text: The terrace slab is sized for rooftop solar panels, able to meet 60–70% of household energy needs, with orientation tuned for west and south exposure in the evenings.
+    - title: Rainwater harvesting and ground recharge
+      text: A sloped landscape guides rainwater to recharge pits, with potential to collect 40,000–50,000 litres a year for the garden. Concealed downpipes keep the façade clean.
+    - title: Cross ventilation
+      text: Planned openings let natural breeze flow through the house, reducing the demand for cooling.
 images:
-  - image: /uploads/vrindavan-exterior.jpg
-    caption: Street view
-    description: White and light-grey facade with a perforated jaali, curved balconies, and a planted screen that shades the rooms.
-  - image: /uploads/vrindavan-jaali.jpg
-    caption: Jaali screen
-    description: The perforated jaali blocks direct west sun and throws soft patterned light, while creepers add a living layer of shade.
-  - image: /uploads/vrindavan-living.jpg
-    caption: Living room
-    description: A double-height living space with glass doors to the garden and diffused daylight — six to seven hours of usable natural light. Tap markers for selected pieces.
-    hotspots:
-      - label: Living sofa
-        x: 38
-        y: 62
-        href: /products/living-sofa
-  - image: /uploads/vrindavan-terrace.jpg
-    caption: Terrace
-    description: A planted terrace edge with a curved parapet and a slab sized for rooftop solar.
+  - image: /uploads/vrindavan-corner.jpg
+    caption: Corner view
+    description: The final design from the street corner — layered curved balconies, a perforated jaali, living creepers and a sculpted podium wall with the entrance arch.
+  - image: /uploads/vrindavan-corner-open.jpg
+    caption: Corner view, before the screens
+    description: The same view without the fabricated screens — you can see how much the curved screens add in shade, privacy and character.
+  - image: /uploads/vrindavan-option1-green.jpg
+    caption: Option 1, green jaali facade
+    description: Option 1 — a hexagonal jaali wrapped in creepers, a green thermal buffer on the west face.
+  - image: /uploads/vrindavan-screen-detail.jpg
+    caption: Wave screens
+    description: Flowing fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows across the facade.
+  - image: /uploads/vrindavan-front.jpg
+    caption: Front elevation
+    description: Stacked curved balconies and deep overhangs shade the glass, with planting at every level and a sculpted podium below.
+  - image: /uploads/vrindavan-side.jpg
+    caption: Side elevation
+    description: The jaali and creeper band, the extended roof slab over the glazed skylight, and the arched entrance with a timber-slat gate.
+plans:
+  - image: /uploads/vrindavan-plan-first.jpg
+    title: First floor — living, dining and kitchen
+    description: Formal and informal living, dining, an open kitchen with island, store room, toilet and lift, all opening to the garden.
+  - image: /uploads/vrindavan-plan-second.jpg
+    title: Second floor — bedrooms
+    description: Three bedrooms with attached toilets and wardrobes, a window seat, a family sitting corner, and balconies with planters.
+  - image: /uploads/vrindavan-plan-third.jpg
+    title: Third floor — bedrooms and double-height garden
+    description: Two bedrooms with sitting areas and a double-height garden that brings light and green into the middle of the house.
+  - image: /uploads/vrindavan-plan-fourth.jpg
+    title: Fourth floor — bedrooms and terrace
+    description: Two bedrooms, a long planted balcony and the lower terrace; the roof above is planned for solar panels.
 ---
 
-This bungalow is planned for Surat’s climate, not only its look. A perforated jaali blocks direct west sun while letting diffused light through, cutting glare by about 75–80%. Curved balconies and deep overhangs shade the glass as the sun moves, and the light-coloured walls lower heat gain.
+This bungalow is not just modern in style but rooted in sustainability and natural harmony. The white and light façade with perforated jaali screens lets soft daylight filter deep into the spaces while cutting harsh glare, which reduces the need for artificial light by day and keeps the interiors naturally cool.
 
-Vertical gardens and creepers act as a living screen. Champa and palm planting cools the approach. Large openings bring six to seven hours of usable daylight, and the terrace slab is sized for rooftop solar. The landscape is sloped so rainwater can recharge the ground — on the order of 40,000–50,000 litres a year.
+The curved balconies and extended terrace slab act as shading devices. They create natural shadows that protect the glass from direct heat gain, and as the sun moves these curves throw changing shadows across the façade — keeping the rooms comfortable and giving the home a living, breathing character.
 
-The aim is a home that stays cooler, uses less artificial light, and sits comfortably with the garden around it.
+Integrated planters, green walls and creepers act as thermal buffers, improving air quality and reducing the urban heat effect. The garden with champa and palms adds beauty and improves the microclimate around the house. The roof slab is designed to carry solar panels, so the house can generate renewable energy. Rainwater can be harvested through concealed downpipes, and the landscape allows percolation to recharge groundwater.
+
+The aim is a home that is modern and elegant, energy-efficient and ready for the future.

@@ -61,6 +61,23 @@ function normalizeImages(images) {
     .filter(Boolean);
 }
 
+/** Optional floor plans: [{ image, title, description }] */
+function normalizePlans(plans) {
+  if (!Array.isArray(plans)) return [];
+  return plans
+    .map((item) => {
+      if (!item) return null;
+      const src = item.image || item.src || "";
+      if (!src) return null;
+      return {
+        src,
+        title: item.title || item.caption || "Floor plan",
+        description: item.description || "",
+      };
+    })
+    .filter(Boolean);
+}
+
 /** Optional climate report block (benefits, sustainable features, screen details). */
 function normalizeClimate(climate) {
   if (!climate || typeof climate !== "object") return null;
@@ -123,6 +140,8 @@ function mapProject(data, slug, content = "") {
     featured: Boolean(data.featured),
     cover: data.cover ?? "",
     images: normalizeImages(data.images),
+    galleryAspect: data.gallery_aspect ? String(data.gallery_aspect) : "",
+    plans: normalizePlans(data.plans),
     video: data.video ?? null,
     climate: normalizeClimate(data.climate),
     excerpt: makeExcerpt(data, content),

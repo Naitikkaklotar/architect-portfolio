@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ClimateReport from "@/components/ClimateReport";
+import FloorPlans from "@/components/FloorPlans";
 import Gallery from "@/components/Gallery";
 import ProjectHero from "@/components/ProjectHero";
 import ProjectNumber from "@/components/ProjectNumber";
@@ -104,7 +105,11 @@ export default async function ProjectPage({ params }) {
             </p>
           </Reveal>
         </div>
-        <Gallery images={project.images} title={project.title} />
+        <Gallery
+          images={project.images}
+          title={project.title}
+          aspect={project.galleryAspect}
+        />
       </div>
 
       <div className="site-container py-12 md:py-16 lg:py-20 scroll-mt-24">
@@ -123,6 +128,10 @@ export default async function ProjectPage({ params }) {
           </Reveal>
         </div>
       </div>
+
+      {project.plans.length > 0 ? (
+        <FloorPlans plans={project.plans} title={project.title} />
+      ) : null}
 
       {project.climate ? <ClimateReport climate={project.climate} /> : null}
 

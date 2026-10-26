@@ -143,6 +143,27 @@ collections:
               - { label: Y position % (0–100 from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
               - { label: Link to product / page, name: href, widget: string, hint: "/products/living-sofa or https://…" }
 
+      - label: "Gallery shape (optional)"
+        name: gallery_aspect
+        widget: select
+        required: false
+        default: ""
+        options:
+          - { label: "Mixed (wide + pairs) — for normal photos", value: "" }
+          - { label: "Square 1:1 — for square renders", value: "1/1" }
+        hint: "Use Square when your gallery images are square renders, so nothing is cropped."
+
+      - label: "Floor plans (optional)"
+        name: plans
+        widget: list
+        required: false
+        summary: "{{title}}"
+        hint: "One entry per floor. Shown as tabs on the project page. Upload the plan as a JPG/PNG image."
+        fields:
+          - { label: Plan image, name: image, widget: image, choose_url: true }
+          - { label: Title, name: title, widget: string, hint: "Example: First floor — living, dining & kitchen. The text before the dash is the tab name." }
+          - { label: Note, name: description, widget: text, required: false }
+
       - label: "11. YouTube video"
         name: video
         widget: string
