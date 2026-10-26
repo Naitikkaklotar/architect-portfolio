@@ -14,12 +14,15 @@ export default function GalleryPage() {
   const shots = projects.flatMap((project) => {
     const items = [];
     // The cover is often also the first gallery photo — show each photo once.
+    // Projects with square renders ("gallery_aspect") crop their cover from a gallery image,
+    // so the cover would just be a duplicate tile.
     const inGallery = project.images.some((img) => img.src === project.cover);
-    if (project.cover && !inGallery) {
+    if (project.cover && !inGallery && !project.galleryAspect) {
       items.push({
         src: project.cover,
         caption: "Cover",
         project,
+        aspect: "4/3",
       });
     }
     project.images.forEach((img) => {
@@ -27,6 +30,7 @@ export default function GalleryPage() {
         src: img.src,
         caption: img.caption || "Photo",
         project,
+        aspect: project.galleryAspect || "4/3",
       });
     });
     return items;
@@ -55,7 +59,10 @@ export default function GalleryPage() {
                 href={`/projects/${shot.project.slug}`}
                 className="group block min-w-0"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e6e1]">
+                <div
+                  className="relative overflow-hidden bg-[#e8e6e1]"
+                  style={{ aspectRatio: shot.aspect.replace(/\s/g, "") }}
+                >
                   <ProjectImage
                     src={shot.src}
                     alt={`${shot.project.title} — ${shot.caption}`}

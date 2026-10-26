@@ -39,8 +39,14 @@ export default function ClimateReport({ climate }) {
   const [hour, setHour] = useState(16);
   if (!climate) return null;
 
-  const { intro, benefits = [], features = [], screenName = "Jaali screen", screenCut = 78 } =
-    climate;
+  const {
+    intro,
+    benefits = [],
+    features = [],
+    note = "",
+    screenName = "Jaali screen",
+    screenCut = 78,
+  } = climate;
 
   const t = (hour - 6) / 12;
   const sunX = 240 - 200 * Math.cos(Math.PI * t);
@@ -85,6 +91,9 @@ export default function ClimateReport({ climate }) {
               </div>
             ))}
           </dl>
+        ) : null}
+        {benefits.length > 0 && note ? (
+          <p className="mt-3 text-xs text-[#6b6b6b]">{note}</p>
         ) : null}
 
         <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">

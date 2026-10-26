@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const MARKER_CLASS =
-  "pointer-events-auto group absolute -translate-x-1/2 -translate-y-1/2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+  "pointer-events-auto group absolute before:absolute before:-inset-2.5 before:content-[''] -translate-x-1/2 -translate-y-1/2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 function Dot({ label, showLabel = true, open = false }) {
   return (

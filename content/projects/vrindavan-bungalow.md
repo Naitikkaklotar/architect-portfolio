@@ -4,21 +4,22 @@ excerpt: A modern, climate-responsive bungalow in Adajan, Surat — perforated j
 category: Residential
 location: Adajan, Surat
 year: 2026
-area: 230 Vaar
+area: 230 Vaar plot
 role: Architecture | Interior
-status: Ongoing
+status: Under construction
 featured: true
 cover: /uploads/vrindavan-cover.jpg
+cover_mobile: /uploads/vrindavan-cover-mobile.jpg
 gallery_aspect: "1/1"
 highlights:
-  - { value: "230 Vaar", label: "Built area" }
-  - { value: "4 floors", label: "Plus a planted terrace" }
+  - { value: "230 Vaar", label: "Plot size" }
+  - { value: "G + 4", label: "Floors, with a planted terrace" }
   - { value: "7", label: "Bedrooms" }
   - { value: "75–80%", label: "Less west glare" }
   - { value: "60–70%", label: "Energy from rooftop solar" }
 compare:
   title: What the screens do
-  caption: Drag the handle. The left side is the facade without the fabricated screens, the right side is the final design with the curved screens and creepers.
+  caption: Drag the handle. The left side is the façade without the fabricated screens, the right side is the final design with the curved screens and creepers.
   before: /uploads/vrindavan-corner-open.jpg
   after: /uploads/vrindavan-corner.jpg
   before_label: Without screens
@@ -29,20 +30,21 @@ story:
     text: Living, dining and kitchen sit on the first floor, opening to the garden. Bedrooms with their own toilets and balconies stack above, with a double-height garden on the third floor to bring light and green into the middle of the house.
   - title: Option 1, the green jaali
     text: A hexagonal jaali wrapped in creepers shades the west face. We tested it in a grey scheme and a warm earthy scheme.
-    image: /uploads/vrindavan-option1-green.jpg
+    image: /uploads/vrindavan-detail-hex.jpg
   - title: Option 2, curved screens
     text: The flat jaali gave way to flowing balcony edges and fabricated screens that follow them, with a sculpted podium wall and entrance arch below.
-    image: /uploads/vrindavan-front.jpg
+    image: /uploads/vrindavan-detail-screens.jpg
   - title: Final design with screens
-    text: The revised design keeps the perforated jaali and creepers, adds the curved screens and a glazed skylight, and is now being detailed for fabrication.
-    image: /uploads/vrindavan-corner.jpg
+    text: The revised design keeps the perforated jaali and creepers, and adds curved screens and a glazed skylight. The screens are designed to be fabricated.
+    image: /uploads/vrindavan-detail-roof.jpg
 progress:
   - date: 04 Sep 2025
-    title: Floor plans issued
-    text: Furniture layouts for the first to fourth floors were issued to the client.
+    title: Floor plans drawn
+    text: Furniture layouts for the first to fourth floors were drawn.
   - title: Design options presented
     text: Option 1 and Option 2 renders prepared, then the revised design with fabricated screens.
 climate:
+  note: Design targets for the finished house. They will be verified on completion.
   intro: Vrindavan is modern in style and rooted in sustainability and natural harmony. Every shading, planting and energy decision below is part of the design from day one.
   screen_name: Jaali screen
   screen_cut: 78
@@ -67,11 +69,12 @@ climate:
     - title: Solar integration
       text: The terrace slab is sized for rooftop solar panels, able to meet 60–70% of household energy needs, with orientation tuned for west and south exposure in the evenings.
     - title: Rainwater harvesting and ground recharge
-      text: A sloped landscape guides rainwater to recharge pits, with potential to collect 40,000–50,000 litres a year for the garden. Concealed downpipes keep the façade clean.
+      text: A sloped landscape guides rainwater to recharge pits, with potential to collect 40,000–50,000 litres a year for the garden. Rainwater is harvested through concealed downpipes.
     - title: Cross ventilation
-      text: Planned openings let natural breeze flow through the house, reducing the demand for cooling.
+      text: Natural breeze flows through the house, which reduces the demand for cooling.
 images:
   - image: /uploads/vrindavan-corner.jpg
+    group: Final design
     caption: Corner view
     description: The final design from the street corner — layered curved balconies, a perforated jaali, living creepers and a sculpted podium wall with the entrance arch.
     hotspots:
@@ -79,7 +82,7 @@ images:
       - { label: Perforated jaali, x: 29, y: 38, note: "Blocks direct west sun and lets soft, diffused light in, cutting 75–80% of glare.", href: "#climate" }
       - { label: Creepers and planters, x: 20, y: 45, note: "A living green layer that cools the rooms behind it by 2–3°C and improves the air." }
       - { label: Wave screens, x: 46, y: 55, note: "Fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows." }
-      - { label: Curved balconies, x: 80, y: 30, note: "Deep overhangs shade the glass from high summer sun and cut facade heat gain by about 30%." }
+      - { label: Curved balconies, x: 80, y: 30, note: "Deep overhangs shade the glass from high summer sun and cut façade heat gain by about 30%." }
       - { label: Entrance arch, x: 41, y: 79, note: "A sculpted podium wall with an arched entrance and timber-slat gate." }
       - { label: Landscape cooling, x: 62, y: 84, note: "Champa and palm planting shade the lower levels and cool the air around the house." }
   - image: /uploads/vrindavan-front.jpg
@@ -88,8 +91,12 @@ images:
   - image: /uploads/vrindavan-side.jpg
     caption: Side elevation
     description: The jaali and creeper band, the extended roof slab over the glazed skylight, and the arched entrance with a timber-slat gate.
+  - image: /uploads/vrindavan-detail-entrance.jpg
+    caption: Entrance arch and podium
+    description: The sculpted podium wall rises from the street in soft curves, with the arched entrance, a timber-slat gate and planting along the base.
   - image: /uploads/vrindavan-option1-green.jpg
-    caption: Option 1, green jaali facade
+    group: Alternative, Option 1
+    caption: Option 1, green jaali façade
     description: Option 1 — a hexagonal jaali wrapped in creepers, a green thermal buffer on the west face.
   - image: /uploads/vrindavan-option1-warm.jpg
     caption: Option 1, warm colour scheme
@@ -97,6 +104,9 @@ images:
   - image: /uploads/vrindavan-option1-front.jpg
     caption: Option 1, front elevation
     description: Option 1 from the front — a hexagonal jaali with creepers on the west side and curved balconies with planters on the right.
+  - image: /uploads/vrindavan-detail-hex-front.jpg
+    caption: Option 1, creeper-wrapped jaali
+    description: A close view of the hexagonal jaali with creepers climbing across it, shading the rooms behind and cooling the air.
 plans:
   - image: /uploads/vrindavan-plan-first.jpg
     title: First floor — living, dining and kitchen

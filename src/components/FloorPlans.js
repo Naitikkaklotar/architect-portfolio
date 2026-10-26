@@ -9,7 +9,9 @@ const ZOOM_STEPS = [1, 1.6, 2.4, 3.4];
 
 /** Full-screen plan viewer: zoom buttons + native scroll/drag to pan. */
 function PlanViewer({ plans, index, onClose, onChange, title }) {
-  const [zoomIndex, setZoomIndex] = useState(0);
+  // Start zoomed in on phones, where a wide plan would otherwise be tiny.
+  const startZoom = () => (typeof window !== "undefined" && window.innerWidth < 640 ? 2 : 0);
+  const [zoomIndex, setZoomIndex] = useState(startZoom);
   const closeRef = useRef(null);
   const scrollRef = useRef(null);
   const plan = plans[index];
@@ -52,7 +54,7 @@ function PlanViewer({ plans, index, onClose, onChange, title }) {
   }
 
   function go(next) {
-    setZoomIndex(0);
+    setZoomIndex(startZoom());
     onChange(next);
   }
 
@@ -117,7 +119,7 @@ function PlanViewer({ plans, index, onClose, onChange, title }) {
         />
       </div>
       <p className="px-4 py-2 text-center text-[11px] tracking-[0.08em] text-white/60">
-        Use + and − to zoom, then drag or scroll to move around.
+        Use + and − to zoom, then drag or scroll to move around. On a phone, turning it sideways gives a bigger view.
       </p>
     </div>
   );

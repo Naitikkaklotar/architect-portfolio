@@ -110,6 +110,13 @@ collections:
         choose_url: true
         hint: "Main image for cards and the project hero. Click Choose image to upload, or paste an image URL."
 
+      - label: "Phone cover (optional)"
+        name: cover_mobile
+        widget: image
+        required: false
+        choose_url: true
+        hint: "A tall (3:4) crop of the cover shown on phones, so the whole building is visible. Leave empty to use the normal cover."
+
       - label: "10. Gallery photos"
         name: images
         widget: list
@@ -131,6 +138,11 @@ collections:
             widget: text
             required: false
             hint: "1–2 short lines shown below the photo on the project page."
+          - label: Group heading (optional)
+            name: group
+            widget: string
+            required: false
+            hint: "Only used with square galleries. Put the same heading on the first photo of each group, e.g. Final design, Alternative option."
           - label: Clickable pieces on photo (hotspots)
             name: hotspots
             widget: list
@@ -239,6 +251,7 @@ collections:
         hint: "Adds the 'Climate report' section with the sun-path slider. Leave empty to hide it."
         fields:
           - { label: Intro line, name: intro, widget: text, required: false }
+          - { label: Note under the big numbers, name: note, widget: string, required: false, hint: "Example: Design targets, to be verified on completion." }
           - { label: Screen name, name: screen_name, widget: string, required: false, default: "Jaali screen", hint: "Shown on the sun diagram, e.g. Jaali screen, Louvres." }
           - { label: "West sun cut by shading (%)", name: screen_cut, widget: number, value_type: int, min: 1, max: 99, default: 78, required: false, hint: "Design target, used by the sun slider (e.g. 75–80 → 78)." }
           - label: Key benefits (3–4 big numbers)

@@ -37,6 +37,7 @@ export default function ProjectHero({ project }) {
         >
           <RevealImage
             src={project.cover}
+            mobileSrc={project.coverMobile}
             alt={`${project.title} cover`}
             aspect="auto"
             priority

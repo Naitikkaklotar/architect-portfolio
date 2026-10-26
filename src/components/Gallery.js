@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import ImageHotspots from "./ImageHotspots";
 import Lightbox from "./Lightbox";
 import RevealImage from "./RevealImage";
@@ -53,6 +53,7 @@ function getMeta(img, fallbackIndex) {
     caption: img.caption || `Photo ${fallbackIndex + 1}`,
     description: img.description || "",
     hotspots: img.hotspots || [],
+    group: img.group || "",
   };
 }
 
@@ -130,18 +131,33 @@ export default function Gallery({ images = [], title = "Project", aspect = "" })
     <>
       {uniform ? (
         <div className="grid min-w-0 grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 md:gap-y-16 lg:gap-x-12">
-          {images.map((image, index) => (
-            <GalleryFigure
-              key={`uniform-${index}`}
-              meta={getMeta(image, index)}
-              index={index}
-              title={title}
-              layout="pair"
-              aspect={aspect}
-              onOpen={setActive}
-              priority={index < 2}
-            />
-          ))}
+          {images.map((image, index) => {
+            const meta = getMeta(image, index);
+            const prevGroup = index > 0 ? getMeta(images[index - 1], index - 1).group : "";
+            const showGroup = meta.group && meta.group !== prevGroup;
+            return (
+              <Fragment key={`uniform-${index}`}>
+                {showGroup ? (
+                  <h3
+                    className={`col-span-full font-display text-2xl text-black md:text-3xl ${
+                      index > 0 ? "mt-4 border-t border-black/10 pt-10 md:mt-6" : ""
+                    }`}
+                  >
+                    {meta.group}
+                  </h3>
+                ) : null}
+                <GalleryFigure
+                  meta={meta}
+                  index={index}
+                  title={title}
+                  layout="pair"
+                  aspect={aspect}
+                  onOpen={setActive}
+                  priority={index < 2}
+                />
+              </Fragment>
+            );
+          })}
         </div>
       ) : (
       <div className="flex min-w-0 flex-col gap-12 md:gap-16 lg:gap-20">

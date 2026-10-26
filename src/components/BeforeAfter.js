@@ -31,7 +31,7 @@ export default function BeforeAfter({ compare, projectTitle = "Project", aspect 
 
       <Reveal className="mt-8">
         <div
-          className="relative mx-auto w-full max-w-3xl select-none overflow-hidden bg-[#e8e6e1]"
+          className="relative mx-auto w-full max-w-3xl select-none overflow-hidden bg-[#e8e6e1] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-black"
           style={{ aspectRatio: aspect }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}

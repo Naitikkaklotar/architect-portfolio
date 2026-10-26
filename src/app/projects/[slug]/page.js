@@ -29,9 +29,11 @@ export async function generateMetadata({ params }) {
     return { title: "Project not found" };
   }
 
-  const description = `${project.category}${project.location ? ` in ${project.location}` : ""}${
-    project.year ? `, ${project.year}` : ""
-  }. A project by ${site.name}.`;
+  const description =
+    project.excerpt ||
+    `${project.category}${project.location ? ` in ${project.location}` : ""}${
+      project.year ? `, ${project.year}` : ""
+    }. A project by ${site.name}.`;
 
   return {
     title: project.title,

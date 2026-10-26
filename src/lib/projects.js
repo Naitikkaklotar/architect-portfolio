@@ -49,6 +49,7 @@ function normalizeImages(images) {
           caption: captionFromPath(item),
           description: "",
           hotspots: [],
+          group: "",
         };
       }
       const src = item.image || item.src || "";
@@ -58,6 +59,7 @@ function normalizeImages(images) {
         caption: item.caption || item.label || captionFromPath(src),
         description: item.description || item.desc || "",
         hotspots: normalizeHotspots(item.hotspots),
+        group: item.group ? String(item.group) : "",
       };
     })
     .filter(Boolean);
@@ -132,6 +134,7 @@ function normalizeClimate(climate) {
     intro: climate.intro ? String(climate.intro) : "",
     benefits,
     features,
+    note: climate.note ? String(climate.note) : "",
     screenName: climate.screen_name ? String(climate.screen_name) : "Jaali screen",
     screenCut: Number.isFinite(cut) && cut > 0 && cut < 100 ? cut : 78,
   };
@@ -178,6 +181,7 @@ function mapProject(data, slug, content = "") {
     status: data.status ?? null,
     featured: Boolean(data.featured),
     cover: data.cover ?? "",
+    coverMobile: data.cover_mobile ?? "",
     images: normalizeImages(data.images),
     galleryAspect: data.gallery_aspect ? String(data.gallery_aspect) : "",
     plans: normalizePlans(data.plans),
