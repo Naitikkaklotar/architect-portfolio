@@ -89,6 +89,7 @@ images:
         x: 76
         y: 55
         href: /products/leather-armchair
+hidden: true
 ---
 
 A former warehouse floor reinvented as a flexible studio for a design practice. The original concrete structure is kept visible; new insertions of blackened steel and frosted glass define work zones without closing the volume.
