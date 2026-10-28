@@ -78,6 +78,17 @@
     <script>
       CMS.registerPreviewStyle("/admin/preview.css");
 
+      // Never let a half-filled form crash the preview: only accept real text paths/URLs.
+      function safeAsset(getAsset, value) {
+        if (typeof value !== "string" || !value) return "";
+        try {
+          var asset = getAsset(value);
+          return asset ? asset.toString() : "";
+        } catch (e) {
+          return "";
+        }
+      }
+
       var ProjectPreview = createClass({
         render: function () {
           var entry = this.props.entry;
@@ -94,10 +105,11 @@
 
           var meta = [category, location, year, area].filter(Boolean).join(" · ");
 
-          var coverNode = cover
+          var coverSrc = safeAsset(getAsset, cover);
+          var coverNode = coverSrc
             ? h("img", {
                 className: "preview-cover",
-                src: getAsset(cover).toString(),
+                src: coverSrc,
                 alt: title + " cover",
               })
             : h(
@@ -108,13 +120,14 @@
 
           var galleryNodes = [];
           if (images && images.size) {
-            images.forEach(function (img) {
-              var src = typeof img === "string" ? img : img && img.get ? img.get("image") || img : img;
+            images.forEach(function (img, index) {
+              var path = typeof img === "string" ? img : img && img.get ? img.get("image") : "";
+              var src = safeAsset(getAsset, path);
               if (!src) return;
               galleryNodes.push(
                 h("img", {
-                  key: String(src),
-                  src: getAsset(src).toString(),
+                  key: index + src,
+                  src: src,
                   alt: title + " gallery",
                 })
               );
@@ -155,14 +168,14 @@
           var category = entry.getIn(["data", "category"]) || "";
           var price = entry.getIn(["data", "price"]) || "";
           var summary = entry.getIn(["data", "summary"]) || "";
-          var cover = entry.getIn(["data", "cover"]);
+          var coverSrc = safeAsset(getAsset, entry.getIn(["data", "cover"]));
 
           return h("div", { className: "preview" }, [
-            cover
+            coverSrc
               ? h("img", {
                   key: "cover",
                   className: "preview-cover",
-                  src: getAsset(cover).toString(),
+                  src: coverSrc,
                   alt: title,
                 })
               : h("div", { key: "empty", className: "preview-cover-empty" }, "Add a cover image to see it here"),
