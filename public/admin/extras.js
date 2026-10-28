@@ -345,6 +345,7 @@
         "https://api.github.com/repos/" + GH_REPO + "/contents/content/projects/" + slug + ".md";
 
       fetch(fileUrl + "?ref=main", {
+        cache: "no-store",
         headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" },
       })
         .then(function (response) { return response.json(); })
@@ -363,7 +364,8 @@
         if (button.disabled) return;
         var nextHidden = button.getAttribute("data-on") !== "0";
         button.disabled = true;
-        fetch(fileUrl + "?ref=main", {
+        fetch(fileUrl + "?ref=main&t=" + Date.now(), {
+          cache: "no-store",
           headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" },
         })
           .then(function (response) { return response.json(); })
