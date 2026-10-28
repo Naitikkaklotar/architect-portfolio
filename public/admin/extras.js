@@ -338,6 +338,7 @@
         event.preventDefault();
         event.stopPropagation();
       });
+      card.classList.add("kk-project-card");
       card.appendChild(button);
 
       var fileUrl =

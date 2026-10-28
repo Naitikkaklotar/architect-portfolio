@@ -410,8 +410,8 @@ textarea,
 }
 
 /* On/off switch on each project card */
-a[class*="ListCard"] {
-  position: relative;
+a.kk-project-card {
+  position: relative !important;
 }
 
 .kk-vis {
