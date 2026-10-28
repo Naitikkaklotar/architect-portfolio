@@ -90,7 +90,6 @@ images:
         y: 50
         href: /products/leather-armchair
 video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-hidden: true
 ---
 
 An interior renovation organized around a double-height atrium. Soft plaster, linen screens, and a restrained palette of sand and charcoal keep attention on proportion and light.
