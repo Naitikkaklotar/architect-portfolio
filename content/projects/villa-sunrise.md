@@ -122,7 +122,7 @@ images:
         y: 62
         href: /products/leather-armchair
 video: https://youtu.be/dQw4w9WgXcQ
-hidden: false
+hidden: true
 ---
 
 A courtyard villa oriented to morning light. Thick masonry walls temper heat, while a shallow pool cools the central court and reflects the sky into the living spaces.
