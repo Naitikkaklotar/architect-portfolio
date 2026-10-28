@@ -409,6 +409,70 @@ textarea,
   display: block !important;
 }
 
+/* On/off switch on each project card */
+a[class*="ListCard"] {
+  position: relative;
+}
+
+.kk-vis {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 8px 4px 10px;
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 999px;
+  font-family: "Jost", "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.kk-vis-track {
+  width: 28px;
+  height: 16px;
+  border-radius: 999px;
+  background: #c8c8c8;
+  position: relative;
+  flex: none;
+}
+
+.kk-vis-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s ease;
+}
+
+.kk-vis[data-on="1"] .kk-vis-track {
+  background: #111;
+}
+
+.kk-vis[data-on="1"] .kk-vis-knob {
+  transform: translateX(12px);
+}
+
+.kk-vis[data-on="0"] {
+  color: #8a5a00;
+}
+
+a.kk-card-hidden {
+  opacity: 0.55;
+}
+
 /* ---------- Preview toggle + split ---------- */
 [class*="ButtonRound"] {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18) !important;

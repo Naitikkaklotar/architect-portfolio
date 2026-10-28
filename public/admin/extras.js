@@ -255,6 +255,154 @@
     });
   }
 
+  var GH_REPO = "Naitikkaklotar/architect-portfolio";
+
+  function cmsToken() {
+    var keys = ["decap-cms-user", "netlify-cms-user"];
+    for (var i = 0; i < keys.length; i += 1) {
+      try {
+        var user = JSON.parse(localStorage.getItem(keys[i]) || "null");
+        if (user && user.token) return user.token;
+      } catch (e) {}
+    }
+    return "";
+  }
+
+  function decodeB64(b64) {
+    var bin = atob(String(b64).replace(/\s/g, ""));
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i += 1) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  function encodeB64(text) {
+    var bytes = new TextEncoder().encode(text);
+    var bin = "";
+    for (var i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+
+  function withHidden(text, hidden) {
+    var match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!match) return null;
+    var fm = match[1];
+    var line = "hidden: " + (hidden ? "true" : "false");
+    fm = /^hidden:\s*(true|false)\s*$/m.test(fm)
+      ? fm.replace(/^hidden:\s*(true|false)\s*$/m, line)
+      : fm + "\n" + line;
+    return "---\n" + fm + "\n---" + text.slice(match[0].length);
+  }
+
+  function paintToggle(button, hidden) {
+    button.setAttribute("data-on", hidden ? "0" : "1");
+    button.setAttribute("aria-pressed", hidden ? "false" : "true");
+    button.querySelector(".kk-vis-label").textContent = hidden ? "Hidden" : "On website";
+    var card = button.closest("a");
+    if (card) card.classList.toggle("kk-card-hidden", hidden);
+  }
+
+  function showNote(html) {
+    var toast = document.getElementById("kk-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "kk-toast";
+      toast.setAttribute("role", "status");
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = html + '<button type="button" aria-label="Close" id="kk-toast-close">×</button>';
+    toast.style.display = "block";
+    var close = document.getElementById("kk-toast-close");
+    if (close) close.onclick = function () { toast.style.display = "none"; };
+  }
+
+  function mountVisibilityToggles() {
+    if (!/#\/collections\/projects\/?$/.test(location.hash || "")) return;
+    var token = cmsToken();
+    if (!token) return;
+    document.querySelectorAll('a[href*="/collections/projects/entries/"]').forEach(function (card) {
+      if (card.querySelector(".kk-vis")) return;
+      var match = (card.getAttribute("href") || "").match(/entries\/([^/?#]+)/);
+      if (!match) return;
+      var slug = decodeURIComponent(match[1]);
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "kk-vis";
+      button.innerHTML = '<span class="kk-vis-label">…</span><span class="kk-vis-track"><span class="kk-vis-knob"></span></span>';
+      button.disabled = true;
+      ["pointerdown", "mousedown"].forEach(function (type) {
+        button.addEventListener(type, function (event) {
+          event.stopPropagation();
+        });
+      });
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      card.appendChild(button);
+
+      var fileUrl =
+        "https://api.github.com/repos/" + GH_REPO + "/contents/content/projects/" + slug + ".md";
+
+      fetch(fileUrl + "?ref=main", {
+        headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" },
+      })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          if (!data.content) throw new Error("missing");
+          var hidden = /^hidden:\s*true\s*$/m.test(decodeB64(data.content).split("---")[1] || "");
+          paintToggle(button, hidden);
+          button.disabled = false;
+        })
+        .catch(function () {
+          paintToggle(button, false);
+          button.disabled = false;
+        });
+
+      button.addEventListener("click", function () {
+        if (button.disabled) return;
+        var nextHidden = button.getAttribute("data-on") !== "0";
+        button.disabled = true;
+        fetch(fileUrl + "?ref=main", {
+          headers: { Authorization: "Bearer " + token, Accept: "application/vnd.github+json" },
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            var next = withHidden(decodeB64(data.content), nextHidden);
+            if (!next) throw new Error("Could not update this project");
+            return fetch(fileUrl, {
+              method: "PUT",
+              headers: {
+                Authorization: "Bearer " + token,
+                Accept: "application/vnd.github+json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: (nextHidden ? "Hide " : "Show ") + slug.replace(/-/g, " "),
+                content: encodeB64(next),
+                sha: data.sha,
+                branch: "main",
+              }),
+            });
+          })
+          .then(function (response) {
+            if (!response.ok) throw new Error("GitHub did not save the change");
+            paintToggle(button, nextHidden);
+            showNote(
+              "<strong>" +
+                (nextHidden ? "Hidden from the website." : "Visible on the website again.") +
+                "</strong> The live site updates in about 2 minutes."
+            );
+          })
+          .catch(function () {
+            showNote("<strong>Could not change this project.</strong> Open it and use “Hide this project” instead.");
+          })
+          .then(function () {
+            button.disabled = false;
+          });
+      });
+    });
+  }
+
   function tick() {
     relabelLogin();
     markSections();
@@ -262,6 +410,7 @@
     hidePhotoExtras();
     preferGrid();
     remindAfterSave();
+    mountVisibilityToggles();
   }
 
   var timer;
