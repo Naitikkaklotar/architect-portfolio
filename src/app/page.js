@@ -4,7 +4,19 @@ import Reveal from "@/components/Reveal";
 import RevealImage from "@/components/RevealImage";
 import RevealText from "@/components/RevealText";
 import { getFeaturedProjects } from "@/lib/projects";
+import homeData from "../../content/pages/home.json";
 import { site, whatsappUrl } from "@/lib/site";
+
+const home = {
+  featuredTitle: homeData.featured_title || "Featured projects",
+  featuredText: homeData.featured_text || "",
+  servicesTitle: homeData.services_title || "Services",
+  toolsTitle: homeData.tools_title || "",
+  toolsText: homeData.tools_text || "",
+  tools: Array.isArray(homeData.tools) ? homeData.tools.filter((t) => t && t.href && t.title) : [],
+  ctaTitle: homeData.cta_title || "Start a project",
+  ctaText: homeData.cta_text || "",
+};
 
 export const metadata = {
   title: "Home",
@@ -60,13 +72,15 @@ export default function HomePage() {
             as="h2"
             className="font-display text-3xl break-words text-black md:text-4xl xl:text-5xl"
           >
-            Featured projects
+            {home.featuredTitle}
           </RevealText>
-          <Reveal>
-            <p className="mt-3 max-w-prose text-base text-[#6b6b6b] md:text-lg">
-              Large images. Minimal words. The work leads.
-            </p>
-          </Reveal>
+          {home.featuredText ? (
+            <Reveal>
+              <p className="mt-3 max-w-prose text-base text-[#6b6b6b] md:text-lg">
+                {home.featuredText}
+              </p>
+            </Reveal>
+          ) : null}
         </div>
 
         {featured.length === 0 ? (
@@ -101,7 +115,7 @@ export default function HomePage() {
             as="h2"
             className="font-display text-3xl text-black md:text-4xl xl:text-5xl"
           >
-            Services
+            {home.servicesTitle}
           </RevealText>
           <Reveal>
             <Link
@@ -135,34 +149,17 @@ export default function HomePage() {
             as="h2"
             className="font-display text-3xl break-words text-black md:text-4xl xl:text-5xl"
           >
-            Plan before you call
+            {home.toolsTitle}
           </RevealText>
-          <Reveal>
-            <p className="mt-3 max-w-prose text-base text-[#6b6b6b] md:text-lg">
-              Three quick tools to help you shape your idea.
-            </p>
-          </Reveal>
+          {home.toolsText ? (
+            <Reveal>
+              <p className="mt-3 max-w-prose text-base text-[#6b6b6b] md:text-lg">
+                {home.toolsText}
+              </p>
+            </Reveal>
+          ) : null}
           <div className="mt-10 grid grid-cols-1 gap-px bg-black/10 md:grid-cols-3">
-            {[
-              {
-                href: "/quiz",
-                label: "1-minute quiz",
-                title: "Which home suits you?",
-                text: "Five questions to find your style, with a matching project.",
-              },
-              {
-                href: "/estimate",
-                label: "Budget",
-                title: "Estimate your project",
-                text: "An indicative range for a villa, interior or turnkey build.",
-              },
-              {
-                href: "/map",
-                label: "Where we build",
-                title: "See projects on the map",
-                text: "Surat, Ahmedabad, Vadodara, Rajkot and more.",
-              },
-            ].map((tool) => (
+            {home.tools.map((tool) => (
               <Link
                 key={tool.href}
                 href={tool.href}
@@ -191,13 +188,15 @@ export default function HomePage() {
               as="h2"
               className="font-display text-3xl break-words md:text-4xl xl:text-5xl"
             >
-              Start a project
+              {home.ctaTitle}
             </RevealText>
-            <Reveal>
-              <p className="mt-3 max-w-prose text-base text-white/70 md:text-lg">
-                Tell us about the site, the brief, and the feeling you want the spaces to hold.
-              </p>
-            </Reveal>
+            {home.ctaText ? (
+              <Reveal>
+                <p className="mt-3 max-w-prose text-base text-white/70 md:text-lg">
+                  {home.ctaText}
+                </p>
+              </Reveal>
+            ) : null}
           </div>
           <Reveal delay={100}>
             <div className="flex w-full flex-col gap-3 sm:flex-row md:w-auto">

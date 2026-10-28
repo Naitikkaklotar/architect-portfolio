@@ -1,0 +1,29 @@
+{
+  "featured_title": "Featured projects",
+  "featured_text": "Large images. Minimal words. The work leads.",
+  "services_title": "Services",
+  "tools_title": "Plan before you call",
+  "tools_text": "Three quick tools to help you shape your idea.",
+  "tools": [
+    {
+      "href": "/quiz",
+      "label": "1-minute quiz",
+      "title": "Which home suits you?",
+      "text": "Five questions to find your style, with a matching project."
+    },
+    {
+      "href": "/estimate",
+      "label": "Budget",
+      "title": "Estimate your project",
+      "text": "An indicative range for a villa, interior or turnkey build."
+    },
+    {
+      "href": "/map",
+      "label": "Where we build",
+      "title": "See projects on the map",
+      "text": "Surat, Ahmedabad, Vadodara, Rajkot and more."
+    }
+  ],
+  "cta_title": "Start a project",
+  "cta_text": "Tell us about the site, the brief, and the feeling you want the spaces to hold."
+}

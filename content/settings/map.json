@@ -1,0 +1,15 @@
+{
+  "cities": [
+    { "name": "Surat", "lat": 21.1702, "lng": 72.8311, "keywords": "surat, adajan, vesu, piplod, althan" },
+    { "name": "Ahmedabad", "lat": 23.0225, "lng": 72.5714, "keywords": "ahmedabad, amdavad" },
+    { "name": "Vadodara", "lat": 22.3072, "lng": 73.1812, "keywords": "vadodara, baroda" },
+    { "name": "Mumbai", "lat": 19.076, "lng": 72.8777, "keywords": "mumbai, bombay, thane, navi mumbai" },
+    { "name": "Rajkot", "lat": 22.3039, "lng": 70.8022, "keywords": "rajkot" }
+  ],
+  "earlier": [
+    { "name": "Arya Club & Resort", "city": "Rajkot" },
+    { "name": "Arya Family Club", "city": "Surat" },
+    { "name": "Agora City", "city": "Vadodara" },
+    { "name": "Vida 360", "city": "Surat" }
+  ]
+}

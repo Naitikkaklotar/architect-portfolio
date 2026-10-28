@@ -1,0 +1,48 @@
+{
+  "highlights": [
+    {
+      "title": "Villas & homes",
+      "text": "Luxury villas, weekend homes, and farmhouses — from concept through handover."
+    },
+    {
+      "title": "Interiors",
+      "text": "Residential interiors with clear drawings, materials, and site coordination."
+    },
+    {
+      "title": "Turnkey",
+      "text": "Design, approvals, budgeting, execution, and final handover on one team."
+    }
+  ],
+  "offerings": [
+    {
+      "title": "Architectural design",
+      "text": "Concept, planning, design development, and working drawings for homes, villas, and larger programs."
+    },
+    {
+      "title": "Interior design",
+      "text": "Residential interiors — layouts, 3D views, material palettes, and execution details."
+    },
+    {
+      "title": "Turnkey delivery",
+      "text": "Full project lifecycle: design, working drawings, approvals, budgeting, execution, and handover. 50+ turnkey projects delivered."
+    },
+    {
+      "title": "Hospitality & commercial",
+      "text": "Clubs, resorts, commercial spaces, and hospital projects, alongside residential work."
+    },
+    {
+      "title": "Renovation",
+      "text": "Alterations and renovations coordinated with consultants, vendors, and the site team."
+    },
+    {
+      "title": "Sustainable design",
+      "text": "Practical climate response — shading, daylight, landscape cooling, and lower energy use, as in the Vrindavan bungalow."
+    }
+  ],
+  "process": [
+    { "title": "Brief", "text": "Site, program, budget, and how the project should live day to day." },
+    { "title": "Design", "text": "Concept, planning, 3D views, and working drawings." },
+    { "title": "Approvals", "text": "Coordination with consultants and the paperwork needed to build." },
+    { "title": "Execution", "text": "Site coordination, vendors, quality checks, and handover." }
+  ]
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { CITIES as CITY_LIST } from "@/lib/cities";
 import { site, whatsappUrl } from "@/lib/site";
 
 const PROJECT_TYPES = [
@@ -12,7 +13,7 @@ const PROJECT_TYPES = [
   "Not sure yet",
 ];
 
-const CITIES = ["Surat", "Ahmedabad", "Vadodara", "Mumbai", "Rajkot", "Other"];
+const CITIES = [...CITY_LIST.map((c) => c.name), "Other"];
 
 const fieldClass =
   "mt-2 min-h-12 w-full border border-black/15 bg-white px-4 text-base text-black outline-none transition focus:border-black";

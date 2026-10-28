@@ -1,0 +1,26 @@
+{
+  "name": "KK Architect",
+  "architect": "Keyur Kaklotar",
+  "tagline": "Residential architecture, interiors, and turnkey execution.",
+  "description": "KK Architect — Keyur Kaklotar, Council of Architecture registered architect (CA/2019/115819). Villas, homes, interiors, and turnkey projects across Surat, Ahmedabad, and Mumbai.",
+  "intro": "Founded in 2020, KK Architect is led by Keyur Kaklotar — 8+ years in residential architecture, interiors, and turnkey delivery, with 125+ projects and 50+ turnkey handovers.",
+  "email": "kkarchitect15151@gmail.com",
+  "phone": "+91 95868 53858",
+  "whatsapp": "919586853858",
+  "location": "Surat · Ahmedabad · Mumbai",
+  "address": "Projects across Surat, Ahmedabad, and Mumbai",
+  "mapsUrl": "https://maps.google.com/?q=Adajan+Surat",
+  "coa": "CA/2019/115819",
+  "cv": "/cv.pdf",
+  "languages": ["Gujarati", "Hindi", "English"],
+  "instagram": "https://instagram.com/kkarchitects",
+  "instagramLabel": "kkarchitect's",
+  "linkedin": "",
+  "stats": [
+    { "value": "125+", "label": "Projects completed" },
+    { "value": "50+", "label": "Turnkey projects" },
+    { "value": "8+", "label": "Years of experience" },
+    { "value": "3", "label": "Cities served" },
+    { "value": "100+", "label": "Clients" }
+  ]
+}

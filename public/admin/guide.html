@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>How to use the admin — KK Architect</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: #1c1917;
+        background: #faf9f7;
+        line-height: 1.6;
+      }
+      header { background: #1c1917; color: #fff; padding: 28px 20px; }
+      header h1 { margin: 0 auto; max-width: 760px; font-size: 26px; font-weight: 600; }
+      header p { margin: 6px auto 0; max-width: 760px; opacity: 0.75; }
+      main { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+      h2 { margin: 40px 0 8px; font-size: 22px; }
+      h3 { margin: 24px 0 6px; font-size: 17px; }
+      p, li { font-size: 16px; }
+      ol, ul { padding-left: 22px; }
+      li { margin-bottom: 6px; }
+      .card { background: #fff; border: 1px solid #e7e5e4; border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+      .tip { background: #f0fdf4; border-color: #bbf7d0; }
+      .warn { background: #fffbeb; border-color: #fde68a; }
+      table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e7e5e4; }
+      th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e7e5e4; font-size: 15px; vertical-align: top; }
+      th { background: #f5f5f4; }
+      a { color: #0f766e; }
+      code { background: #f5f5f4; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+      .btn { display: inline-block; background: #1c1917; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>How to use the admin</h1>
+      <p>A short guide for adding and changing things on the KK Architect website.</p>
+    </header>
+    <main>
+      <p><a class="btn" href="/admin/index.html">← Back to the admin</a></p>
+
+      <h2>The 4 steps, every time</h2>
+      <div class="card">
+        <ol>
+          <li><strong>Choose</strong> what to change in the list on the left (Projects, Products, Pages, Site settings).</li>
+          <li><strong>Change it</strong> and look at the preview on the right.</li>
+          <li>Click <strong>Save</strong>. This keeps your work as a <em>draft</em>. The live site does not change yet.</li>
+          <li>Click <strong>Set status → Ready</strong> (or open <strong>Workflow</strong> at the top and drag it to Ready), then click <strong>Publish</strong>. The website updates in about <strong>2 minutes</strong>.</li>
+        </ol>
+      </div>
+      <div class="card tip">
+        <strong>Good to know:</strong> nothing is lost. Drafts are saved, and every published change can be undone by a developer.
+      </div>
+
+      <h2>What can I change?</h2>
+      <table>
+        <tr><th>Where in the admin</th><th>What it changes</th></tr>
+        <tr><td><strong>Projects</strong></td><td>Every project page: photos, details, floor plans, progress updates.</td></tr>
+        <tr><td><strong>Products</strong></td><td>Furniture / pieces that visitors can ask about on WhatsApp.</td></tr>
+        <tr><td><strong>Pages (text) → Home</strong></td><td>Headings and short texts on the home page.</td></tr>
+        <tr><td><strong>Pages (text) → About</strong></td><td>Your bio, experience, skills and achievements.</td></tr>
+        <tr><td><strong>Pages (text) → Services</strong></td><td>What you offer and your working steps.</td></tr>
+        <tr><td><strong>Site settings → Contact, social &amp; numbers</strong></td><td>Phone, WhatsApp, email, Instagram, CV, and the numbers on the About page (125+ projects…).</td></tr>
+        <tr><td><strong>Site settings → Map &amp; cities</strong></td><td>The cities shown on the Project map.</td></tr>
+        <tr><td><strong>Site settings → Budget estimator rates</strong></td><td>The prices visitors see in the estimator.</td></tr>
+      </table>
+
+      <h2>Add a new project (5 minutes)</h2>
+      <div class="card">
+        <ol>
+          <li>Click <strong>Projects → New Project</strong>.</li>
+          <li>Fill the first boxes: <strong>Project name, Category, Location, Year</strong>. Status, area and role are optional.</li>
+          <li><strong>Cover photo</strong>: click <em>Choose an image</em> and upload your best wide photo.</li>
+          <li><strong>Gallery photos</strong>: click <em>Add</em> for each photo, upload it and type a short caption.</li>
+          <li><strong>Project description</strong>: write 1–3 short paragraphs.</li>
+          <li>Turn <strong>Show on homepage</strong> ON if you want it featured on the home page.</li>
+          <li>Save, then Ready, then Publish.</li>
+        </ol>
+      </div>
+      <div class="card warn">
+        <strong>Not ready yet?</strong> Turn <strong>Hide this project (draft)</strong> ON. It is saved but nobody sees it on the website. Turn it OFF when you want it live.
+      </div>
+      <p>
+        The boxes starting with <strong>“Extra:”</strong> (floor plans, before/after slider, design story, progress updates, climate report…) are optional. Leave them empty if you do not need them.
+      </p>
+
+      <h3>Put a project first in the list</h3>
+      <p>Use <strong>Position in list</strong>. Type <code>1</code> to show the project first, <code>2</code> second. Leave it empty for automatic order (newest year first).</p>
+
+      <h3>Show a project on the map</h3>
+      <p>Write the city in <strong>Location</strong>, for example <em>Vesu, Surat</em>. If the city is not on the map yet, add it in <strong>Site settings → Map &amp; cities</strong> with its latitude and longitude (right-click the city in Google Maps and click the numbers to copy them).</p>
+
+      <h2>Update a project that is being built</h2>
+      <div class="card">
+        <ol>
+          <li>Open the project.</li>
+          <li>Scroll to <strong>Extra: Progress updates</strong> and click <em>Add</em>.</li>
+          <li>Type the date, a title and a short note. A site photo is optional.</li>
+          <li>When it is finished, change <strong>Status</strong> to <em>Completed</em>.</li>
+        </ol>
+      </div>
+
+      <h2>Change your phone, email or Instagram</h2>
+      <div class="card">
+        <ol>
+          <li>Open <strong>Site settings → Contact, social &amp; numbers</strong>.</li>
+          <li>Change the box. The admin tells you if the format is wrong.</li>
+          <li><strong>WhatsApp number</strong>: digits only, with country code, no <code>+</code> or spaces. Example: <code>919586853858</code>.</li>
+          <li>Save, Ready, Publish. The footer, Contact page and the call button all update.</li>
+        </ol>
+      </div>
+
+      <h2>Photo tips</h2>
+      <ul>
+        <li><strong>Cover photo:</strong> wide (landscape) works best.</li>
+        <li><strong>Phone cover:</strong> optional tall photo for phones (shape 3:4).</li>
+        <li>Photos are made smaller automatically, but very large files (over 10 MB) upload slowly. Export as JPG at about 2000 pixels wide if you can.</li>
+        <li>Do not show client names, phone numbers or exact addresses in floor plans or photos.</li>
+      </ul>
+
+      <h2>If something goes wrong</h2>
+      <ul>
+        <li><strong>I cannot log in:</strong> use “Login with GitHub” with the account that was given access to the website.</li>
+        <li><strong>My change is not on the site:</strong> wait 2–3 minutes and refresh. Check that you clicked <strong>Publish</strong> (not only Save).</li>
+        <li><strong>A red message appears next to a box:</strong> that box needs a value or is in the wrong format. Fix it and save again.</li>
+        <li><strong>I made a mistake:</strong> do not worry. Ask your developer to restore the earlier version.</li>
+      </ul>
+
+      <p style="margin-top: 40px"><a class="btn" href="/admin/index.html">← Back to the admin</a></p>
+    </main>
+  </body>
+</html>

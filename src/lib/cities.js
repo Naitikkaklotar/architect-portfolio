@@ -1,11 +1,25 @@
-/** City-level map data (approximate centres). No exact site addresses are published. */
-export const CITIES = [
-  { name: "Surat", lat: 21.1702, lng: 72.8311, keys: ["surat", "adajan", "vesu", "piplod", "althan"] },
-  { name: "Ahmedabad", lat: 23.0225, lng: 72.5714, keys: ["ahmedabad", "amdavad"] },
-  { name: "Vadodara", lat: 22.3072, lng: 73.1812, keys: ["vadodara", "baroda"] },
-  { name: "Mumbai", lat: 19.076, lng: 72.8777, keys: ["mumbai", "bombay", "thane", "navi mumbai"] },
-  { name: "Rajkot", lat: 22.3039, lng: 70.8022, keys: ["rajkot"] },
-];
+/**
+ * City-level map data (approximate centres). No exact site addresses are published.
+ * Edited from the admin: "Site settings → Map & cities".
+ */
+import mapData from "../../content/settings/map.json";
+
+export const CITIES = (Array.isArray(mapData.cities) ? mapData.cities : [])
+  .filter((c) => c && c.name && Number.isFinite(Number(c.lat)) && Number.isFinite(Number(c.lng)))
+  .map((c) => {
+    const name = String(c.name).trim();
+    const keys = String(c.keywords || "")
+      .split(",")
+      .map((k) => k.trim().toLowerCase())
+      .filter(Boolean);
+    return {
+      name,
+      lat: Number(c.lat),
+      lng: Number(c.lng),
+      // The city name itself always matches a project's location text.
+      keys: keys.includes(name.toLowerCase()) ? keys : [name.toLowerCase(), ...keys],
+    };
+  });
 
 export function cityFromLocation(location = "") {
   const text = String(location).toLowerCase();
@@ -13,9 +27,6 @@ export function cityFromLocation(location = "") {
 }
 
 /** Earlier work listed on the CV (city-level only). */
-export const EARLIER_WORKS = [
-  { name: "Arya Club & Resort", city: "Rajkot" },
-  { name: "Arya Family Club", city: "Surat" },
-  { name: "Agora City", city: "Vadodara" },
-  { name: "Vida 360", city: "Surat" },
-];
+export const EARLIER_WORKS = (Array.isArray(mapData.earlier) ? mapData.earlier : []).filter(
+  (w) => w && w.name && w.city,
+);

@@ -180,6 +180,8 @@ function mapProject(data, slug, content = "") {
     role: data.role ?? null,
     status: data.status ?? null,
     featured: Boolean(data.featured),
+    hidden: data.hidden === true,
+    order: Number.isFinite(Number(data.order)) && data.order !== "" && data.order != null ? Number(data.order) : null,
     cover: data.cover ?? "",
     coverMobile: data.cover_mobile ?? "",
     coverZoom: data.cover_zoom === true,
@@ -219,7 +221,16 @@ export function getAllProjects() {
     return mapProject(data, slug, content);
   });
 
-  const sorted = projects.sort((a, b) => (b.year || 0) - (a.year || 0));
+  // Hidden projects are drafts: not listed anywhere on the site.
+  // Projects with an "order" number come first (1 = first); the rest follow, newest year first.
+  const sorted = projects
+    .filter((p) => !p.hidden)
+    .sort((a, b) => {
+      if (a.order != null && b.order != null) return a.order - b.order;
+      if (a.order != null) return -1;
+      if (b.order != null) return 1;
+      return (b.year || 0) - (a.year || 0);
+    });
   return withProjectNumbers(sorted);
 }
 
@@ -249,7 +260,7 @@ export function getFeaturedProjects() {
 }
 
 export function getProjectSlugs() {
-  return ensureProjectsDir().map((fileName) => fileName.replace(/\.md$/, ""));
+  return getAllProjects().map((project) => project.slug);
 }
 
 /** Previous / next project in the year-desc list (wraps). */

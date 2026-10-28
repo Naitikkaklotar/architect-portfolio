@@ -10,6 +10,10 @@ backend:
 # Ignored on the live site (non-localhost).
 local_backend: true
 
+# Changes are saved as a DRAFT first. Open "Workflow" (top bar) and move a draft to
+# "Ready", then click Publish. Nothing reaches the live site until you publish.
+publish_mode: editorial_workflow
+
 site_url: https://architect-portfolio.kkarchitect.workers.dev
 display_url: https://architect-portfolio.kkarchitect.workers.dev
 logo_url: /uploads/hero.jpg
@@ -18,14 +22,14 @@ media_folder: public/uploads
 public_folder: /uploads
 
 collections:
+  # ───────────────────────── PROJECTS ─────────────────────────
   - name: projects
-    label: Projects
-    label_singular: Project
+    label: "Projects"
+    label_singular: "Project"
     description: >
-      Add a new project in a few steps: (1) name & details,
-      (2) cover + gallery photos, (3) optional YouTube link,
-      (4) write a short description, then click Publish / Save.
-      Photos go into public/uploads. Tip: turn Featured ON to show it on the homepage.
+      Your portfolio projects. To add one: click "New Project", fill the first
+      boxes (name, category, location, year, cover photo, gallery, description),
+      then Save → Publish. The "Extra" boxes at the bottom are optional.
     folder: content/projects
     create: true
     delete: true
@@ -42,18 +46,19 @@ collections:
     editor:
       preview: true
     fields:
-      - label: "1. Project name"
+      # --- The basics ---
+      - label: "Project name"
         name: title
         widget: string
-        hint: "The name visitors will see (example: Villa Sunrise)."
+        hint: "The name visitors see. Example: Villa Sunrise."
 
       - label: "Short card description"
         name: excerpt
         widget: text
         required: false
-        hint: "1–2 lines under the project image on listing cards. Leave blank to use the start of the full description."
+        hint: "1–2 lines under the project image on the Projects list. Leave blank to use the start of the description."
 
-      - label: "2. Category"
+      - label: "Category"
         name: category
         widget: select
         options:
@@ -64,106 +69,130 @@ collections:
         default: Residential
         hint: "Used for the filter buttons on the Projects page."
 
-      - label: "3. Location"
+      - label: "Location"
         name: location
         widget: string
-        hint: "City or area (example: Ahmedabad)."
+        hint: "Area and city, e.g. Adajan, Surat. The city decides the pin on the Project map (cities are set in Site settings → Map & cities)."
 
-      - label: "4. Year"
+      - label: "Year"
         name: year
         widget: number
         value_type: int
-        default: 2025
+        default: 2026
         min: 1990
         max: 2100
-        hint: "Completion year (numbers only)."
+        hint: "Year of the project (numbers only). Newer years are listed first."
 
-      - label: "5. Area"
-        name: area
-        widget: string
-        required: false
-        hint: "Built-up size, e.g. 3500 sq ft. Leave blank if you are not sure."
-
-      - label: "6. Your role"
-        name: role
-        widget: string
-        required: false
-        hint: "Example: Lead Architect, Interior Architect, Design Architect."
-
-      - label: "7. Status"
+      - label: "Status"
         name: status
         widget: select
         required: false
         options: [Completed, Under construction, Concept, On hold]
         default: Completed
-        hint: "Shown on the project detail info bar."
+        hint: "Shown in the project info bar."
 
-      - label: "8. Show on homepage?"
-        name: featured
-        widget: boolean
-        default: false
-        hint: "**ON** = appears in Featured on the home page. **OFF** = only on the Projects list."
+      - label: "Built-up area"
+        name: area
+        widget: string
+        required: false
+        hint: "Write it in sq ft, e.g. 3,500 sq ft. Leave blank if you are not sure."
 
-      - label: "9. Cover photo"
+      - label: "Your role"
+        name: role
+        widget: string
+        required: false
+        hint: "Example: Architecture | Interior."
+
+      - label: "Cover photo"
         name: cover
         widget: image
         choose_url: true
-        hint: "Main image for cards and the project hero. Click Choose image to upload, or paste an image URL."
+        hint: "The main photo of the project (cards and banner). A wide landscape photo works best. Click 'Choose an image' to upload."
 
-      - label: "Phone cover (optional)"
-        name: cover_mobile
-        widget: image
-        required: false
-        choose_url: true
-        hint: "A tall (3:4) crop of the cover shown on phones, so the whole building is visible. Leave empty to use the normal cover."
-
-      - label: "Cover zoom-out animation"
-        name: cover_zoom
-        widget: boolean
-        default: false
-        required: false
-        hint: "On: the cover zooms out from a close crop to the full picture when the page opens, then drifts slowly."
-
-      - label: "10. Gallery photos"
+      - label: "Gallery photos"
         name: images
         widget: list
         required: false
+        collapsed: true
         summary: "{{caption}} — {{image}}"
         allow_add: true
-        hint: "Add room photos (Kitchen, Bedroom, Living…). Click **+** for each photo and add a short caption."
+        hint: "The photos shown in the gallery. Click 'Add' for each photo, then add a short caption (Kitchen, Bedroom…)."
         fields:
           - label: Photo
             name: image
             widget: image
             choose_url: true
-          - label: Room / caption
+          - label: Caption
             name: caption
             widget: string
             hint: "Example: Kitchen, Bedroom, Living room, Courtyard"
-          - label: Description under image
+          - label: Description under the photo
             name: description
             widget: text
             required: false
-            hint: "1–2 short lines shown below the photo on the project page."
+            hint: "1–2 short lines shown below the photo."
           - label: Group heading (optional)
             name: group
             widget: string
             required: false
-            hint: "Only used with square galleries. Put the same heading on the first photo of each group, e.g. Final design, Alternative option."
-          - label: Clickable pieces on photo (hotspots)
+            hint: "Only for square galleries. Type the same heading on the first photo of each group, e.g. Final design."
+          - label: Clickable markers on this photo (hotspots)
             name: hotspots
             widget: list
             required: false
-            summary: "{{label}} → {{href}}"
-            hint: "Optional. Place markers on the photo (X/Y = % from left/top). Link to a product page like /products/living-sofa or any URL."
+            collapsed: true
+            summary: "{{label}}"
+            hint: "Optional. Add a marker on the photo. X and Y are percentages: X = distance from the left, Y = distance from the top (50 and 50 = the centre)."
             fields:
-              - { label: Piece name, name: label, widget: string, hint: "Example: Sofa, Lounge chair" }
-              - { label: X position % (0–100 from left), name: x, widget: number, value_type: float, min: 0, max: 100, default: 50 }
-              - { label: Y position % (0–100 from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
-              - { label: Note shown when tapped, name: note, widget: text, required: false, hint: "Optional. A short explanation that opens in a small card when the marker is tapped." }
-              - { label: Link to product / page, name: href, widget: string, required: false, hint: "Optional. /products/living-sofa, #climate, or https://…" }
+              - { label: Marker name, name: label, widget: string, hint: "Example: Sofa, Lounge chair" }
+              - { label: X position (0–100, from left), name: x, widget: number, value_type: float, min: 0, max: 100, default: 50 }
+              - { label: Y position (0–100, from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
+              - { label: Text shown when tapped, name: note, widget: text, required: false, hint: "Optional. A short note that opens in a small card." }
+              - { label: Link, name: href, widget: string, required: false, hint: "Optional. /products/living-sofa, #climate, or https://…" }
 
-      - label: "Gallery shape (optional)"
+      - label: "Project description"
+        name: body
+        widget: markdown
+        hint: "Write 1–3 short paragraphs about the project. Use the toolbar for bold, bullet lists and links."
+
+      # --- Visibility ---
+      - label: "Show on homepage?"
+        name: featured
+        widget: boolean
+        default: false
+        hint: "ON = appears under 'Featured projects' on the home page. OFF = only on the Projects page."
+
+      - label: "Hide this project (draft)"
+        name: hidden
+        widget: boolean
+        default: false
+        required: false
+        hint: "ON = the project is saved but NOT shown anywhere on the website. Use it while you are still preparing a project."
+
+      - label: "Position in list (optional)"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        required: false
+        hint: "Leave empty for automatic order (newest year first). Type 1 to always show this project first, 2 for second, and so on."
+
+      # --- Extras (all optional) ---
+      - label: "Extra: Phone cover photo"
+        name: cover_mobile
+        widget: image
+        required: false
+        choose_url: true
+        hint: "Optional. A tall (3:4) version of the cover shown on phones. Leave empty to use the normal cover."
+
+      - label: "Extra: Cover zoom-out animation"
+        name: cover_zoom
+        widget: boolean
+        default: false
+        required: false
+        hint: "ON = the cover zooms out from a close crop to the full picture when the page opens."
+
+      - label: "Extra: Gallery shape"
         name: gallery_aspect
         widget: select
         required: false
@@ -171,39 +200,53 @@ collections:
         options:
           - { label: "Mixed (wide + pairs) — for normal photos", value: "" }
           - { label: "Square 1:1 — for square renders", value: "1/1" }
-        hint: "Use Square when your gallery images are square renders, so nothing is cropped."
+        hint: "Choose Square if your gallery images are square renders, so nothing is cropped."
 
-      - label: "Floor plans (optional)"
+      - label: "Extra: YouTube video"
+        name: video
+        widget: string
+        required: false
+        hint: "Paste any YouTube link (youtu.be/… or youtube.com/watch?v=…). Leave empty if there is no video."
+        pattern:
+          - '^$|^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+'
+          - "Please paste a valid YouTube link, or leave this field empty."
+
+      - label: "Extra: Floor plans"
         name: plans
         widget: list
         required: false
+        collapsed: true
+        minimize_collapsed: true
         summary: "{{title}}"
-        hint: "One entry per floor. Shown as tabs on the project page. Upload the plan as a JPG/PNG image."
+        hint: "One entry per floor, shown as tabs. Upload each plan as a JPG or PNG."
         fields:
           - { label: Plan image, name: image, widget: image, choose_url: true }
-          - { label: Title, name: title, widget: string, hint: "Example: First floor — living, dining & kitchen. The text before the dash is the tab name." }
+          - { label: Title, name: title, widget: string, hint: "Example: First floor — living, dining & kitchen. The words before the dash become the tab name." }
           - { label: Note, name: description, widget: text, required: false }
           - label: Rooms and sizes
             name: rooms
             widget: list
             required: false
+            collapsed: true
             summary: "{{name}} — {{size}}"
             hint: "Optional. Shown as a list next to the plan."
             fields:
               - { label: Room, name: name, widget: string }
               - { label: Size, name: size, widget: string, required: false, hint: "Example: 22'-9\" × 20'-0\"" }
 
-      - label: "Key numbers strip (optional)"
+      - label: "Extra: Key numbers strip"
         name: highlights
         widget: list
         required: false
+        collapsed: true
+        minimize_collapsed: true
         summary: "{{value}} — {{label}}"
         hint: "3–5 big numbers shown under the banner, e.g. 10,350 sq ft / Built-up area."
         fields:
           - { label: Number, name: value, widget: string }
           - { label: Label, name: label, widget: string }
 
-      - label: "Before / after slider (optional)"
+      - label: "Extra: Before / after slider"
         name: compare
         widget: object
         required: false
@@ -217,40 +260,35 @@ collections:
           - { label: Before label, name: before_label, widget: string, required: false, default: "Before" }
           - { label: After label, name: after_label, widget: string, required: false, default: "After" }
 
-      - label: "Design story steps (optional)"
+      - label: "Extra: Design story"
         name: story
         widget: list
         required: false
+        collapsed: true
+        minimize_collapsed: true
         summary: "{{title}}"
-        hint: "How the design evolved, step by step. Image is optional."
+        hint: "How the design evolved, step by step. The image is optional."
         fields:
           - { label: Step title, name: title, widget: string }
           - { label: Date, name: date, widget: string, required: false, hint: "Example: September 2025" }
           - { label: Text, name: text, widget: text, required: false }
           - { label: Image, name: image, widget: image, required: false, choose_url: true }
 
-      - label: "Project progress updates (optional)"
+      - label: "Extra: Progress updates"
         name: progress
         widget: list
         required: false
+        collapsed: true
+        minimize_collapsed: true
         summary: "{{date}} — {{title}}"
-        hint: "Dated updates for an ongoing project. Add a new entry each time something happens. Site photos are optional."
+        hint: "Dated updates for a project that is still being built. Add a new entry each time something happens. Site photos are optional."
         fields:
           - { label: Date, name: date, widget: string, required: false, hint: "Example: 12 Nov 2025" }
           - { label: Update title, name: title, widget: string }
           - { label: Text, name: text, widget: text, required: false }
           - { label: Site photo, name: image, widget: image, required: false, choose_url: true }
 
-      - label: "11. YouTube video"
-        name: video
-        widget: string
-        required: false
-        hint: "Paste any YouTube link — `youtu.be/...` or `youtube.com/watch?v=...`. Leave empty if there is no video."
-        pattern:
-          - '^$|^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+'
-          - "Please paste a valid YouTube link, or leave this field empty."
-
-      - label: "Climate report (optional)"
+      - label: "Extra: Climate report"
         name: climate
         widget: object
         required: false
@@ -260,11 +298,12 @@ collections:
           - { label: Intro line, name: intro, widget: text, required: false }
           - { label: Note under the big numbers, name: note, widget: string, required: false, hint: "Example: Design targets, to be verified on completion." }
           - { label: Screen name, name: screen_name, widget: string, required: false, default: "Jaali screen", hint: "Shown on the sun diagram, e.g. Jaali screen, Louvres." }
-          - { label: "West sun cut by shading (%)", name: screen_cut, widget: number, value_type: int, min: 1, max: 99, default: 78, required: false, hint: "Design target, used by the sun slider (e.g. 75–80 → 78)." }
+          - { label: "West sun cut by shading (%)", name: screen_cut, widget: number, value_type: int, min: 1, max: 99, default: 78, required: false, hint: "Design target used by the sun slider (e.g. 75–80 → 78)." }
           - label: Key benefits (3–4 big numbers)
             name: benefits
             widget: list
             required: false
+            collapsed: true
             summary: "{{value}} — {{label}}"
             fields:
               - { label: Number, name: value, widget: string, hint: "e.g. 2–3°C" }
@@ -273,23 +312,20 @@ collections:
             name: features
             widget: list
             required: false
+            collapsed: true
             summary: "{{title}}"
             fields:
               - { label: Title, name: title, widget: string }
               - { label: Explanation, name: text, widget: text, required: false }
 
-      - label: "12. Project description"
-        name: body
-        widget: markdown
-        hint: "Write 1–3 short paragraphs about the project. You can use **bold**, lists, and links."
-
+  # ───────────────────────── PRODUCTS ─────────────────────────
   - name: products
-    label: Products / pieces
-    label_singular: Product
+    label: "Products"
+    label_singular: "Product"
     description: >
-      Furniture or finish pieces linked from photo hotspots.
-      Create a product here, then on a project gallery image add a hotspot
-      with link /products/your-slug.
+      Furniture or finish pieces that visitors can ask about on WhatsApp.
+      Create a product here, then on a project gallery photo add a marker
+      linking to /products/your-product-name.
     folder: content/products
     create: true
     delete: true
@@ -298,6 +334,8 @@ collections:
     format: frontmatter
     identifier_field: title
     summary: "{{title}} — {{category}}"
+    editor:
+      preview: true
     fields:
       - { label: Name, name: title, widget: string }
       - { label: Brand / note, name: brand, widget: string, required: false }
@@ -307,21 +345,222 @@ collections:
       - { label: Short summary, name: summary, widget: text, required: false }
       - { label: Full description, name: body, widget: markdown }
 
-  - name: settings
-    label: Site settings
-    description: "Numbers and text used by site tools."
+  # ───────────────────────── PAGES ─────────────────────────
+  - name: pages
+    label: "Pages (text)"
+    description: "The words on the Home, About and Services pages. Open a page, change the text, then Save → Publish."
+    editor:
+      preview: true
     files:
+      - name: home
+        label: "Home page"
+        file: content/pages/home.json
+        format: json
+        description: "Headings and short texts on the home page. The big banner photo is your first featured project (turn on 'Show on homepage' in a project)."
+        fields:
+          - { label: "Featured projects: heading", name: featured_title, widget: string }
+          - { label: "Featured projects: sentence", name: featured_text, widget: string, required: false }
+          - { label: "Services: heading", name: services_title, widget: string }
+          - { label: "Tools section: heading", name: tools_title, widget: string, required: false }
+          - { label: "Tools section: sentence", name: tools_text, widget: string, required: false }
+          - label: "Tool cards"
+            name: tools
+            widget: list
+            required: false
+            summary: "{{title}}"
+            hint: "Cards linking to the quiz, estimator and map. Do not change the Page link unless you add a new page."
+            fields:
+              - { label: Small label, name: label, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+              - label: Page link
+                name: href
+                widget: select
+                options:
+                  - { label: "Home style quiz", value: "/quiz" }
+                  - { label: "Budget estimator", value: "/estimate" }
+                  - { label: "Project map", value: "/map" }
+                  - { label: "Projects", value: "/projects" }
+                  - { label: "Products", value: "/products" }
+                  - { label: "Contact", value: "/contact" }
+          - { label: "Bottom banner: heading", name: cta_title, widget: string }
+          - { label: "Bottom banner: sentence", name: cta_text, widget: text, required: false }
+
+      - name: about
+        label: "About page"
+        file: content/pages/about.json
+        format: json
+        description: "Your story, experience and skills."
+        fields:
+          - { label: Job title, name: role, widget: string, hint: "Shown under your name, e.g. Architect | Founder — KK Architect" }
+          - label: About you (paragraphs)
+            name: bio
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+            hint: "Click Add for each paragraph."
+          - { label: Design philosophy, name: philosophy, widget: text }
+          - label: Experience
+            name: experience
+            widget: list
+            field: { label: Role, name: role, widget: text, hint: "Example: 2020 – present — Founder, KK Architect. What you do." }
+            hint: "One line per job. Newest first."
+          - label: Areas of expertise
+            name: expertise
+            widget: list
+            field: { label: Area, name: area, widget: string }
+          - label: Earlier projects
+            name: earlierProjects
+            widget: list
+            field: { label: Project, name: project, widget: string, hint: "Example: Agora City — Vadodara" }
+          - label: Software skills
+            name: software
+            widget: list
+            field: { label: Software, name: software, widget: string, hint: "Example: AutoCAD — 95%" }
+          - label: Achievements
+            name: achievements
+            widget: list
+            field: { label: Achievement, name: achievement, widget: string }
+
+      - name: services
+        label: "Services page"
+        file: content/pages/services.json
+        format: json
+        description: "What you offer and how you work."
+        fields:
+          - label: "Home page: 3 short services"
+            name: highlights
+            widget: list
+            summary: "{{title}}"
+            min: 1
+            max: 3
+            hint: "The three services shown on the home page (use up to 3)."
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - label: "Services page: full list"
+            name: offerings
+            widget: list
+            summary: "{{title}}"
+            hint: "Everything you offer. Add, edit or remove entries."
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - label: "How we work (steps)"
+            name: process
+            widget: list
+            summary: "{{title}}"
+            hint: "The steps are numbered automatically (01, 02, 03…) in the order shown here."
+            fields:
+              - { label: Step name, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+
+  # ───────────────────────── SETTINGS ─────────────────────────
+  - name: settings
+    label: "Site settings"
+    description: "Contact details, map, and the budget estimator."
+    editor:
+      preview: true
+    files:
+      - name: contact
+        label: "Contact, social & numbers"
+        file: content/settings/site.json
+        format: json
+        description: >
+          Your phone, email and social links appear in the footer, the Contact page and the
+          floating call button. Check these carefully, a wrong number means missed calls.
+        fields:
+          - { label: Studio name, name: name, widget: string }
+          - { label: Architect name, name: architect, widget: string }
+          - { label: Tagline, name: tagline, widget: string, hint: "The line under your name on the home page banner." }
+          - { label: Intro paragraph, name: intro, widget: text, hint: "The large sentence in the middle of the home page." }
+          - { label: Search description, name: description, widget: text, hint: "Shown on Google and when the site is shared on WhatsApp. 1–2 sentences." }
+          - label: Email
+            name: email
+            widget: string
+            pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', "Enter a valid email like name@gmail.com"]
+          - label: Phone (shown on the site)
+            name: phone
+            widget: string
+            pattern: ['^\+?[0-9 ()-]{8,20}$', "Use digits only, for example +91 95868 53858"]
+            hint: "Example: +91 95868 53858. Used for the Call button."
+          - label: WhatsApp number
+            name: whatsapp
+            widget: string
+            pattern: ['^[0-9]{10,15}$', "Digits only, with country code and no + or spaces. Example: 919586853858"]
+            hint: "Digits only, with country code, no + or spaces. Example: 919586853858"
+          - { label: Cities line, name: location, widget: string, hint: "Example: Surat · Ahmedabad · Mumbai" }
+          - { label: Address line, name: address, widget: string }
+          - label: Google Maps link
+            name: mapsUrl
+            widget: string
+            required: false
+            pattern: ['^$|^https?://.+', "Start with https://"]
+          - { label: Council of Architecture number, name: coa, widget: string, required: false }
+          - label: Languages
+            name: languages
+            widget: list
+            field: { label: Language, name: language, widget: string }
+          - label: Instagram link
+            name: instagram
+            widget: string
+            required: false
+            pattern: ['^$|^https?://.+', "Start with https://"]
+            hint: "Full link, e.g. https://instagram.com/yourname. Leave empty to hide."
+          - { label: Instagram name shown, name: instagramLabel, widget: string, required: false }
+          - label: LinkedIn link
+            name: linkedin
+            widget: string
+            required: false
+            pattern: ['^$|^https?://.+', "Start with https://"]
+            hint: "Leave empty to hide."
+          - { label: CV file (PDF), name: cv, widget: file, required: false, hint: "Upload a PDF. Visitors can download it from the About page." }
+          - label: "Numbers on the About page"
+            name: stats
+            widget: list
+            summary: "{{value}} — {{label}}"
+            hint: "Example: 125+ / Projects completed. Update these each year."
+            fields:
+              - { label: Number, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+
+      - name: map
+        label: "Map & cities"
+        file: content/settings/map.json
+        format: json
+        description: >
+          Cities shown on the Project map and in the contact form. A project appears on a
+          city's pin when its Location contains the city name or one of its keywords.
+        fields:
+          - label: Cities
+            name: cities
+            widget: list
+            summary: "{{name}}"
+            hint: "Add a city here to put new projects there on the map."
+            fields:
+              - { label: City name, name: name, widget: string }
+              - { label: Latitude, name: lat, widget: number, value_type: float, hint: "In Google Maps, right-click the city → click the first number (e.g. 21.1702)." }
+              - { label: Longitude, name: lng, widget: number, value_type: float, hint: "The second number from Google Maps (e.g. 72.8311)." }
+              - { label: Area names (keywords), name: keywords, widget: string, required: false, hint: "Comma-separated names that belong to this city, e.g. surat, adajan, vesu" }
+          - label: Earlier works (without a project page)
+            name: earlier
+            widget: list
+            summary: "{{name}} — {{city}}"
+            required: false
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: City, name: city, widget: string, hint: "Must match a city name above." }
+
       - name: estimator
-        label: Budget estimator rates
+        label: "Budget estimator rates"
         file: content/settings/estimator.json
         format: json
         description: >
           Rates are in rupees per square foot (low and high), per project type and finish.
-          Check these before promoting the estimator — they decide the budget range visitors see.
+          Check these before promoting the estimator, they decide the budget range visitors see.
         fields:
           - { label: Intro text, name: intro, widget: text, required: false }
-          - { label: "Design fee — low (% of build cost)", name: design_fee_low, widget: number, value_type: float, min: 0, max: 30 }
-          - { label: "Design fee — high (% of build cost)", name: design_fee_high, widget: number, value_type: float, min: 0, max: 30 }
+          - { label: "Design fee: low (% of build cost)", name: design_fee_low, widget: number, value_type: float, min: 0, max: 30 }
+          - { label: "Design fee: high (% of build cost)", name: design_fee_high, widget: number, value_type: float, min: 0, max: 30 }
           - label: City price factor
             name: city_factors
             widget: list
@@ -337,9 +576,9 @@ collections:
             fields:
               - { label: ID (short, no spaces), name: id, widget: string }
               - { label: Name shown to visitors, name: label, widget: string }
-              - { label: Standard — low, name: standard_low, widget: number, value_type: int, min: 0 }
-              - { label: Standard — high, name: standard_high, widget: number, value_type: int, min: 0 }
-              - { label: Premium — low, name: premium_low, widget: number, value_type: int, min: 0 }
-              - { label: Premium — high, name: premium_high, widget: number, value_type: int, min: 0 }
-              - { label: Luxury — low, name: luxury_low, widget: number, value_type: int, min: 0 }
-              - { label: Luxury — high, name: luxury_high, widget: number, value_type: int, min: 0 }
+              - { label: "Standard: low", name: standard_low, widget: number, value_type: int, min: 0 }
+              - { label: "Standard: high", name: standard_high, widget: number, value_type: int, min: 0 }
+              - { label: "Premium: low", name: premium_low, widget: number, value_type: int, min: 0 }
+              - { label: "Premium: high", name: premium_high, widget: number, value_type: int, min: 0 }
+              - { label: "Luxury: low", name: luxury_low, widget: number, value_type: int, min: 0 }
+              - { label: "Luxury: high", name: luxury_high, widget: number, value_type: int, min: 0 }

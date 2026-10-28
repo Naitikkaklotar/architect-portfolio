@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata = {
   title: "Project map",
-  description: `Where ${site.name} has designed and built — Surat, Ahmedabad, Vadodara, Mumbai and Rajkot.`,
+  description: `Where ${site.name} has designed and built — ${CITIES.map((c) => c.name).join(", ")}.`,
 };
 
 export default function MapPage() {
