@@ -13,21 +13,36 @@ function ensureProjectsDir() {
   return fs.readdirSync(projectsDirectory).filter((file) => file.endsWith(".md"));
 }
 
+/** Marker position from the admin picker ("x,y" as percentages) or older separate x / y fields. */
+function parsePosition(spot) {
+  let x = Number(spot.x);
+  let y = Number(spot.y);
+  if (typeof spot.position === "string" && spot.position.includes(",")) {
+    const [px, py] = spot.position.split(",").map((n) => Number(n.trim()));
+    if (Number.isFinite(px) && Number.isFinite(py)) {
+      x = px;
+      y = py;
+    }
+  }
+  const clamp = (n) => Math.min(100, Math.max(0, Number.isFinite(n) ? n : 50));
+  return { x: clamp(x), y: clamp(y) };
+}
+
 function normalizeHotspots(hotspots) {
   if (!Array.isArray(hotspots)) return [];
   return hotspots
     .map((spot) => {
       if (!spot) return null;
       const label = spot.label || spot.title || "";
-      const href = spot.href || spot.link || spot.url || "";
+      const href =
+        spot.href || spot.link || spot.url || (spot.product ? `/products/${spot.product}` : "");
       const note = spot.note || spot.text || "";
       if (!label || (!href && !note)) return null;
       return {
         label: String(label),
         href: href ? String(href) : "",
         note: note ? String(note) : "",
-        x: Number(spot.x) || 0,
-        y: Number(spot.y) || 0,
+        ...parsePosition(spot),
       };
     })
     .filter(Boolean);
@@ -175,6 +190,7 @@ function mapProject(data, slug, content = "") {
     title: data.title ?? slug,
     category: data.category ?? "Other",
     location: data.location ?? "",
+    mapCity: data.map_city ? String(data.map_city) : "",
     year: data.year ?? 0,
     area: data.area ?? null,
     role: data.role ?? null,

@@ -80,13 +80,13 @@ images:
     caption: Corner view
     description: The final design from the street corner — layered curved balconies, a perforated jaali, living creepers and a sculpted podium wall with the entrance arch.
     hotspots:
-      - { label: Rooftop solar, x: 66, y: 10, note: "The roof slab is sized for solar panels that can meet 60–70% of the household energy needs." }
-      - { label: Perforated jaali, x: 29, y: 38, note: "Blocks direct west sun and lets soft, diffused light in, cutting 75–80% of glare.", href: "#climate" }
-      - { label: Creepers and planters, x: 20, y: 45, note: "A living green layer that cools the rooms behind it by 2–3°C and improves the air." }
-      - { label: Wave screens, x: 46, y: 55, note: "Fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows." }
-      - { label: Curved balconies, x: 80, y: 30, note: "Deep overhangs shade the glass from high summer sun and cut façade heat gain by about 30%." }
-      - { label: Entrance arch, x: 41, y: 79, note: "A sculpted podium wall with an arched entrance and timber-slat gate." }
-      - { label: Landscape cooling, x: 62, y: 84, note: "Champa and palm planting shade the lower levels and cool the air around the house." }
+      - { label: Rooftop solar, position: "66,10", note: "The roof slab is sized for solar panels that can meet 60–70% of the household energy needs." }
+      - { label: Perforated jaali, position: "29,38", note: "Blocks direct west sun and lets soft, diffused light in, cutting 75–80% of glare.", href: "#climate" }
+      - { label: Creepers and planters, position: "20,45", note: "A living green layer that cools the rooms behind it by 2–3°C and improves the air." }
+      - { label: Wave screens, position: "46,55", note: "Fabricated screens follow the curved balconies, filtering harsh light and casting moving shadows." }
+      - { label: Curved balconies, position: "80,30", note: "Deep overhangs shade the glass from high summer sun and cut façade heat gain by about 30%." }
+      - { label: Entrance arch, position: "41,79", note: "A sculpted podium wall with an arched entrance and timber-slat gate." }
+      - { label: Landscape cooling, position: "62,84", note: "Champa and palm planting shade the lower levels and cool the air around the house." }
   - image: /uploads/vrindavan-front.jpg
     caption: Front elevation
     description: Stacked curved balconies and deep overhangs shade the glass, with planting at every level and a sculpted podium below.

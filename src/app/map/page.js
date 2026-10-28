@@ -18,7 +18,7 @@ export default function MapPage() {
     lat: city.lat,
     lng: city.lng,
     projects: projects
-      .filter((p) => cityFromLocation(p.location)?.name === city.name)
+      .filter((p) => (p.mapCity || cityFromLocation(p.location)?.name) === city.name)
       .map((p) => ({
         slug: p.slug,
         title: p.title,

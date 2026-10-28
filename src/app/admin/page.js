@@ -4,12 +4,12 @@ import { useEffect } from "react";
 
 export default function AdminPage() {
   useEffect(() => {
-    window.location.replace("/admin/index.html");
+    window.location.replace("/admin/start.html");
   }, []);
 
   return (
     <p style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      Opening the project admin…
+      Opening the site admin…
     </p>
   );
 }

@@ -10,9 +10,7 @@ backend:
 # Ignored on the live site (non-localhost).
 local_backend: true
 
-# Changes are saved as a DRAFT first. Open "Workflow" (top bar) and move a draft to
-# "Ready", then click Publish. Nothing reaches the live site until you publish.
-publish_mode: editorial_workflow
+# Publish writes to the live site (about 2 minutes). Hide a project if it is not ready.
 
 site_url: https://architect-portfolio.kkarchitect.workers.dev
 display_url: https://architect-portfolio.kkarchitect.workers.dev
@@ -27,9 +25,9 @@ collections:
     label: "Projects"
     label_singular: "Project"
     description: >
-      Your portfolio projects. To add one: click "New Project", fill the first
-      boxes (name, category, location, year, cover photo, gallery, description),
-      then Save → Publish. The "Extra" boxes at the bottom are optional.
+      Your portfolio projects. Fill the first three sections (about, photos,
+      story), then click Publish. The live site updates in about 2 minutes.
+      Section 4 is optional. Use "Hide this project" if it is not ready yet.
     folder: content/projects
     create: true
     delete: true
@@ -39,6 +37,12 @@ collections:
     identifier_field: title
     summary: "{{title}} — {{category}} · {{year}}"
     sortable_fields: ["title", "year", "category", "location"]
+    view_filters:
+      - { label: "Featured on homepage", field: featured, pattern: true }
+      - { label: "Hidden (draft)", field: hidden, pattern: true }
+      - { label: "Residential", field: category, pattern: "Residential" }
+      - { label: "Commercial", field: category, pattern: "Commercial" }
+      - { label: "Interior", field: category, pattern: "Interior" }
     view_groups:
       - label: By category
         field: category
@@ -51,7 +55,7 @@ collections:
       - label: "Project name"
         name: title
         widget: string
-        hint: "The name visitors see. Example: Villa Sunrise."
+        hint: "The name visitors see. Example: Villa Sunrise. The page link is made from this name (/projects/villa-sunrise) and does not change if you rename it later."
 
       - label: "Short card description"
         name: excerpt
@@ -73,7 +77,18 @@ collections:
       - label: "Location"
         name: location
         widget: string
-        hint: "Area and city, e.g. Adajan, Surat. The city decides the pin on the Project map (cities are set in Site settings → Map & cities)."
+        hint: "Area and city, e.g. Adajan, Surat. The city decides the pin on the Project map (cities are set in Contact & settings → Map & cities)."
+
+      - label: "City on the map"
+        name: map_city
+        widget: relation
+        collection: settings
+        file: map
+        search_fields: ["cities.*.name"]
+        value_field: "cities.*.name"
+        display_fields: ["cities.*.name"]
+        required: false
+        hint: "Optional. Pick the city where this project should appear on the Project map. If left empty, the Location text above is used. Missing a city? Add it in Contact & settings → Map & cities."
 
       - label: "Year"
         name: year
@@ -108,16 +123,16 @@ collections:
         name: cover
         widget: image
         choose_url: true
-        hint: "The main photo of the project (cards and banner). A wide landscape photo works best. Click 'Choose an image' to upload."
+        hint: "The big banner at the top of the project page, and the photo on listing cards. A wide landscape photo works best."
 
       - label: "Gallery photos"
         name: images
         widget: list
         required: false
-        collapsed: true
+        collapsed: false
         summary: "{{caption}} — {{image}}"
         allow_add: true
-        hint: "The photos shown in the gallery. Click 'Add' for each photo, then add a short caption (Kitchen, Bedroom…)."
+        hint: "The photos on the project page. Click Add for each one, then type a short caption. Extra options (description, group, markers) are hidden behind 'More options for this photo'."
         fields:
           - label: Photo
             name: image
@@ -127,17 +142,17 @@ collections:
             name: caption
             widget: string
             hint: "Example: Kitchen, Bedroom, Living room, Courtyard"
-          - label: Description under the photo
+          - label: "More: Description under the photo"
             name: description
             widget: text
             required: false
             hint: "1–2 short lines shown below the photo."
-          - label: Group heading (optional)
+          - label: "More: Group heading"
             name: group
             widget: string
             required: false
             hint: "Only for square galleries. Type the same heading on the first photo of each group, e.g. Final design."
-          - label: Clickable markers on this photo (hotspots)
+          - label: "More: Clickable markers on this photo"
             name: hotspots
             widget: list
             required: false
@@ -146,10 +161,18 @@ collections:
             hint: "Optional. Add a marker on the photo. X and Y are percentages: X = distance from the left, Y = distance from the top (50 and 50 = the centre)."
             fields:
               - { label: Marker name, name: label, widget: string, hint: "Example: Sofa, Lounge chair" }
-              - { label: X position (0–100, from left), name: x, widget: number, value_type: float, min: 0, max: 100, default: 50 }
-              - { label: Y position (0–100, from top), name: y, widget: number, value_type: float, min: 0, max: 100, default: 50 }
+              - { label: Marker position, name: position, widget: hotspot_position, required: false, hint: "Click on the photo to place the marker. It sits exactly where you click." }
               - { label: Text shown when tapped, name: note, widget: text, required: false, hint: "Optional. A short note that opens in a small card." }
-              - { label: Link, name: href, widget: string, required: false, hint: "Optional. /products/living-sofa, #climate, or https://…" }
+              - label: Link to a product
+                name: product
+                widget: relation
+                collection: products
+                search_fields: ["title"]
+                value_field: "{{slug}}"
+                display_fields: ["title"]
+                required: false
+                hint: "Optional. Pick one of your products. Visitors can tap the marker to open it."
+              - { label: Other link (optional), name: href, widget: string, required: false, hint: "Only if it is not a product. Example: #climate or https://…" }
 
       - label: "Project description"
         name: body
@@ -168,7 +191,7 @@ collections:
         widget: boolean
         default: false
         required: false
-        hint: "ON = the project is saved but NOT shown anywhere on the website. Use it while you are still preparing a project."
+        hint: "ON = saved, but hidden from the website. Use this while a project is still being prepared. Save still writes the file — visitors just cannot see the page."
 
       - label: "Position in list (optional)"
         name: order
@@ -349,8 +372,8 @@ collections:
 
   # ───────────────────────── PAGES ─────────────────────────
   - name: pages
-    label: "Pages (text)"
-    description: "The words on the Home, About and Services pages. Open a page, change the text, then Save → Publish."
+    label: "Website pages"
+    description: "The words on the Home, About and Services pages. Open a page, change the text, then click Publish. The live site updates in about 2 minutes."
     editor:
       preview: true
     files:
@@ -458,7 +481,7 @@ collections:
 
   # ───────────────────────── SETTINGS ─────────────────────────
   - name: settings
-    label: "Site settings"
+    label: "Contact & settings"
     description: "Contact details, map, and the budget estimator."
     editor:
       preview: true

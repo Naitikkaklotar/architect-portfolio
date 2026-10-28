@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Start — KK Architect admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <style>
+      body { margin: 0; }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 48px 20px 120px; }
+      h1 { font-family: "EB Garamond", Georgia, serif; font-weight: 500; font-size: 44px; margin: 0 0 6px; }
+      .lead { color: var(--kk-ink-2); font-size: 17px; margin: 0 0 36px; max-width: 620px; line-height: 1.55; }
+      h2 {
+        font-family: "Jost", "Inter", sans-serif;
+        font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+        color: var(--kk-ink-2); margin: 40px 0 14px; padding-top: 14px; border-top: 1px solid var(--kk-line-strong);
+      }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+      .card {
+        display: block; background: #fff; border: 1px solid var(--kk-line); padding: 20px 20px 18px;
+        color: var(--kk-ink); text-decoration: none; transition: background 0.15s, border-color 0.15s;
+      }
+      .card:hover { background: var(--kk-bg-2); border-color: var(--kk-line-strong); }
+      .card .t { font-family: "EB Garamond", Georgia, serif; font-size: 24px; font-weight: 500; margin: 0 0 6px; }
+      .card .d { font-size: 14px; color: var(--kk-ink-2); line-height: 1.5; margin: 0; }
+      .card.primary { background: var(--kk-ink); color: #fff; border-color: var(--kk-ink); }
+      .card.primary .d { color: rgba(255, 255, 255, 0.75); }
+      .card.primary:hover { background: #2a2a2a; }
+      .top { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+      .pill {
+        display: inline-block; padding: 10px 16px; border: 1px solid var(--kk-line-strong); color: var(--kk-ink);
+        text-decoration: none; font-family: "Jost", "Inter", sans-serif; font-size: 12.5px; letter-spacing: 0.1em;
+        text-transform: uppercase; background: #fff;
+      }
+      .pill:hover { background: var(--kk-ink); color: #fff; }
+      .note { margin-top: 36px; padding: 16px 18px; background: var(--kk-bg-2); border-left: 3px solid var(--kk-ink); font-size: 14px; color: var(--kk-ink-2); line-height: 1.6; }
+      .kk-help, .kk-start { display: none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>What would you like to do?</h1>
+      <p class="lead">Pick a job below. Each one opens the right form. When you finish, click the black <strong>Publish</strong> button — that is the only step. The website updates in about 2 minutes. If a project is not ready, turn on <strong>Hide this project</strong> first.</p>
+
+      <div class="top">
+        <a class="pill" href="/admin/index.html">Open the full editor</a>
+        <a class="pill" href="/admin/guide.html">Read the guide</a>
+        <a class="pill" href="https://architect-portfolio.kkarchitect.workers.dev" target="_blank" rel="noopener">View the website</a>
+      </div>
+
+      <h2>Most common</h2>
+      <div class="grid">
+        <a class="card primary" href="/admin/index.html#/collections/projects/new">
+          <p class="t">Add a new project</p>
+          <p class="d">Name, photos and a short description. Four sections, extras at the bottom.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/settings/entries/contact">
+          <p class="t">Change phone, email or Instagram</p>
+          <p class="d">Contact details used in the footer, the Contact page and the call button.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/pages/entries/about">
+          <p class="t">Edit the About page</p>
+          <p class="d">Your story, experience, skills and achievements.</p>
+        </a>
+        <a class="card" href="/admin/guide.html">
+          <p class="t">Help</p>
+          <p class="d">A short guide: how to add a project, hide a draft, and what to do if something looks wrong.</p>
+        </a>
+      </div>
+
+      <h2>Projects</h2>
+      <div class="grid">
+        <a class="card" href="/admin/index.html#/collections/projects">
+          <p class="t">Update an existing project</p>
+          <p class="d">Change photos or details, or add a progress update to a project being built.</p>
+        </a>
+      </div>
+
+      <h2>Website text</h2>
+      <div class="grid">
+        <a class="card" href="/admin/index.html#/collections/pages/entries/home">
+          <p class="t">Home page</p>
+          <p class="d">Headings and short texts on the first page.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/pages/entries/about">
+          <p class="t">About page</p>
+          <p class="d">Your story, experience, skills and achievements.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/pages/entries/services">
+          <p class="t">Services page</p>
+          <p class="d">What you offer and how you work.</p>
+        </a>
+      </div>
+
+      <h2>Products, map and prices</h2>
+      <div class="grid">
+        <a class="card" href="/admin/index.html#/collections/products/new">
+          <p class="t">Add a product</p>
+          <p class="d">Furniture or pieces visitors can ask about on WhatsApp.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/settings/entries/map">
+          <p class="t">Map cities</p>
+          <p class="d">Add a city so projects there appear on the Project map.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/collections/settings/entries/estimator">
+          <p class="t">Budget estimator prices</p>
+          <p class="d">The rates visitors see in the cost estimator.</p>
+        </a>
+        <a class="card" href="/admin/index.html#/media">
+          <p class="t">Photo library</p>
+          <p class="d">Upload photos or see what is already uploaded.</p>
+        </a>
+      </div>
+
+      <h2>Need to undo something?</h2>
+      <div class="grid">
+        <a class="card" href="/admin/guide.html#undo">
+          <p class="t">Undo a mistake</p>
+          <p class="d">Every published change is saved. Here is how to get an earlier version back.</p>
+        </a>
+        <a class="card" href="https://github.com/Naitikkaklotar/architect-portfolio/commits/main" target="_blank" rel="noopener">
+          <p class="t">See every change made</p>
+          <p class="d">A dated list of all changes to the website, newest first.</p>
+        </a>
+      </div>
+
+      <p class="note">The round badge in the corner shows whether your last change is live. Green means the website is up to date.</p>
+    </div>
+    <script src="/admin/extras.js"></script>
+  </body>
+</html>

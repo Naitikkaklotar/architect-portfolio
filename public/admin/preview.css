@@ -108,3 +108,44 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+
+.preview-link {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #5c5c5c;
+}
+
+.preview-link code {
+  font-size: 13px;
+  background: #fff;
+  padding: 2px 6px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.preview-check {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.preview-check li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.preview-check .mark {
+  flex: none;
+  width: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.preview-check .ok { color: #1f6b4f; }
+.preview-check .no { color: #b42318; }
+.preview-check .warn { color: #8a5a00; font-weight: 600; }

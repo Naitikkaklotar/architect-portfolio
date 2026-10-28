@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="/admin/admin.css" />
   </head>
   <body>
+    <a class="kk-start" href="/admin/start.html" title="Start page">⌂ Start</a>
     <a class="kk-help" href="/admin/guide.html" target="_blank" rel="noopener" title="Help &amp; guide" aria-label="Help and guide">?</a>
+    <script src="/admin/extras.js"></script>
     <!-- Pinned version + integrity hash: a new Decap release cannot silently change or break the admin. -->
     <script
       src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
@@ -22,29 +24,6 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      // Mark the optional "Extra: ..." fields so the stylesheet can set them apart.
-      (function () {
-        function mark() {
-          var firstDone = false;
-          document.querySelectorAll('[class*="ControlContainer"]').forEach(function (box) {
-            var label = box.querySelector('[class*="FieldLabel"]');
-            var isExtra = label && /^\s*extra\b/i.test(label.textContent || "");
-            if (isExtra) {
-              box.classList.add("kk-extra");
-              if (!firstDone && !document.querySelector(".kk-extra-first")) {
-                box.classList.add("kk-extra-first");
-              }
-              firstDone = true;
-            }
-          });
-        }
-        var timer;
-        new MutationObserver(function () {
-          clearTimeout(timer);
-          timer = setTimeout(mark, 150);
-        }).observe(document.documentElement, { childList: true, subtree: true });
-      })();
-
       CMS.registerPreviewStyle("/admin/preview.css");
 
       // Never let a half-filled form crash the preview: only accept real text paths/URLs.
@@ -57,6 +36,108 @@
           return "";
         }
       }
+
+
+      // Small ready-to-publish checklist shown at the top of the preview.
+      function checklist(items) {
+        return h(
+          "ul",
+          { className: "preview-check", key: "check" },
+          items.map(function (item, i) {
+            var cls = item.warn ? "warn" : item.ok ? "ok" : "no";
+            var mark = item.warn ? "!" : item.ok ? "✓" : "✗";
+            return h("li", { key: i, className: cls }, [
+              h("span", { key: "m", className: "mark" }, mark),
+              h("span", { key: "t" }, item.text),
+            ]);
+          })
+        );
+      }
+
+      // Custom field: click on the photo to place a hotspot marker.
+      // Stores "x,y" (percent from left, percent from top).
+      var HotspotPosition = createClass({
+        getInitialState: function () {
+          return { src: "" };
+        },
+        componentDidMount: function () {
+          var self = this;
+          this.timer = setInterval(function () {
+            self.findImage();
+          }, 700);
+          this.findImage();
+        },
+        componentWillUnmount: function () {
+          clearInterval(this.timer);
+        },
+        findImage: function () {
+          var el = this.root ? this.root.parentElement : null;
+          var outer = null;
+          while (el) {
+            if (typeof el.className === "string" && /ListItem-listControlItem|SortableListItem/.test(el.className)) {
+              outer = el;
+            }
+            el = el.parentElement;
+          }
+          if (!outer) return;
+          var imgs = outer.querySelectorAll("img:not([data-kk])");
+          var src = imgs.length ? imgs[0].getAttribute("src") || "" : "";
+          if (src !== this.state.src) this.setState({ src: src });
+        },
+        parse: function () {
+          var v = this.props.value;
+          if (typeof v !== "string" || v.indexOf(",") < 0) return null;
+          var parts = v.split(",");
+          var x = parseFloat(parts[0]);
+          var y = parseFloat(parts[1]);
+          return isNaN(x) || isNaN(y) ? null : { x: x, y: y };
+        },
+        onPick: function (e) {
+          var rect = e.currentTarget.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          var x = Math.round(((e.clientX - rect.left) / rect.width) * 1000) / 10;
+          var y = Math.round(((e.clientY - rect.top) / rect.height) * 1000) / 10;
+          x = Math.min(100, Math.max(0, x));
+          y = Math.min(100, Math.max(0, y));
+          this.props.onChange(x + "," + y);
+        },
+        render: function () {
+          var self = this;
+          var pos = this.parse();
+          var src = this.state.src;
+          return h(
+            "div",
+            {
+              className: "kk-pos",
+              ref: function (node) {
+                self.root = node;
+              },
+            },
+            [
+              src
+                ? h("div", { key: "stage", className: "kk-pos-stage", onClick: this.onPick }, [
+                    h("img", { key: "img", "data-kk": "1", src: src, draggable: false, alt: "" }),
+                    pos
+                      ? h("span", { key: "dot", className: "kk-pos-dot", style: { left: pos.x + "%", top: pos.y + "%" } })
+                      : null,
+                  ])
+                : h(
+                    "p",
+                    { key: "empty", className: "kk-pos-empty" },
+                    "Choose the gallery photo above first. It will appear here so you can click to place the marker."
+                  ),
+              h(
+                "div",
+                { key: "read", className: "kk-pos-read" },
+                pos
+                  ? "Placed at " + pos.x + "% from the left, " + pos.y + "% from the top. Click again to move it."
+                  : "Not placed yet. Click on the photo."
+              ),
+            ]
+          );
+        },
+      });
+      CMS.registerWidget("hotspot_position", HotspotPosition);
 
       var ProjectPreview = createClass({
         render: function () {
@@ -88,6 +169,8 @@
               );
 
           var galleryNodes = [];
+          var hidden = entry.getIn(["data", "hidden"]);
+          var bodyText = entry.getIn(["data", "body"]) || "";
           if (images && images.size) {
             images.forEach(function (img, index) {
               var path = typeof img === "string" ? img : img && img.get ? img.get("image") : "";
@@ -103,11 +186,37 @@
             });
           }
 
+          var galleryCount = galleryNodes.length;
+          var slug =
+            entry.get("slug") ||
+            String(title)
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "") ||
+            "project-name";
+          var mapCity = entry.getIn(["data", "map_city"]) || "";
+          var checks = [
+            { ok: !!entry.getIn(["data", "title"]), text: "Project name" },
+            { ok: !!(location || mapCity), text: "Location (so it can appear on the map)" },
+            { ok: !!coverSrc, text: "Cover photo — the big banner" },
+            {
+              ok: galleryCount >= 3,
+              text: galleryCount + (galleryCount === 1 ? " gallery photo" : " gallery photos") + (galleryCount < 3 ? " (add at least 3)" : ""),
+            },
+            { ok: String(bodyText).length >= 60, text: "Project description" },
+          ];
+          if (hidden) checks.push({ warn: true, text: "Hidden: this project will NOT show on the website" });
+
           return h("div", { className: "preview" }, [
             h("div", { className: "preview-guide", key: "guide" }, [
               h("strong", {}, "Live preview"),
               " Fill the form on the left. This pane shows how the project will roughly look on the site.",
             ]),
+            h("p", { className: "preview-link", key: "link" }, [
+              "Page on the site: ",
+              h("code", { key: "c" }, "/projects/" + slug),
+            ]),
+            checklist(checks),
             coverNode,
             featured
               ? h("span", { className: "preview-badge", key: "badge" }, "Featured on homepage")
@@ -139,7 +248,14 @@
           var summary = entry.getIn(["data", "summary"]) || "";
           var coverSrc = safeAsset(getAsset, entry.getIn(["data", "cover"]));
 
+          var pChecks = [
+            { ok: !!entry.getIn(["data", "title"]), text: "Product name" },
+            { ok: !!coverSrc, text: "Cover image" },
+            { ok: !!summary, text: "Short summary" },
+          ];
+
           return h("div", { className: "preview" }, [
+            checklist(pChecks),
             coverSrc
               ? h("img", {
                   key: "cover",
@@ -191,7 +307,7 @@
           return h("div", { className: "preview" }, [
             h("div", { className: "preview-guide", key: "guide" }, [
               h("strong", {}, "Preview"),
-              " This is a quick read-through of what you have typed. Check the spelling and numbers, then Save and Publish.",
+              " This is a quick read-through of what you have typed. Check the spelling and numbers, then click Publish. The live site updates in about 2 minutes.",
             ]),
             h("div", { key: "content", style: { fontSize: "15px", lineHeight: 1.55 } }, renderValue(data, 0, "root")),
           ]);
