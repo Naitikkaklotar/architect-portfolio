@@ -1,0 +1,479 @@
+/* KK Architect admin theme: warm, calm, matches the website.
+   Decap generates hashed class names, so we match on the readable part of the name. */
+
+:root {
+  --kk-bg: #faf9f7;
+  --kk-bg-2: #f0eee9;
+  --kk-ink: #111111;
+  --kk-ink-2: #5c5c5c;
+  --kk-ink-3: #8a8a8a;
+  --kk-line: rgba(0, 0, 0, 0.12);
+  --kk-line-strong: rgba(0, 0, 0, 0.28);
+  --kk-green: #1f6b4f;
+  --kk-red: #b42318;
+}
+
+html,
+body {
+  background: var(--kk-bg) !important;
+  color: var(--kk-ink);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Top bar ---------- */
+[class*="AppHeader-css"] {
+  background: #fff !important;
+  border-bottom: 1px solid var(--kk-line) !important;
+  box-shadow: none !important;
+}
+
+[class*="AppHeaderNavLink"],
+[class*="AppHeaderNavLink"] * {
+  font-family: "Jost", "Inter", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+[class*="AppHeaderNavLink"] {
+  color: var(--kk-ink-2) !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+[class*="AppHeaderNavLink"][class*="buttonActive"] {
+  color: var(--kk-ink) !important;
+  border-bottom-color: var(--kk-ink) !important;
+}
+
+[class*="AppHeaderNavLink"][class*="buttonActive"] svg,
+[class*="AppHeaderNavLink"][class*="buttonActive"] path {
+  color: var(--kk-ink) !important;
+  fill: var(--kk-ink) !important;
+}
+
+[class*="AppHeaderSiteLink"],
+[class*="AppHeaderLink"],
+[class*="ToolbarSectionMeta"] a {
+  color: var(--kk-ink-2) !important;
+  font-size: 13px !important;
+}
+
+/* ---------- Buttons (all primary actions are black) ---------- */
+[class*="AppHeaderQuickNewButton"],
+[class*="CollectionTopNewButton"],
+[class*="PublishButton"] {
+  background: var(--kk-ink) !important;
+  color: #fff !important;
+  border-radius: 2px !important;
+  font-family: "Jost", "Inter", sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+  min-height: 38px;
+}
+
+[class*="AppHeaderQuickNewButton"]:hover,
+[class*="CollectionTopNewButton"]:hover,
+[class*="PublishButton"]:hover {
+  background: #333 !important;
+}
+
+[class*="ToolbarContainer"] button[class*="button-"]:not([class*="PublishButton"]):not([class*="ButtonRound"]) {
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+/* Status + delete buttons in the editor toolbar */
+[class*="ToolbarSectionMain"] [class*="StyledDropdownButton"]:not([class*="PublishButton"]),
+[class*="PublishedToolbarButton"],
+[class*="PublishedButton"] {
+  background: #e6f0eb !important;
+  color: var(--kk-green) !important;
+  border-radius: 2px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+[class*="UnpublishedToolbarButton"],
+[class*="StatusToolbarButton"] {
+  background: #f3ead6 !important;
+  color: #7a5a12 !important;
+  border-radius: 2px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+[class*="DeleteButton"] {
+  background: #fff !important;
+  color: var(--kk-red) !important;
+  border: 1px solid rgba(180, 35, 24, 0.35) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+[class*="ViewControlsSection"] *,
+[class*="ViewControlsButton"] {
+  color: var(--kk-ink-2) !important;
+}
+
+[class*="ViewControlsButton"] svg,
+[class*="ViewControlsButton"] path {
+  fill: var(--kk-ink-3) !important;
+}
+
+/* ---------- Sidebar ---------- */
+[class*="SidebarContainer"] {
+  background: #fff !important;
+  border: 1px solid var(--kk-line) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+[class*="SidebarHeading"] {
+  font-family: "EB Garamond", Georgia, serif !important;
+  font-size: 26px !important;
+  font-weight: 500 !important;
+  color: var(--kk-ink) !important;
+}
+
+[class*="SearchContainer"] input,
+[class*="SearchInput"] {
+  background: var(--kk-bg-2) !important;
+  border-radius: 2px !important;
+}
+
+[class*="SidebarNavLink"] {
+  color: var(--kk-ink-2) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 0 !important;
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
+
+[class*="SidebarNavLink"].sidebar-active {
+  background: var(--kk-bg-2) !important;
+  color: var(--kk-ink) !important;
+  border-left-color: var(--kk-ink) !important;
+}
+
+[class*="SidebarNavLink"] svg,
+[class*="SidebarNavLink"] path {
+  color: var(--kk-ink-3) !important;
+  fill: var(--kk-ink-3) !important;
+}
+
+[class*="SidebarNavLink"].sidebar-active svg,
+[class*="SidebarNavLink"].sidebar-active path {
+  color: var(--kk-ink) !important;
+  fill: var(--kk-ink) !important;
+}
+
+/* ---------- Collection header and list ---------- */
+[class*="CollectionTopContainer"] {
+  background: #fff !important;
+  border: 1px solid var(--kk-line) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+[class*="CollectionTopHeading"] {
+  font-family: "EB Garamond", Georgia, serif !important;
+  font-size: 30px !important;
+  font-weight: 500 !important;
+  color: var(--kk-ink) !important;
+}
+
+[class*="CollectionTopDescription"] {
+  color: var(--kk-ink-2) !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+[class*="ListCard-card"] {
+  border: 1px solid var(--kk-line) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  background: #fff !important;
+  transition: background 0.15s ease;
+}
+
+[class*="ListCard-card"]:hover {
+  background: var(--kk-bg-2) !important;
+}
+
+[class*="ListCardTitle"] {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: var(--kk-ink) !important;
+}
+
+/* ---------- Editor toolbar ---------- */
+[class*="ToolbarContainer"] {
+  background: #fff !important;
+  border-bottom: 1px solid var(--kk-line) !important;
+  box-shadow: none !important;
+}
+
+[class*="BackStatus"] {
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 600 !important;
+}
+
+[class*="textBadgeSuccess"] {
+  color: var(--kk-green) !important;
+}
+
+/* ---------- Form ---------- */
+[class*="ControlPaneContainer"] {
+  background: var(--kk-bg) !important;
+}
+
+[class*="ControlContainer"] {
+  margin-bottom: 26px !important;
+}
+
+[class*="FieldLabel"] {
+  background: transparent !important;
+  color: var(--kk-ink) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  padding: 0 0 6px 0 !important;
+  border-radius: 0 !important;
+}
+
+[class*="ControlHint"] {
+  color: var(--kk-ink-3) !important;
+  font-size: 12.5px !important;
+  line-height: 1.5 !important;
+  margin-top: 7px !important;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="email"],
+textarea,
+[class*="ControlContainer"] [class*="control"] {
+  font-family: "Inter", system-ui, sans-serif !important;
+}
+
+[class*="ControlContainer"] input[type="text"]:not([role="combobox"]):not([id^="react-select"]),
+[class*="ControlContainer"] input[type="number"],
+[class*="ControlContainer"] textarea {
+  border: 1px solid var(--kk-line-strong) !important;
+  border-radius: 2px !important;
+  background: #fff !important;
+  color: var(--kk-ink) !important;
+  font-size: 15px !important;
+  padding: 12px 14px !important;
+  box-shadow: none !important;
+}
+
+[class*="ControlContainer"] input:focus,
+[class*="ControlContainer"] textarea:focus {
+  border-color: var(--kk-ink) !important;
+  outline: none !important;
+}
+
+/* Error state */
+[class*="ControlContainer"] [class*="ControlError"],
+[class*="ErrorMessage"] {
+  color: var(--kk-red) !important;
+  font-size: 13px !important;
+}
+
+/* Upload / choose buttons */
+[class*="FileWidgetButton"] {
+  background: #fff !important;
+  color: var(--kk-ink) !important;
+  border: 1px solid var(--kk-line-strong) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+[class*="FileWidgetButton"]:hover {
+  background: var(--kk-bg-2) !important;
+}
+
+/* Lists: Add button + items */
+[class*="AddButton"] {
+  background: #fff !important;
+  color: var(--kk-ink) !important;
+  border: 1px dashed var(--kk-line-strong) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  text-align: center;
+}
+
+[class*="AddButton"]:hover {
+  background: var(--kk-bg-2) !important;
+  border-style: solid !important;
+}
+
+[class*="ListItem-listControlItem"],
+[class*="SortableListItem"] {
+  border: 1px solid var(--kk-line) !important;
+  border-radius: 2px !important;
+  background: #fff !important;
+}
+
+[class*="StyledListItemTopBar"],
+[class*="TopBar-"],
+[class*="TopBarContainer"],
+[class*="NestedObjectLabel"] {
+  background: var(--kk-bg-2) !important;
+  color: var(--kk-ink-2) !important;
+}
+
+/* Toggles: black when on */
+[class*="ToggleBackground"][class*="BooleanBackground"] {
+  border-radius: 20px;
+}
+
+/* ---------- Optional "Extra" sections ---------- */
+.kk-extra {
+  border-left: 3px solid var(--kk-line-strong);
+  background: rgba(240, 238, 233, 0.55);
+  padding: 14px 16px 6px 16px;
+  margin-left: -4px;
+}
+
+.kk-extra-first {
+  margin-top: 56px !important;
+  position: relative;
+}
+
+.kk-extra-first::before {
+  content: "Optional extras  ·  leave these empty if you don't need them";
+  position: absolute;
+  top: -34px;
+  left: -4px;
+  right: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--kk-line-strong);
+  font-family: "Jost", "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kk-ink-2);
+}
+
+/* ---------- Preview toggle + split ---------- */
+[class*="ButtonRound"] {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18) !important;
+}
+
+[class*="PreviewPaneContainer"]:not([class*="ControlPaneContainer"]) {
+  background: var(--kk-bg-2) !important;
+}
+
+/* ---------- Login screen ---------- */
+[class*="AuthenticationPage"],
+[class*="AuthenticationPage"] ~ * {
+  background: var(--kk-bg-2) !important;
+}
+
+[class*="AuthenticationPage"] img {
+  max-width: 280px !important;
+  height: auto !important;
+}
+
+[class*="AuthenticationPage"] button {
+  background: var(--kk-ink) !important;
+  border-radius: 2px !important;
+  font-family: "Jost", "Inter", sans-serif !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 13px !important;
+}
+
+/* Welcome note: only on the login screen */
+body:has([class*="AuthenticationPage"])::before {
+  content: "Welcome back. Sign in with the GitHub account that manages this website. New here? Tap the ? button for a short guide.";
+  display: block;
+  padding: 14px 20px;
+  background: var(--kk-ink);
+  color: #f5f5f4;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ---------- Help button ---------- */
+.kk-help {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: var(--kk-ink);
+  border: 1px solid var(--kk-line-strong);
+  border-radius: 50%;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.kk-help:hover {
+  background: var(--kk-ink);
+  color: #fff;
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 800px) {
+  [class*="CollectionContainer"] {
+    flex-direction: column !important;
+  }
+
+  [class*="SidebarContainer"] {
+    width: 100% !important;
+    position: static !important;
+    margin-bottom: 16px;
+  }
+
+  [class*="CollectionMain"] {
+    padding-left: 0 !important;
+  }
+
+  [class*="AppHeaderNavLink"],
+  [class*="SidebarNavLink"],
+  [class*="AddButton"],
+  [class*="FileWidgetButton"] {
+    min-height: 44px;
+  }
+
+  [class*="ControlContainer"] input[type="text"],
+  [class*="ControlContainer"] input[type="number"],
+  [class*="ControlContainer"] textarea {
+    font-size: 16px !important; /* stops iPhone zooming into the field */
+  }
+
+  [class*="AppHeaderSiteLink"] {
+    display: none !important;
+  }
+
+  .kk-help {
+    right: 14px;
+    bottom: 14px;
+  }
+}

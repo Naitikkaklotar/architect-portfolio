@@ -16,7 +16,7 @@ publish_mode: editorial_workflow
 
 site_url: https://architect-portfolio.kkarchitect.workers.dev
 display_url: https://architect-portfolio.kkarchitect.workers.dev
-logo_url: /uploads/hero.jpg
+logo_url: /admin/logo.svg
 
 media_folder: public/uploads
 public_folder: /uploads
@@ -42,6 +42,7 @@ collections:
     view_groups:
       - label: By category
         field: category
+    thumbnail: cover
     preview_path: "projects/{{slug}}"
     editor:
       preview: true
@@ -334,6 +335,7 @@ collections:
     format: frontmatter
     identifier_field: title
     summary: "{{title}} — {{category}}"
+    thumbnail: cover
     editor:
       preview: true
     fields:

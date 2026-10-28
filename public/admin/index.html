@@ -5,70 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>KK Architect — Admin</title>
-    <style>
-      /* Friendlier CMS chrome */
-      html,
-      body {
-        font-family: "DM Sans", "Segoe UI", system-ui, sans-serif !important;
-      }
-
-      [class*="CollectionTop"],
-      [class*="CollectionLabel"] {
-        letter-spacing: 0;
-      }
-
-      /* Make the editor form more readable */
-      [class*="ControlContainer"] {
-        margin-bottom: 1.25rem !important;
-      }
-
-      [class*="ControlLabel"] {
-        font-size: 15px !important;
-        font-weight: 600 !important;
-        margin-bottom: 0.35rem !important;
-      }
-
-      [class*="ControlHint"] {
-        font-size: 13px !important;
-        line-height: 1.45 !important;
-        opacity: 0.85;
-        margin-top: 0.35rem !important;
-      }
-
-      /* Soft banner above collections when CSS hooks exist */
-      body::before {
-        content: "How it works: pick something on the left → change it → Save → open Workflow and move it to Ready → Publish. The live site updates in about 2 minutes.";
-        display: block;
-        background: #1c1917;
-        color: #f5f5f4;
-        padding: 10px 16px;
-        font-size: 13px;
-        line-height: 1.4;
-        text-align: center;
-      }
-
-      /* Always-visible help button */
-      .kk-help {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        z-index: 9999;
-        background: #1c1917;
-        color: #fff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        padding: 12px 18px;
-        border-radius: 999px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      }
-      .kk-help:hover {
-        background: #44403c;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/admin/admin.css" />
   </head>
   <body>
-    <a class="kk-help" href="/admin/guide.html" target="_blank" rel="noopener">? Help &amp; guide</a>
+    <a class="kk-help" href="/admin/guide.html" target="_blank" rel="noopener" title="Help &amp; guide" aria-label="Help and guide">?</a>
     <!-- Pinned version + integrity hash: a new Decap release cannot silently change or break the admin. -->
     <script
       src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
@@ -76,6 +22,29 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      // Mark the optional "Extra: ..." fields so the stylesheet can set them apart.
+      (function () {
+        function mark() {
+          var firstDone = false;
+          document.querySelectorAll('[class*="ControlContainer"]').forEach(function (box) {
+            var label = box.querySelector('[class*="FieldLabel"]');
+            var isExtra = label && /^\s*extra\b/i.test(label.textContent || "");
+            if (isExtra) {
+              box.classList.add("kk-extra");
+              if (!firstDone && !document.querySelector(".kk-extra-first")) {
+                box.classList.add("kk-extra-first");
+              }
+              firstDone = true;
+            }
+          });
+        }
+        var timer;
+        new MutationObserver(function () {
+          clearTimeout(timer);
+          timer = setTimeout(mark, 150);
+        }).observe(document.documentElement, { childList: true, subtree: true });
+      })();
+
       CMS.registerPreviewStyle("/admin/preview.css");
 
       // Never let a half-filled form crash the preview: only accept real text paths/URLs.
