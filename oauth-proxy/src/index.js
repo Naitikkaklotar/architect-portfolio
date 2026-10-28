@@ -1,59 +1,136 @@
 /**
- * Decap CMS GitHub OAuth proxy (Cloudflare Worker).
- * Handles /auth and /callback so the CMS can log in with GitHub.
+ * Decap CMS login proxy (Cloudflare Worker).
+ *
+ * Live site: username + password form, then the Worker uses a stored GitHub
+ * token to let Decap write to the repo. Credentials are Worker secrets, never
+ * in git: ADMIN_USER, ADMIN_PASSWORD, GITHUB_TOKEN.
  */
 
-function randomHex(bytes) {
-  const buf = new Uint8Array(bytes);
-  crypto.getRandomValues(buf);
-  return Array.from(buf)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-function authorizeURL({ clientId, redirectUri, scope, state }) {
-  const params = new URLSearchParams({
-    response_type: "code",
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    scope,
-    state,
-  });
-  return `https://github.com/login/oauth/authorize?${params}`;
-}
-
-async function exchangeCode({ clientId, clientSecret, code, redirectUri }) {
-  const response = await fetch("https://github.com/login/oauth/access_token", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      code,
-      redirect_uri: redirectUri,
-      grant_type: "authorization_code",
-    }),
-  });
-  const json = await response.json();
-  if (!json.access_token) {
-    throw new Error(json.error_description || json.error || "Token exchange failed");
+function safeEqual(a, b) {
+  const enc = new TextEncoder();
+  const left = enc.encode(String(a || ""));
+  const right = enc.encode(String(b || ""));
+  const len = Math.max(left.length, right.length, 1);
+  let diff = left.length ^ right.length;
+  for (let i = 0; i < len; i += 1) {
+    diff |= (left[i] || 0) ^ (right[i] || 0);
   }
-  return json.access_token;
+  return diff === 0;
+}
+
+async function tooManyAttempts(request) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const key = new Request(`https://admin-login-rate.invalid/${encodeURIComponent(ip)}`);
+  const cache = caches.default;
+  const hit = await cache.match(key);
+  const count = hit ? parseInt(await hit.text(), 10) || 0 : 0;
+  if (count >= 8) return true;
+  await cache.put(
+    key,
+    new Response(String(count + 1), { headers: { "Cache-Control": "max-age=900" } }),
+  );
+  return false;
+}
+
+function loginPage(error) {
+  const message = error
+    ? `<p class="err">${error}</p>`
+    : `<p class="lead">Enter the site admin username and password.</p>`;
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KK Architect — Admin login</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #faf9f7;
+        color: #111;
+        font-family: Inter, "Segoe UI", system-ui, sans-serif;
+      }
+      .card {
+        width: min(420px, calc(100vw - 32px));
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.12);
+        padding: 36px 32px 32px;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-family: "EB Garamond", Georgia, serif;
+        font-weight: 500;
+        font-size: 32px;
+      }
+      .sub {
+        margin: 0 0 24px;
+        font-size: 12px;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        color: #8a8a8a;
+      }
+      .lead, .err { font-size: 14px; line-height: 1.5; margin: 0 0 20px; }
+      .err { color: #b42318; }
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        margin: 0 0 6px;
+      }
+      input {
+        width: 100%;
+        min-height: 44px;
+        margin: 0 0 16px;
+        padding: 10px 12px;
+        border: 1px solid rgba(0,0,0,.28);
+        border-radius: 2px;
+        font-size: 16px;
+      }
+      button {
+        width: 100%;
+        min-height: 44px;
+        margin-top: 8px;
+        background: #111;
+        color: #fff;
+        border: 0;
+        font-size: 13px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      button:hover { background: #333; }
+    </style>
+  </head>
+  <body>
+    <form class="card" method="post" action="/login" autocomplete="on">
+      <p class="sub">Site admin</p>
+      <h1>KK Architect</h1>
+      ${message}
+      <label for="user">Username</label>
+      <input id="user" name="user" type="text" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <button type="submit">Log in</button>
+    </form>
+  </body>
+</html>`;
 }
 
 function callbackHtml(status, content) {
-  // Embed as a JS string literal: authorization:github:success:{...}
   const authMessage = JSON.stringify(
-    `authorization:github:${status}:${JSON.stringify(content)}`
+    `authorization:github:${status}:${JSON.stringify(content)}`,
   );
   return `<!doctype html>
 <html>
   <head><meta charset="utf-8" /><title>Authorizing Decap…</title></head>
   <body>
-    <p>Authorizing Decap… you can close this window if it stays open.</p>
+    <p>Signing you in… you can close this window if it stays open.</p>
     <script>
       (function () {
         var msg = ${authMessage};
@@ -70,7 +147,6 @@ function callbackHtml(status, content) {
         }
 
         function receiveMessage(event) {
-          // Reply to the opener's handshake with the exact origin Decap expects
           send(event.origin || "*");
           window.removeEventListener("message", receiveMessage, false);
           try { window.close(); } catch (e) {}
@@ -78,12 +154,10 @@ function callbackHtml(status, content) {
 
         window.addEventListener("message", receiveMessage, false);
 
-        // Start Decap handshake
         if (window.opener) {
           window.opener.postMessage("authorizing:github", "*");
         }
 
-        // Fallback: some Decap builds never complete the handshake across workers.dev
         siteOrigins.forEach(function (origin) { send(origin); });
         send("*");
         setTimeout(function () {
@@ -97,16 +171,24 @@ function callbackHtml(status, content) {
 </html>`;
 }
 
+function html(body, status = 200) {
+  return new Response(body, {
+    status,
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const redirectUri = `https://${url.hostname}/callback`;
 
-    if (!env.GITHUB_OAUTH_ID || !env.GITHUB_OAUTH_SECRET) {
-      return new Response(
-        "OAuth not configured. Set GITHUB_OAUTH_ID and GITHUB_OAUTH_SECRET secrets.",
-        { status: 500 }
-      );
+    if (url.pathname === "/" || url.pathname === "") {
+      return new Response("KK Architect admin login. Open /admin on the website.", {
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      });
     }
 
     if (url.pathname === "/auth") {
@@ -114,54 +196,39 @@ export default {
       if (provider && provider !== "github") {
         return new Response("Invalid provider", { status: 400 });
       }
-
-      const privateRepo =
-        env.GITHUB_REPO_PRIVATE !== undefined && env.GITHUB_REPO_PRIVATE !== "0";
-      const scope = privateRepo ? "repo user" : "public_repo user";
-
-      const authorizationUri = authorizeURL({
-        clientId: env.GITHUB_OAUTH_ID,
-        redirectUri,
-        scope,
-        state: randomHex(8),
-      });
-
-      return Response.redirect(authorizationUri, 302);
-    }
-
-    if (url.pathname === "/callback") {
-      const code = url.searchParams.get("code");
-      if (!code) {
-        return new Response("Missing code", { status: 400 });
-      }
-
-      try {
-        const accessToken = await exchangeCode({
-          clientId: env.GITHUB_OAUTH_ID,
-          clientSecret: env.GITHUB_OAUTH_SECRET,
-          code,
-          redirectUri,
-        });
-        return new Response(
-          callbackHtml("success", { token: accessToken, provider: "github" }),
-          { headers: { "Content-Type": "text/html;charset=UTF-8" } }
-        );
-      } catch (err) {
-        return new Response(
-          callbackHtml("error", {
-            error: String(err.message || err),
-            provider: "github",
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "text/html;charset=UTF-8" },
-          }
+      if (!env.ADMIN_USER || !env.ADMIN_PASSWORD || !env.GITHUB_TOKEN) {
+        return html(
+          loginPage(
+            "Login is not set up yet. Set ADMIN_USER, ADMIN_PASSWORD and GITHUB_TOKEN on this Worker.",
+          ),
+          500,
         );
       }
+      return html(loginPage(""));
     }
 
-    return new Response("Decap OAuth proxy OK. Use /auth from the CMS.", {
-      headers: { "Content-Type": "text/plain" },
-    });
+    if (url.pathname === "/login" && request.method === "POST") {
+      if (!env.ADMIN_USER || !env.ADMIN_PASSWORD || !env.GITHUB_TOKEN) {
+        return html(loginPage("Login is not set up yet."), 500);
+      }
+      if (await tooManyAttempts(request)) {
+        return html(loginPage("Too many tries. Wait 15 minutes and try again."), 429);
+      }
+
+      const form = await request.formData();
+      const user = String(form.get("user") || "");
+      const password = String(form.get("password") || "");
+      const ok = safeEqual(user, env.ADMIN_USER) && safeEqual(password, env.ADMIN_PASSWORD);
+
+      if (!ok) {
+        return html(loginPage("Username or password is wrong."), 401);
+      }
+
+      return html(
+        callbackHtml("success", { token: env.GITHUB_TOKEN, provider: "github" }),
+      );
+    }
+
+    return new Response("Not found", { status: 404 });
   },
 };

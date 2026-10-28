@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Naitikkaklotar/architect-portfolio
   branch: main
-  # Live GitHub login via Cloudflare OAuth proxy Worker
+  # Live login: username + password on the oauth-proxy Worker (stores a GitHub token).
   base_url: https://architect-decap-oauth.kkarchitect.workers.dev
   auth_endpoint: /auth
 

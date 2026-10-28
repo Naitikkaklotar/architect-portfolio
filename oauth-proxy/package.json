@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
-    "secret:id": "wrangler secret put GITHUB_OAUTH_ID",
-    "secret:secret": "wrangler secret put GITHUB_OAUTH_SECRET"
+    "secret:user": "wrangler secret put ADMIN_USER",
+    "secret:password": "wrangler secret put ADMIN_PASSWORD",
+    "secret:token": "wrangler secret put GITHUB_TOKEN"
   },
   "devDependencies": {
     "wrangler": "^4.151.3"

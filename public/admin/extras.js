@@ -247,7 +247,16 @@
     if (!saved) savedOnce = false;
   }
 
+  function relabelLogin() {
+    document.querySelectorAll("button").forEach(function (button) {
+      if (/login with github/i.test(button.textContent || "")) {
+        button.textContent = "Log in";
+      }
+    });
+  }
+
   function tick() {
+    relabelLogin();
     markSections();
     addSlugNote();
     hidePhotoExtras();

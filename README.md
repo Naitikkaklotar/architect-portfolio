@@ -97,17 +97,17 @@ This is a **static** Next.js export (`output: "export"` → `out/`). Do **not** 
    - **Node version:** env var `NODE_VERSION` = `22` if needed.
 4. Deploy. The site is fully static.
 
-### /admin on the live site (GitHub OAuth)
+### /admin on the live site (username + password)
 
 See **[docs/ADMIN_LOGIN.md](docs/ADMIN_LOGIN.md)** for the full checklist.
 
-Short version: create a GitHub OAuth App → deploy `oauth-proxy/` Worker with secrets → rebuild the site → open `/admin/` → Login with GitHub.
+Short version: create a GitHub token → set `ADMIN_USER`, `ADMIN_PASSWORD` and `GITHUB_TOKEN` on the `oauth-proxy` Worker → deploy that Worker → open `/admin/` → **Log in**.
 
-Until OAuth is configured, use local Decap (`npx decap-server`) to manage content, then commit and push.
+Until that Worker is configured, use local Decap (`npx decap-server`) to manage content, then commit and push.
 
 ## How the architect adds a project
 
-1. Open `/admin/` (local with `decap-server`, or live after OAuth).
+1. Open `/admin/` (local with `decap-server`, or live with the site username and password).
 2. Choose **Projects** → **New project**.
 3. Fill title, category, location, year, optional area, featured flag.
 4. Upload a cover and gallery images (stored in `public/uploads/`).

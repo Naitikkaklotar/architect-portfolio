@@ -1,93 +1,81 @@
-# Live admin login (Decap + GitHub)
+# Live admin login (username + password)
 
-After this setup, open:
+Open:
 
 **https://architect-portfolio.kkarchitect.workers.dev/admin/**
 
-→ **Login with GitHub** → publish a project → Cloudflare rebuilds the site automatically.
+→ **Log in** → a small window asks for the site username and password → Publish as usual.
+
+The password is **not** stored in the website files. It lives as a Cloudflare Worker secret. Behind the scenes the Worker uses a GitHub token to save changes to the repo.
 
 ---
 
-## Step 1 — Create a GitHub OAuth App
+## One-time setup
 
-1. Open [GitHub → Developer settings → OAuth Apps](https://github.com/settings/developers) → **New OAuth App**
-2. Fill in:
+### 1. Create a GitHub token
 
-| Field | Value |
-|--------|--------|
-| Application name | `KK Architect Decap` |
-| Homepage URL | `https://architect-portfolio.kkarchitect.workers.dev` |
-| Authorization callback URL | `https://architect-decap-oauth.kkarchitect.workers.dev/callback` |
+1. Open [GitHub → Fine-grained tokens](https://github.com/settings/personal-access-tokens)
+2. **Generate new token**
+3. Token name: `KK Architect admin`
+4. Repository access: **Only select repositories** → `Naitikkaklotar/architect-portfolio`
+5. Permissions → Repository → **Contents: Read and write**
+6. Generate and copy the token (shown once)
 
-3. Click **Register application**
-4. Copy **Client ID**
-5. Click **Generate a new client secret** → copy **Client Secret** (save it; shown once)
+A classic token with the `public_repo` scope also works if the repo stays public.
 
-If you changed your Cloudflare `workers.dev` account subdomain, use that new subdomain in both URLs instead of `kkarchitect`.
+### 2. Put the secrets on the login Worker
 
----
-
-## Step 2 — Deploy the OAuth proxy Worker
-
-In a terminal:
+In a terminal (do **not** paste these into chat):
 
 ```bash
 cd oauth-proxy
-npm install
-npx wrangler login
+npx wrangler secret put ADMIN_USER
+npx wrangler secret put ADMIN_PASSWORD
+npx wrangler secret put GITHUB_TOKEN
 ```
 
-Set secrets (paste when prompted):
+Pick a username and a long password. The GitHub token is the one from step 1.
+
+### 3. Deploy the login Worker
 
 ```bash
-npx wrangler secret put GITHUB_OAUTH_ID
-npx wrangler secret put GITHUB_OAUTH_SECRET
-```
-
-Deploy:
-
-```bash
+cd oauth-proxy
 npx wrangler deploy
 ```
 
-You should get:  
-`https://architect-decap-oauth.kkarchitect.workers.dev`
+You should get: `https://architect-decap-oauth.kkarchitect.workers.dev`
 
-Visit that URL — it should say the proxy is OK.
+### 4. Redeploy the portfolio
 
----
-
-## Step 3 — Redeploy the portfolio
-
-`public/admin/config.yml` already points at the proxy. After pushing to `main`, Cloudflare rebuilds the site.
-
-Or trigger **Retry deployment** in the Cloudflare dashboard.
+Push to `main` (or wait for the GitHub Action). Then open `/admin/` and click **Log in**.
 
 ---
 
-## Step 4 — Log in
+## Change the password later
 
-1. Open `/admin/` on the live site  
-2. Click **Login with GitHub**  
-3. Authorize the app (account must be able to push to `Naitikkaklotar/architect-portfolio`)
+```bash
+cd oauth-proxy
+npx wrangler secret put ADMIN_PASSWORD
+```
+
+No site rebuild is needed. The new password works on the next login.
 
 ---
 
-## Local editing (still works)
+## Local editing (no password)
 
 ```bash
 npm run dev
 npx decap-server
 ```
 
-Open http://localhost:3000/admin/ — uses `local_backend` (no GitHub popup).
+Open http://localhost:3000/admin/ — uses `local_backend` (no login popup).
 
 ---
 
 ## If login fails
 
-- Callback URL on the OAuth App must be **exactly**  
-  `https://architect-decap-oauth.…workers.dev/callback`
 - Secrets must be set on the **architect-decap-oauth** Worker (not the portfolio Worker)
-- Your GitHub user needs **write** access to the repo
-- If you renamed the account subdomain, update `base_url` / `site_url` in `public/admin/config.yml` and the OAuth App URLs
+- After 8 wrong tries from the same network, wait 15 minutes
+- The GitHub token must be able to write to `Naitikkaklotar/architect-portfolio`
+- If the popup stays blank, allow pop-ups for the site

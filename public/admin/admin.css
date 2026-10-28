@@ -429,6 +429,10 @@ textarea,
   height: auto !important;
 }
 
+[class*="AuthenticationPage"] button svg {
+  display: none !important;
+}
+
 [class*="AuthenticationPage"] button {
   background: var(--kk-ink) !important;
   border-radius: 2px !important;
@@ -440,7 +444,7 @@ textarea,
 
 /* Welcome note: only on the login screen */
 body:has([class*="AuthenticationPage"])::before {
-  content: "Welcome back. Sign in with the GitHub account that manages this website. New here? Tap the ? button for a short guide.";
+  content: "Welcome back. Log in with the site admin username and password. New here? Tap the ? button for a short guide.";
   display: block;
   padding: 14px 20px;
   background: var(--kk-ink);
