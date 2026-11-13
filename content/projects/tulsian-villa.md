@@ -14,7 +14,7 @@ status: Completed
 area: 5000sqft
 role: Interior designer
 cover: /uploads/af259609-22a9-499e-9ad6-3209bebfefeb.png
-featured: false
+featured: true
 hidden: false
 cover_mobile: /uploads/af259609-22a9-499e-9ad6-3209bebfefeb.png
 cover_zoom: false
