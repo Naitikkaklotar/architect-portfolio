@@ -18,8 +18,8 @@ const uploads = path.join(root, "public/uploads");
 const outDir = path.join(uploads, "_opt");
 const manifestPath = path.join(root, "src/lib/image-manifest.json");
 
-const WIDTHS = [480, 960, 1600];
-const QUALITY = 78;
+const WIDTHS = [480, 960, 1600, 2400];
+const QUALITY = 86;
 
 const manifest = {};
 

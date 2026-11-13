@@ -9,7 +9,7 @@ year: 2026
 status: Under construction
 area: 10,350 sq ft
 role: Architecture | Interior
-cover: /uploads/44532e18-693f-4138-b6d7-1262dacae375.png
+cover: /uploads/vrindavan-cover-2k.jpg
 images:
   - image: /uploads/vrindavan-corner.jpg
     group: Final design

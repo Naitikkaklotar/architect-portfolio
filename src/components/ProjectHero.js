@@ -48,7 +48,7 @@ export default function ProjectHero({ project }) {
         </div>
       ) : null}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
 
       <div className="site-container absolute inset-x-0 bottom-0 pb-8 md:pb-12">
         <div className="flex items-end gap-4 md:gap-6">

@@ -42,7 +42,7 @@ export default function HomePage() {
           priority
           sizes="100vw"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/25" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-black/10" />
         <div className="site-container relative flex min-h-[70dvh] flex-col justify-end pb-12 pt-28 md:min-h-[85dvh] md:pb-16 md:pt-32">
           <RevealText
             as="h1"
