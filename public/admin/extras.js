@@ -180,7 +180,7 @@
       var m = String(location.hash || "").match(/\/entries\/([^/?#]+)/);
       note.textContent = m
         ? "Page link on the website: /projects/" + decodeURIComponent(m[1])
-        : "The page link is made from this name, for example Villa Sunrise → /projects/villa-sunrise. It does not change if you rename the project later.";
+        : "The page link is made from this name, for example Vrindavan Bungalow → /projects/vrindavan-bungalow. It does not change if you rename the project later.";
       box.appendChild(note);
     });
   }

@@ -18,7 +18,7 @@ export const STYLES = [
     summary:
       "A private, inward-looking home built around a central court. Thick walls, a shaded water edge and calm light make it quiet and naturally cool.",
     traits: ["Private and calm", "Natural cooling", "Warm materials"],
-    projectSlug: "villa-sunrise",
+    projectSlug: null,
   },
   {
     id: "atrium",
@@ -26,7 +26,7 @@ export const STYLES = [
     summary:
       "An open, airy interior organised around a double-height space. Soft plaster, linen and daylight give a clean, restful feel, even on a compact plot.",
     traits: ["Open plan", "Daylight first", "Minimal and calm"],
-    projectSlug: "atrium-house",
+    projectSlug: null,
   },
   {
     id: "retreat",

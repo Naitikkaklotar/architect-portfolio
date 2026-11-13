@@ -55,7 +55,7 @@ collections:
       - label: "Project name"
         name: title
         widget: string
-        hint: "The name visitors see. Example: Villa Sunrise. The page link is made from this name (/projects/villa-sunrise) and does not change if you rename it later."
+        hint: "The name visitors see. Example: Vrindavan Sustainable Bungalow. The page link is made from this name (/projects/vrindavan-bungalow) and does not change if you rename it later."
 
       - label: "Short card description"
         name: excerpt
