@@ -28,9 +28,14 @@ collections:
       Your portfolio projects. Fill the first three sections (about, photos,
       story), then click Publish. The live site updates in about 2 minutes.
       Section 4 is optional. Use "Hide this project" if it is not ready yet.
+      Photos for each project are saved in their own folder: /uploads/project-name/.
     folder: content/projects
     create: true
     delete: true
+    # One folder per project. Photos go in public/uploads/<project-slug>/.
+    path: "{{slug}}/index"
+    media_folder: "{{media_folder}}/{{dirname}}"
+    public_folder: "{{public_folder}}/{{dirname}}"
     slug: "{{slug}}"
     extension: md
     format: frontmatter
@@ -350,9 +355,13 @@ collections:
       Furniture or finish pieces that visitors can ask about on WhatsApp.
       Create a product here, then on a project gallery photo add a marker
       linking to /products/your-product-name.
+      Photos are saved under /uploads/products/product-name/.
     folder: content/products
     create: true
     delete: true
+    path: "{{slug}}/index"
+    media_folder: "{{media_folder}}/products/{{dirname}}"
+    public_folder: "{{public_folder}}/products/{{dirname}}"
     slug: "{{slug}}"
     extension: md
     format: frontmatter

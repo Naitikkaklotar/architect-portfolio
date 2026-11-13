@@ -1,13 +1,12 @@
 /**
- * Builds responsive WebP copies of every photo in public/uploads.
+ * Builds responsive WebP copies of every photo under public/uploads
+ * (including per-project folders like public/uploads/vrindavan-bungalow/).
  *
- *   public/uploads/villa-cover.jpg
- *     -> public/uploads/_opt/villa-cover-480.webp / -960.webp / -1600.webp
+ *   public/uploads/vrindavan-bungalow/cover.jpg
+ *     -> public/uploads/_opt/vrindavan-bungalow/cover-480.webp / -960.webp / …
  *
- * It also writes src/lib/image-manifest.json so the site knows which widths
- * exist for each photo. Runs automatically before `dev` and `build`, so photos
- * uploaded in the admin are optimised on the next deploy. Originals are never
- * changed.
+ * Shared root photos (architect.jpg, hero.jpg) still go to public/uploads/_opt/.
+ * Writes src/lib/image-manifest.json so the site knows which widths exist.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -20,31 +19,51 @@ const manifestPath = path.join(root, "src/lib/image-manifest.json");
 
 const WIDTHS = [480, 960, 1600, 2400];
 const QUALITY = 86;
+const IMAGE_RE = /\.(jpe?g|png)$/i;
 
 const manifest = {};
 
+/** Recursively list image files under uploads, skipping _opt. */
+function listImages(dir, rel = "") {
+  if (!fs.existsSync(dir)) return [];
+  const found = [];
+  for (const name of fs.readdirSync(dir)) {
+    if (name === "_opt" || name.startsWith(".")) continue;
+    const full = path.join(dir, name);
+    const nextRel = rel ? `${rel}/${name}` : name;
+    const stat = fs.statSync(full);
+    if (stat.isDirectory()) {
+      found.push(...listImages(full, nextRel));
+    } else if (stat.isFile() && IMAGE_RE.test(name)) {
+      found.push({ full, rel: nextRel });
+    }
+  }
+  return found;
+}
+
 if (fs.existsSync(uploads)) {
   fs.mkdirSync(outDir, { recursive: true });
-  const files = fs
-    .readdirSync(uploads)
-    .filter((f) => /\.(jpe?g|png)$/i.test(f))
-    .sort();
+  const files = listImages(uploads).sort((a, b) => a.rel.localeCompare(b.rel));
 
   let made = 0;
-  for (const file of files) {
-    const input = path.join(uploads, file);
-    const base = file.replace(/\.[^.]+$/, "");
+  for (const { full: input, rel } of files) {
+    const baseRel = rel.replace(/\.[^.]+$/, "");
+    const optSubdir = path.join(outDir, path.dirname(baseRel));
+    const baseName = path.basename(baseRel);
     try {
       const meta = await sharp(input).metadata();
       const original = meta.width || 0;
       if (!original) continue;
 
-      // widths smaller than the original, plus the original size (capped at 1600)
-      const widths = [...new Set([...WIDTHS.filter((w) => w < original), Math.min(original, 1600)])]
-        .sort((a, b) => a - b);
+      const maxW = Math.max(...WIDTHS);
+      const widths = [
+        ...new Set([...WIDTHS.filter((w) => w < original), Math.min(original, maxW)]),
+      ].sort((a, b) => a - b);
+
+      fs.mkdirSync(optSubdir, { recursive: true });
 
       for (const w of widths) {
-        const target = path.join(outDir, `${base}-${w}.webp`);
+        const target = path.join(optSubdir, `${baseName}-${w}.webp`);
         const fresh =
           fs.existsSync(target) && fs.statSync(target).mtimeMs >= fs.statSync(input).mtimeMs;
         if (!fresh) {
@@ -56,9 +75,9 @@ if (fs.existsSync(uploads)) {
           made += 1;
         }
       }
-      manifest[`/uploads/${file}`] = widths;
+      manifest[`/uploads/${rel.replace(/\\/g, "/")}`] = widths;
     } catch (err) {
-      console.warn(`[optimize-images] skipped ${file}: ${err.message}`);
+      console.warn(`[optimize-images] skipped ${rel}: ${err.message}`);
     }
   }
   console.log(`[optimize-images] ${files.length} photos, ${made} new WebP files`);

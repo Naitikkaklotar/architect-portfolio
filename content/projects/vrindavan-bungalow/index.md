@@ -9,9 +9,9 @@ year: 2026
 status: Under construction
 area: 10,350 sq ft
 role: Architecture | Interior
-cover: /uploads/vrindavan-cover-2k.jpg
+cover: /uploads/vrindavan-bungalow/vrindavan-cover-2k.jpg
 images:
-  - image: /uploads/vrindavan-corner.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-corner.jpg
     group: Final design
     caption: Corner view
     description: The final design from the street corner — layered curved balconies,
@@ -46,41 +46,41 @@ images:
         position: 62,84
         note: Champa and palm planting shade the lower levels and cool the air around
           the house.
-  - image: /uploads/vrindavan-front.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-front.jpg
     caption: Front elevation
     description: Stacked curved balconies and deep overhangs shade the glass, with
       planting at every level and a sculpted podium below.
-  - image: /uploads/vrindavan-side.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-side.jpg
     caption: Side elevation
     description: The jaali and creeper band, the extended roof slab over the glazed
       skylight, and the arched entrance with a timber-slat gate.
-  - image: /uploads/vrindavan-detail-entrance.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-detail-entrance.jpg
     caption: Entrance arch and podium
     description: The sculpted podium wall rises from the street in soft curves, with
       the arched entrance, a timber-slat gate and planting along the base.
-  - image: /uploads/vrindavan-option1-green.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-option1-green.jpg
     group: Alternative, Option 1
     caption: Option 1, green jaali façade
     description: Option 1 — a hexagonal jaali wrapped in creepers, a green thermal
       buffer on the west face.
-  - image: /uploads/vrindavan-option1-warm.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-option1-warm.jpg
     caption: Option 1, warm colour scheme
     description: The same Option 1 design in a warm earthy finish, with the green
       jaali and wave screens against the podium wall.
-  - image: /uploads/vrindavan-option1-front.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-option1-front.jpg
     caption: Option 1, front elevation
     description: Option 1 from the front — a hexagonal jaali with creepers on the
       west side and curved balconies with planters on the right.
-  - image: /uploads/vrindavan-detail-hex-front.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-detail-hex-front.jpg
     caption: Option 1, creeper-wrapped jaali
     description: A close view of the hexagonal jaali with creepers climbing across
       it, shading the rooms behind and cooling the air.
 featured: true
-cover_mobile: /uploads/vrindavan-cover-mobile.jpg
+cover_mobile: /uploads/vrindavan-bungalow/vrindavan-cover-mobile.jpg
 cover_zoom: true
 gallery_aspect: 1/1
 plans:
-  - image: /uploads/vrindavan-plan-first.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-plan-first.jpg
     title: First floor — living, dining and kitchen
     description: Formal and informal living, dining, an open kitchen with island,
       store room, toilet and lift, all opening to the garden.
@@ -101,7 +101,7 @@ plans:
         size: 7'-0" × 5'-5"
       - name: Lift
         size: 4'-0" × 4'-0"
-  - image: /uploads/vrindavan-plan-second.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-plan-second.jpg
     title: Second floor — bedrooms
     description: Three bedrooms with attached toilets and wardrobes, a window seat,
       a family sitting corner, and balconies with planters.
@@ -124,7 +124,7 @@ plans:
         size: 5'-6" × 11'-0"
       - name: Passage
         size: 4'-5" wide
-  - image: /uploads/vrindavan-plan-third.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-plan-third.jpg
     title: Third floor — bedrooms and double-height garden
     description: Two bedrooms with sitting areas and a double-height garden that
       brings light and green into the middle of the house.
@@ -143,7 +143,7 @@ plans:
         size: 20'-0" × 7'-0"
       - name: Passage
         size: 4'-5" wide
-  - image: /uploads/vrindavan-plan-fourth.jpg
+  - image: /uploads/vrindavan-bungalow/vrindavan-plan-fourth.jpg
     title: Fourth floor — bedrooms and terrace
     description: Two bedrooms, a long planted balcony and the lower terrace; the
       roof above is planned for solar panels.
@@ -180,8 +180,8 @@ compare:
   caption: Drag the handle. The left side is the façade without the fabricated
     screens, the right side is the final design with the curved screens and
     creepers.
-  before: /uploads/vrindavan-corner-open.jpg
-  after: /uploads/vrindavan-corner.jpg
+  before: /uploads/vrindavan-bungalow/vrindavan-corner-open.jpg
+  after: /uploads/vrindavan-bungalow/vrindavan-corner.jpg
   before_label: Without screens
   after_label: With screens
 story:
@@ -194,16 +194,16 @@ story:
   - title: Option 1, the green jaali
     text: A hexagonal jaali wrapped in creepers shades the west face. We tested it
       in a grey scheme and a warm earthy scheme.
-    image: /uploads/vrindavan-detail-hex.jpg
+    image: /uploads/vrindavan-bungalow/vrindavan-detail-hex.jpg
   - title: Option 2, curved screens
     text: The flat jaali gave way to flowing balcony edges and fabricated screens
       that follow them, with a sculpted podium wall and entrance arch below.
-    image: /uploads/vrindavan-detail-screens.jpg
+    image: /uploads/vrindavan-bungalow/vrindavan-detail-screens.jpg
   - title: Final design with screens
     text: The revised design keeps the perforated jaali and creepers, and adds
       curved screens and a glazed skylight. The screens are designed to be
       fabricated.
-    image: /uploads/vrindavan-detail-roof.jpg
+    image: /uploads/vrindavan-bungalow/vrindavan-detail-roof.jpg
 progress:
   - date: 04 Sep 2025
     title: Floor plans drawn

@@ -3,7 +3,7 @@ title: Lounge chair
 brand: Selected by KK Architect
 category: Chairs
 price: On request
-cover: /uploads/product-lounge-chair.jpg
+cover: /uploads/products/lounge-chair/cover.jpg
 summary: Timber frame lounge chair with a soft seat — calm lines for living rooms that open to light.
 ---
 

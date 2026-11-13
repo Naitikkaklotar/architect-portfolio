@@ -13,18 +13,18 @@ year: 2020
 status: Completed
 area: 5000sqft
 role: Interior designer
-cover: /uploads/af259609-22a9-499e-9ad6-3209bebfefeb.png
+cover: /uploads/tulsian-villa/cover.png
 featured: true
 hidden: false
-cover_mobile: /uploads/af259609-22a9-499e-9ad6-3209bebfefeb.png
+cover_mobile: /uploads/tulsian-villa/cover.png
 cover_zoom: false
 gallery_aspect: ""
 compare:
   title: See the difference
   before_label: Before
   after_label: After
-  before: /uploads/img_5992.jpeg
-  after: /uploads/img_5990.jpeg
+  before: /uploads/tulsian-villa/before.jpeg
+  after: /uploads/tulsian-villa/after.jpeg
 climate:
   screen_name: Jaali screen
   screen_cut: 78

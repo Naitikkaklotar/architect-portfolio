@@ -6,11 +6,40 @@ import html from "remark-html";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
 
-function ensureProjectsDir() {
-  if (!fs.existsSync(projectsDirectory)) {
-    return [];
+/**
+ * Projects live as either:
+ *   content/projects/slug.md            (legacy)
+ *   content/projects/slug/index.md      (current — photos in /uploads/slug/)
+ */
+function listProjectEntries() {
+  if (!fs.existsSync(projectsDirectory)) return [];
+  const entries = [];
+  for (const name of fs.readdirSync(projectsDirectory)) {
+    const full = path.join(projectsDirectory, name);
+    let stat;
+    try {
+      stat = fs.statSync(full);
+    } catch {
+      continue;
+    }
+    if (stat.isFile() && name.endsWith(".md")) {
+      entries.push({ slug: name.replace(/\.md$/, ""), file: full });
+      continue;
+    }
+    if (stat.isDirectory()) {
+      const index = path.join(full, "index.md");
+      if (fs.existsSync(index)) entries.push({ slug: name, file: index });
+    }
   }
-  return fs.readdirSync(projectsDirectory).filter((file) => file.endsWith(".md"));
+  return entries;
+}
+
+function projectFilePath(slug) {
+  const nested = path.join(projectsDirectory, slug, "index.md");
+  if (fs.existsSync(nested)) return nested;
+  const flat = path.join(projectsDirectory, `${slug}.md`);
+  if (fs.existsSync(flat)) return flat;
+  return null;
 }
 
 /** Marker position from the admin picker ("x,y" as percentages) or older separate x / y fields. */
@@ -227,12 +256,8 @@ function withProjectNumbers(projects) {
  * Each project gets an editorial index: 01, 02, 03…
  */
 export function getAllProjects() {
-  const fileNames = ensureProjectsDir();
-
-  const projects = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, "");
-    const fullPath = path.join(projectsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+  const projects = listProjectEntries().map(({ slug, file }) => {
+    const fileContents = fs.readFileSync(file, "utf8");
     const { data, content } = matter(fileContents);
     return mapProject(data, slug, content);
   });
@@ -258,7 +283,8 @@ export async function getProjectBySlug(slug) {
   const listed = all.find((p) => p.slug === slug);
   if (!listed) return null;
 
-  const fullPath = path.join(projectsDirectory, `${slug}.md`);
+  const fullPath = projectFilePath(slug);
+  if (!fullPath) return null;
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const processed = await remark().use(html).process(content);
