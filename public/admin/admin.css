@@ -409,6 +409,78 @@ textarea,
   display: block !important;
 }
 
+/* Gallery photos: clear caption / title on phones */
+.kk-gallery-tip {
+  margin: 10px 0 16px;
+  padding: 12px 14px;
+  background: #fff8e6;
+  color: #4a3a0c;
+  border: 1px solid #e6c978;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.kk-gallery-tip strong {
+  font-weight: 600;
+}
+
+.kk-gallery-item {
+  margin: 0 0 18px !important;
+  padding: 14px 14px 10px !important;
+  background: #fff !important;
+  border: 1px solid var(--kk-line-strong) !important;
+  border-radius: 6px !important;
+}
+
+.kk-photo-step {
+  margin: 0 0 12px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--kk-line);
+  font-family: "Jost", "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kk-ink);
+}
+
+.kk-caption-field {
+  margin-top: 8px !important;
+  padding: 12px !important;
+  background: var(--kk-bg-2) !important;
+  border: 1px solid var(--kk-line) !important;
+  border-radius: 4px !important;
+}
+
+.kk-caption-field.kk-caption-needed {
+  background: #eef6f2 !important;
+  border-color: rgba(31, 107, 79, 0.35) !important;
+}
+
+.kk-caption-field [class*="FieldLabel"] {
+  font-size: 13px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--kk-ink) !important;
+}
+
+.kk-caption-field input[type="text"] {
+  min-height: 48px !important;
+  padding: 12px 14px !important;
+  font-size: 17px !important;
+  line-height: 1.3 !important;
+  background: #fff !important;
+  border: 1px solid var(--kk-line-strong) !important;
+  border-radius: 4px !important;
+}
+
+.kk-caption-help {
+  margin: 8px 0 0 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: var(--kk-ink-2) !important;
+}
+
 /* On/off switch on each project card */
 a.kk-project-card {
   position: relative !important;
@@ -581,6 +653,54 @@ body:has([class*="AuthenticationPage"])::before {
   .kk-help {
     right: 14px;
     bottom: 14px;
+  }
+
+  /* Gallery captions: phone-first layout */
+  .kk-gallery-tip {
+    font-size: 15px;
+    padding: 14px 16px;
+  }
+
+  .kk-gallery-item {
+    padding: 16px 12px 12px !important;
+  }
+
+  .kk-photo-step {
+    font-size: 14px;
+  }
+
+  .kk-caption-field {
+    padding: 14px !important;
+  }
+
+  .kk-caption-field [class*="FieldLabel"] {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .kk-caption-field input[type="text"] {
+    min-height: 52px !important;
+    font-size: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .kk-caption-help {
+    font-size: 14px !important;
+  }
+
+  .kk-gallery-item [class*="FileWidgetButton"],
+  .kk-gallery-item [class*="AddButton"],
+  .kk-gallery-block [class*="AddButton"] {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+
+  .kk-more-btn {
+    min-height: 44px;
+    width: 100%;
+    justify-content: center;
+    font-size: 13px;
   }
 }
 

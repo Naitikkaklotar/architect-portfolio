@@ -208,6 +208,112 @@
     });
   }
 
+  function titleFromImagePath(path) {
+    var name = String(path || "").split("/").pop() || "";
+    name = name.replace(/\.[^.]+$/, "");
+    name = name.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+    if (!name || /^[0-9a-f-]{8,}$/i.test(name.replace(/\s/g, ""))) return "";
+    return name.replace(/\b\w/g, function (c) {
+      return c.toUpperCase();
+    });
+  }
+
+  /** Make each gallery row clearer on phones: big photo title field + helpful prompt. */
+  function enhanceGalleryCaptions() {
+    if (!/#\/collections\/projects\//.test(location.hash || "")) return;
+
+    document.querySelectorAll('[class*="ControlContainer"]').forEach(function (box) {
+      if (nestedInList(box)) return;
+      if (!/^Gallery photos$/i.test(labelOf(box))) return;
+      if (!box.querySelector(".kk-gallery-tip")) {
+        var tip = document.createElement("div");
+        tip.className = "kk-gallery-tip";
+        tip.innerHTML =
+          "<strong>On your phone:</strong> tap <em>Add</em>, upload a photo, then type the photo title in the big box under it (Kitchen, Bedroom…).";
+        var label = box.querySelector('[class*="FieldLabel"]');
+        if (label && label.nextSibling) box.insertBefore(tip, label.nextSibling);
+        else box.insertBefore(tip, box.firstChild.nextSibling);
+      }
+      box.classList.add("kk-gallery-block");
+    });
+
+    var photoIndex = 0;
+    document.querySelectorAll('[class*="ListItem-listControlItem"], [class*="SortableListItem"]').forEach(function (item) {
+      var captionBox = null;
+      var imageBox = null;
+      item.querySelectorAll(':scope > [class*="ControlContainer"], :scope > * > [class*="ControlContainer"], [class*="ControlContainer"]').forEach(function (box) {
+        if (box.closest('[class*="ListItem-listControlItem"], [class*="SortableListItem"]') !== item) return;
+        var label = labelOf(box);
+        if (/^(Caption|Photo title)$/i.test(label)) {
+          captionBox = box;
+          box.classList.add("kk-caption-field");
+          var fieldLabel = box.querySelector('[class*="FieldLabel"]');
+          if (fieldLabel && !/photo title/i.test(fieldLabel.textContent || "")) {
+            fieldLabel.textContent = "Photo title";
+          }
+          var input = box.querySelector('input[type="text"]');
+          if (input) {
+            input.setAttribute("placeholder", "e.g. Kitchen, Living room, Courtyard");
+            input.setAttribute("autocomplete", "off");
+            input.setAttribute("enterkeyhint", "done");
+          }
+          if (!box.querySelector(".kk-caption-help")) {
+            var help = document.createElement("p");
+            help.className = "kk-caption-help";
+            help.textContent = "This short title shows under the photo on the website.";
+            box.appendChild(help);
+          }
+        }
+        if (/^Photo$/i.test(label)) imageBox = box;
+      });
+
+      if (!captionBox || !imageBox) return;
+
+      photoIndex += 1;
+      item.classList.add("kk-gallery-item");
+
+      if (!item.querySelector(".kk-photo-step")) {
+        var step = document.createElement("div");
+        step.className = "kk-photo-step";
+        step.textContent = "Photo " + photoIndex + " — upload, then add a title";
+        item.insertBefore(step, item.firstChild);
+      } else {
+        item.querySelector(".kk-photo-step").textContent =
+          "Photo " + photoIndex + " — upload, then add a title";
+      }
+
+      var imgText = imageBox.innerText || "";
+      var hasImage =
+        /\/uploads\//.test(imgText) ||
+        !!imageBox.querySelector("img") ||
+        /remove/i.test(imgText);
+      captionBox.classList.toggle("kk-caption-needed", hasImage);
+
+      var input = captionBox.querySelector('input[type="text"]');
+      if (input && hasImage && !String(input.value || "").trim()) {
+        var match = imgText.match(/\/uploads\/[^\s)]+\.(?:jpe?g|png|webp|gif)/i);
+        if (match) {
+          var guessed = titleFromImagePath(match[0]);
+          if (guessed && !input.dataset.kkGuessed) {
+            input.dataset.kkGuessed = "1";
+            try {
+              var setter = Object.getOwnPropertyDescriptor(
+                window.HTMLInputElement.prototype,
+                "value"
+              ).set;
+              setter.call(input, guessed);
+              input.dispatchEvent(new Event("input", { bubbles: true }));
+              input.dispatchEvent(new Event("change", { bubbles: true }));
+            } catch (e) {
+              input.value = guessed;
+              input.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+          }
+        }
+      }
+    });
+  }
+
   var gridTried = "";
   function preferGrid() {
     var hash = location.hash || "";
@@ -411,6 +517,7 @@
     markSections();
     addSlugNote();
     hidePhotoExtras();
+    enhanceGalleryCaptions();
     preferGrid();
     remindAfterSave();
     mountVisibilityToggles();
