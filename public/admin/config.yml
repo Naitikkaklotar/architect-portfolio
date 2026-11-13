@@ -141,16 +141,16 @@ collections:
         collapsed: false
         summary: "{{caption}} — {{image}}"
         allow_add: true
-        hint: "The photos on the project page. Click Add for each one, then type a short caption. Extra options (description, group, markers) are hidden behind 'More options for this photo'."
+        hint: "Tap Add for each photo. Upload the picture, then type a short title underneath (Kitchen, Bedroom…). Extra options stay hidden until you open them."
         fields:
           - label: Photo
             name: image
             widget: image
             choose_url: true
-          - label: Caption
+          - label: "Photo title"
             name: caption
             widget: string
-            hint: "Example: Kitchen, Bedroom, Living room, Courtyard"
+            hint: "Short name under the photo. Example: Kitchen, Living room, Courtyard."
           - label: "More: Description under the photo"
             name: description
             widget: text
