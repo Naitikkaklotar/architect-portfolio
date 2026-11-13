@@ -19,6 +19,10 @@ logo_url: /admin/logo.svg
 media_folder: public/uploads
 public_folder: /uploads
 
+# Folder browser for the Media tab and image pickers (upload into /uploads/<folder>/).
+media_library:
+  name: kk-folder-media
+
 collections:
   # ───────────────────────── PROJECTS ─────────────────────────
   - name: projects

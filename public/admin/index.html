@@ -17,6 +17,7 @@
     <a class="kk-start" href="/admin/start.html" title="Start page">⌂ Start</a>
     <a class="kk-help" href="/admin/guide.html" target="_blank" rel="noopener" title="Help &amp; guide" aria-label="Help and guide">?</a>
     <script src="/admin/extras.js"></script>
+    <script src="/admin/folder-media.js"></script>
     <!-- Pinned version + integrity hash: a new Decap release cannot silently change or break the admin. -->
     <script
       src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
@@ -24,6 +25,7 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      CMS.registerMediaLibrary(window.KKFolderMediaLibrary);
       CMS.registerPreviewStyle("/admin/preview.css");
 
       // Never let a half-filled form crash the preview: only accept real text paths/URLs.
